@@ -16,27 +16,27 @@ function getAiResponse(question: string): string {
   // 1. Fallback responses (First priority for common topics)
   const fallbacks: [RegExp, string][] = [
     [
-      /passwort|kennwort|password/,
+      /passw[oö]rt|kennwort|password/i,
       "Ein sicheres Passwort sollte mindestens 16 Zeichen lang sein und Groß-/Kleinbuchstaben, Zahlen und Sonderzeichen enthalten. Am besten nutzen Sie einen **Passwortmanager** wie Bitwarden oder 1Password und aktivieren **2FA/MFA** für alle wichtigen Konten.\n\n[MODULE:3:Sichere Passwörter]",
     ],
     [
-      /phish/,
+      /phish/i,
       "Um Phishing zu erkennen, achten Sie auf: ① Dringlichkeit/Drohungen ② Unbekannter oder gefälschter Absender ③ Grammatikfehler ④ Verdächtige Links (Hover!) ⑤ Unerwartete Anhänge. Im Zweifel: **Nicht klicken, IT-Abteilung informieren.**\n\n[MODULE:2:Phishing erkennen]",
     ],
     [
-      /dsgvo|datenschutz|daten/,
+      /dsgvo|datenschutz|daten/i,
       "Die DSGVO regelt seit 2018 den Umgang mit personenbezogenen Daten in der EU. Kernprinzipien: Zweckbindung, Datenminimierung, Speicherbegrenzung. Betroffene haben Recht auf Auskunft, Löschung und Datenportabilität.\n\n[MODULE:4:DSGVO Grundlagen]",
     ],
     [
-      /vpn|wlan|netzwerk/,
+      /vpn|wlan|netzwerk/i,
       "Ein VPN verschlüsselt Ihren Internetverkehr und ist besonders wichtig bei öffentlichen WLANs. Im Unternehmenskontext ermöglicht es sicheren Zugriff auf interne Ressourcen. **Firmeneigene VPNs sind Pflicht im Homeoffice.**\n\n[MODULE:5:Gerätesicherheit]",
     ],
     [
-      /email|e-mail|mail/,
+      /email|e-mail|mail/i,
       "E-Mail-Sicherheit basiert auf drei Säulen: **SPF** (autorisierte Absender-Server), **DKIM** (digitale Signatur) und **DMARC** (Richtlinie für gescheiterte Prüfungen). Verdächtige E-Mails niemals öffnen – sofort IT melden.",
     ],
     [
-      /hallo|hi|hilfe|help/,
+      /hallo|hi|hilfe|help/i,
       "Hallo! 👋 Ich bin der CyberAware KI-Assistent. Fragen Sie mich zu jedem Thema rund um IT-Sicherheit, Datenschutz, Phishing oder Compliance. Ich durchsuche für Sie die Wissensdatenbank mit über 150 Fachbegriffen.",
     ],
   ];
@@ -56,22 +56,29 @@ function getAiResponse(question: string): string {
   }
 
   // Deep text match based on significant words from user question
-  const qWords = q.split(/[\s?.,!]+/).filter(w => w.length > 3 && !['was', 'ist', 'wie', 'der', 'die', 'das', 'ein', 'eine', 'und', 'oder'].includes(w));
+  const stopwords = ['was', 'ist', 'wie', 'der', 'die', 'das', 'ein', 'eine', 'und', 'oder', 'ich', 'mich', 'mir', 'sichere', 'erstelle', 'machen'];
+  const qWords = q.split(/[\s?.,!]+/).filter(w => w.length > 3 && !stopwords.includes(w));
   
   if (qWords.length > 0) {
-    const deepMatches = knowledgeBase.filter((k) => 
-      qWords.some(w => k.term.toLowerCase().includes(w) || k.definition.toLowerCase().includes(w))
-    );
+    // Score matches to get the most relevant ones, rather than random first ones
+    const deepMatches = knowledgeBase.map((k) => {
+      let score = 0;
+      for (const w of qWords) {
+        if (k.term.toLowerCase().includes(w)) score += 3; // Term match is very strong
+        else if (k.definition.toLowerCase().includes(w)) score += 1;
+      }
+      return { item: k, score };
+    }).filter(m => m.score > 0).sort((a, b) => b.score - a.score);
 
     if (deepMatches.length > 0) {
-      if (deepMatches.length === 1) {
-        const best = deepMatches[0];
+      if (deepMatches[0].score >= 3 && deepMatches.length === 1) {
+        const best = deepMatches[0].item;
         return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_`;
       }
       return (
         deepMatches
           .slice(0, 3)
-          .map((m) => `**${m.term}** — ${m.definition}`)
+          .map((m) => `**${m.item.term}** — ${m.item.definition}`)
           .join("\n\n") +
         (deepMatches.length > 3
           ? `\n\n_…und ${deepMatches.length - 3} weitere Treffer. Fragen Sie spezifischer!_`
