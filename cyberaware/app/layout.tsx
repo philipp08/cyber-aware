@@ -19,8 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${geist.variable} h-full`}>
-      <body className="min-h-full bg-gray-50 antialiased">{children}</body>
+    <html lang="de" className={geist.variable} suppressHydrationWarning>
+      {/* Prevent flash of wrong theme */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('ca-theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-full antialiased">{children}</body>
     </html>
   );
 }

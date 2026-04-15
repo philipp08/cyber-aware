@@ -4,12 +4,7 @@ import Link from "next/link";
 import DashboardLayout from "@/components/DashboardLayout";
 import { modules } from "@/lib/data";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
-
-const S = {
-  accent: "#CCFF00", text: "#F5F5F7", text2: "#88888E", text3: "#44444C",
-  border: "rgba(255,255,255,0.06)", surface: "#131316", surface2: "#1A1A1E", surface3: "#222228",
-  bg: "#0C0C0F", green: "#00D97E", red: "#FF4545", amber: "#F59E0B",
-};
+import { S } from "@/lib/theme";
 
 type Phase = "intro" | "content" | "quiz" | "complete";
 
@@ -43,7 +38,6 @@ function PhishingEmailDemo() {
 
   return (
     <div>
-      {/* Counter */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
         <span style={{ fontSize: "0.7rem", color: S.text2 }}>🔍 Klicke auf die unterstrichenen Stellen</span>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -56,16 +50,13 @@ function PhishingEmailDemo() {
         </div>
       </div>
 
-      {/* Email client */}
       <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)", marginBottom: 10 }}>
-        {/* Mac title bar */}
         <div style={{ background: "#1E1E22", padding: "8px 12px", display: "flex", alignItems: "center", gap: 6, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FF5F57" }} />
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FEBC2E" }} />
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#28C840" }} />
           <span style={{ marginLeft: "auto", fontSize: "0.62rem", color: "#555" }}>Mail — Posteingang (1)</span>
         </div>
-        {/* Headers */}
         <div style={{ background: "#16161A", padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)", fontSize: "0.75rem", lineHeight: 2.1 }}>
           <div style={{ display: "flex", gap: 8 }}>
             <span style={{ color: "#555", width: 56, flexShrink: 0 }}>Von:</span>
@@ -80,7 +71,6 @@ function PhishingEmailDemo() {
             <span style={{ color: "#EEE", fontWeight: 600 }}>⚠️ DRINGEND: Ihr Konto wird <Hint id={2}>in 24 Stunden gesperrt</Hint></span>
           </div>
         </div>
-        {/* Body */}
         <div style={{ background: "#141417", padding: "16px 20px", fontSize: "0.82rem", color: "#AAA", lineHeight: 1.9 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 5, marginBottom: 14, background: "#0078d4", padding: "4px 10px", borderRadius: 5 }}>
             <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.72rem", letterSpacing: "0.05em" }}>Microsoft</span>
@@ -108,7 +98,6 @@ function PhishingEmailDemo() {
         </div>
       </div>
 
-      {/* Explanation */}
       {activeHint && (
         <div key={activeHint.id} className="fade-up" style={{ background: "rgba(255,69,69,0.06)", border: "1px solid rgba(255,69,69,0.2)", borderRadius: 12, padding: "0.9rem 1rem", marginBottom: 8 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
@@ -160,14 +149,13 @@ function PasswordStrengthDemo() {
           value={pw}
           onChange={e => setPw(e.target.value)}
           placeholder="Passwort eingeben…"
-          style={{ width: "100%", background: S.surface2, border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "0.8rem 3rem 0.8rem 1rem", fontSize: "0.95rem", color: S.text, outline: "none", fontFamily: "monospace", letterSpacing: "0.05em" }}
+          style={{ width: "100%", background: S.surface2, border: `1px solid ${S.border}`, borderRadius: 12, padding: "0.8rem 3rem 0.8rem 1rem", fontSize: "0.95rem", color: S.text, outline: "none", fontFamily: "monospace", letterSpacing: "0.05em" }}
         />
         <button onClick={() => setShow(s => !s)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", lineHeight: 1 }}>
           {show ? "🙈" : "👁️"}
         </button>
       </div>
 
-      {/* Strength bars */}
       <div style={{ display: "flex", gap: 4, marginBottom: 6 }}>
         {[0,1,2,3,4].map(i => (
           <div key={i} style={{ flex: 1, height: 5, borderRadius: 100, background: i < strength ? colors[Math.min(strength - 1, 4)] : S.surface3, transition: "background 0.3s ease" }} />
@@ -180,7 +168,6 @@ function PasswordStrengthDemo() {
         {pw.length > 0 && <span style={{ color: S.text2 }}>{pw.length} Zeichen</span>}
       </div>
 
-      {/* Checklist */}
       {pw.length > 0 && (
         <div className="fade-in" style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
           {checks.map(c => (
@@ -192,15 +179,335 @@ function PasswordStrengthDemo() {
         </div>
       )}
 
-      {/* Examples */}
       <p style={{ fontSize: "0.68rem", color: S.text3, marginBottom: 7 }}>Beispiele ausprobieren:</p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {examples.map(ex => (
-          <button key={ex} onClick={() => setPw(ex)} style={{ padding: "0.3rem 0.75rem", borderRadius: 100, fontSize: "0.7rem", background: S.surface3, border: "1px solid rgba(255,255,255,0.06)", color: S.text2, cursor: "pointer", fontFamily: "monospace", transition: "border-color 0.15s" }}>
+          <button key={ex} onClick={() => setPw(ex)} style={{ padding: "0.3rem 0.75rem", borderRadius: 100, fontSize: "0.7rem", background: S.surface3, border: `1px solid ${S.border}`, color: S.text2, cursor: "pointer", fontFamily: "monospace", transition: "border-color 0.15s" }}>
             {ex}
           </button>
         ))}
       </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════
+   URL ANATOMY DEMO
+════════════════════════════════════════ */
+function URLAnatomyDemo() {
+  const [active, setActive] = useState<string | null>(null);
+
+  const parts = [
+    { id: "protocol", text: "https://", color: "#60A5FA", label: "Protokoll (HTTPS)", desc: "HTTPS verschlüsselt die Verbindung mit TLS/SSL. HTTP überträgt alles im Klartext – bei sensiblen Daten immer auf das Schloss-Symbol und HTTPS achten." },
+    { id: "subdomain", text: "www.", color: "#A78BFA", label: "Subdomain", desc: "Subdomains können legitim oder gefälscht wirken. «paypal.fakesite.com» ist NICHT PayPal. Die echte Domain steht direkt vor dem ersten Schrägstrich." },
+    { id: "domain", text: "paypa1", color: "#FF4545", label: "⚠️ Typosquatting!", desc: "«paypa1.com» imitiert «paypal.com» – die Zahl 1 ersetzt den Buchstaben l. Diese Technik heißt Typosquatting und ist ein häufiger Phishing-Trick." },
+    { id: "tld", text: ".com", color: "#F59E0B", label: "Top-Level-Domain", desc: "Die TLD ist Teil der echten Domain. Achte auf ungewöhnliche Endungen wie .xyz oder .online bei vermeintlich bekannten Marken." },
+    { id: "path", text: "/de/login", color: "#00D97E", label: "Pfad (Path)", desc: "Der Pfad zeigt die «Seite» auf dem Server. /login ist ein häufig imitierter Pfad bei Phishing – der Pfad ändert nichts an der echten Domain." },
+    { id: "query", text: "?redirect=bank", color: "#F472B6", label: "Query-Parameter", desc: "Parameter können Tracking-Daten oder manipulierte Weiterleitungen enthalten. «?redirect=bank» könnte zu einer Banking-Seite weiterleiten." },
+  ];
+
+  const activePart = parts.find(p => p.id === active);
+
+  return (
+    <div>
+      <p style={{ fontSize: "0.75rem", color: S.text2, marginBottom: 12 }}>
+        🔍 Klicke auf die farbigen Teile der URL, um sie zu verstehen:
+      </p>
+
+      {/* URL bar */}
+      <div style={{ background: "#141417", borderRadius: 12, padding: "0.85rem 1rem", marginBottom: 12, fontFamily: "monospace", fontSize: "0.9rem", display: "flex", flexWrap: "wrap", border: "1px solid rgba(255,255,255,0.07)", lineHeight: 2 }}>
+        {parts.map(part => (
+          <span
+            key={part.id}
+            onClick={() => setActive(part.id === active ? null : part.id)}
+            style={{
+              color: part.color,
+              cursor: "pointer",
+              borderRadius: 4,
+              padding: "0.05rem 0.15rem",
+              background: active === part.id ? `${part.color}22` : "transparent",
+              textDecoration: "underline",
+              textDecorationStyle: "dotted",
+              textDecorationColor: part.color,
+              fontWeight: active === part.id ? 700 : 400,
+              transition: "background 0.15s",
+            }}
+          >
+            {part.text}
+          </span>
+        ))}
+      </div>
+
+      {/* Legend chips */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+        {parts.map(part => (
+          <div
+            key={part.id}
+            onClick={() => setActive(part.id === active ? null : part.id)}
+            style={{ display: "flex", alignItems: "center", gap: 5, padding: "0.2rem 0.6rem", borderRadius: 100, background: active === part.id ? `${part.color}18` : S.surface2, border: `1px solid ${active === part.id ? part.color + "66" : "transparent"}`, cursor: "pointer", transition: "all 0.15s" }}
+          >
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: part.color, flexShrink: 0 }} />
+            <span style={{ fontSize: "0.65rem", color: active === part.id ? part.color : S.text2, fontWeight: active === part.id ? 700 : 400 }}>{part.label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Explanation */}
+      {activePart && (
+        <div key={activePart.id} className="fade-up" style={{ background: `${activePart.color}0D`, border: `1px solid ${activePart.color}33`, borderRadius: 12, padding: "0.9rem 1rem" }}>
+          <div style={{ fontSize: "0.82rem", fontWeight: 700, color: activePart.color, marginBottom: 5 }}>{activePart.label}</div>
+          <p style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65, margin: 0 }}>{activePart.desc}</p>
+        </div>
+      )}
+
+      {!activePart && (
+        <div style={{ background: S.surface2, borderRadius: 12, padding: "0.75rem 1rem", fontSize: "0.75rem", color: S.text3, textAlign: "center" }}>
+          Klicke auf einen URL-Teil oder ein Chip oben ↑
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════
+   CEO FRAUD CHAT DEMO
+════════════════════════════════════════ */
+function CEOFraudChatDemo() {
+  const [found, setFound] = useState<Set<number>>(new Set());
+  const [active, setActive] = useState<number | null>(null);
+
+  const hints = [
+    { id: 1, label: "Ungewöhnlicher Kanal", desc: "CEOs kommunizieren finanzielle Anweisungen nie über WhatsApp oder SMS. Offizielle Transaktionen laufen immer über definierte Geschäftsprozesse mit schriftlicher Dokumentation." },
+    { id: 2, label: "Künstliche Dringlichkeit", desc: "«Sofort bis 15:00 Uhr» ist ein klassisches Manipulationsmerkmal. Echte Geschäftsprozesse lassen immer Zeit für Verifikation. Zeitdruck = Manipulationsversuch." },
+    { id: 3, label: "Geheimhaltungsappell", desc: "«Sagen Sie es niemandem» soll verhindern, dass die Anweisung von Kollegen oder dem echten CEO überprüft wird. Seriöse Anfragen scheuen keine Kontrolle." },
+    { id: 4, label: "Große Summe ohne Prozess", desc: "89.500 € per WhatsApp ohne Buchhaltungsprüfung, kein formaler Freigabeprozess. Finanzielle Anweisungen müssen immer über offizielle Kanäle und mit Gegenzeichnung erfolgen." },
+    { id: 5, label: "Autoritätsdruck & Schmeichelei", desc: "«Ich vertraue Ihnen» kombiniert mit der CEO-Autorität erzeugt psychologischen Druck. Kritisches Hinterfragen wird dadurch als Vertrauensbruch dargestellt." },
+  ];
+
+  function ChatHint({ id, children }: { id: number; children: React.ReactNode }) {
+    const isFd = found.has(id);
+    const isAct = active === id;
+    return (
+      <span
+        className={isFd ? (isAct ? "chat-hint active" : "chat-hint found") : "chat-hint"}
+        onClick={() => { setActive(id); setFound(f => new Set([...f, id])); }}
+      >
+        {children}
+      </span>
+    );
+  }
+
+  const activeHint = hints.find(h => h.id === active);
+  const allFound = found.size === hints.length;
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+        <span style={{ fontSize: "0.7rem", color: S.text2 }}>🔍 Klicke auf verdächtige Stellen im Chat</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ display: "flex", gap: 3 }}>
+            {hints.map(h => (
+              <div key={h.id} style={{ width: 7, height: 7, borderRadius: "50%", background: found.has(h.id) ? S.amber : S.surface3, transition: "background 0.3s ease" }} />
+            ))}
+          </div>
+          <span style={{ fontSize: "0.7rem", fontWeight: 700, color: allFound ? S.amber : S.text2 }}>{found.size}/5</span>
+        </div>
+      </div>
+
+      {/* WhatsApp-style chat */}
+      <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)", marginBottom: 10 }}>
+        {/* Header */}
+        <div style={{ background: "#075E54", padding: "10px 14px", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 34, height: 34, borderRadius: "50%", background: "#128C7E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 700, color: "#fff", flexShrink: 0 }}>TM</div>
+          <div>
+            <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#fff" }}>Thomas Müller (CEO)</div>
+            <div style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.6)" }}>Zuletzt gesehen: heute, 14:32</div>
+          </div>
+          <div style={{ marginLeft: "auto", fontSize: "0.62rem", color: "rgba(255,255,255,0.45)", fontWeight: 600 }}>WhatsApp</div>
+        </div>
+
+        {/* Messages */}
+        <div style={{ background: "#ECE5DD", padding: "12px 10px", display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ alignSelf: "flex-start", maxWidth: "82%", background: "#fff", borderRadius: "0 12px 12px 12px", padding: "8px 12px", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <p style={{ fontSize: "0.82rem", color: "#111", margin: "0 0 4px 0", lineHeight: 1.55 }}>
+              Hallo, ich bin gerade in einem wichtigen Meeting und habe keinen Laptop dabei. Ich brauche Ihre Hilfe bei einer <ChatHint id={1}>dringenden Angelegenheit über diesen Kanal</ChatHint>.
+            </p>
+            <div style={{ fontSize: "0.6rem", color: "#888", textAlign: "right" }}>14:32 ✓✓</div>
+          </div>
+
+          <div style={{ alignSelf: "flex-start", maxWidth: "82%", background: "#fff", borderRadius: "0 12px 12px 12px", padding: "8px 12px", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <p style={{ fontSize: "0.82rem", color: "#111", margin: "0 0 4px 0", lineHeight: 1.55 }}>
+              Wir müssen <ChatHint id={2}>sofort noch heute bis 15:00 Uhr</ChatHint> eine Zahlung an einen neuen Lieferanten veranlassen. Das ist <ChatHint id={3}>streng vertraulich – bitte sagen Sie es vorerst niemandem im Büro</ChatHint>.
+            </p>
+            <div style={{ fontSize: "0.6rem", color: "#888", textAlign: "right" }}>14:33 ✓✓</div>
+          </div>
+
+          <div style={{ alignSelf: "flex-end", maxWidth: "75%", background: "#DCF8C6", borderRadius: "12px 0 12px 12px", padding: "8px 12px", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <p style={{ fontSize: "0.82rem", color: "#111", margin: "0 0 4px 0" }}>Um welchen Betrag handelt es sich?</p>
+            <div style={{ fontSize: "0.6rem", color: "#888", textAlign: "right" }}>14:35 ✓✓</div>
+          </div>
+
+          <div style={{ alignSelf: "flex-start", maxWidth: "82%", background: "#fff", borderRadius: "0 12px 12px 12px", padding: "8px 12px", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
+            <p style={{ fontSize: "0.82rem", color: "#111", margin: "0 0 4px 0", lineHeight: 1.55 }}>
+              <ChatHint id={4}>89.500 € auf dieses Konto: DE89 3704 0044 0532 0130 00</ChatHint>. Verwendungszweck: «Projektberatung Q1». <ChatHint id={5}>Ich vertraue Ihnen – Sie schaffen das!</ChatHint>
+            </p>
+            <div style={{ fontSize: "0.6rem", color: "#888", textAlign: "right" }}>14:36 ✓✓</div>
+          </div>
+        </div>
+      </div>
+
+      {activeHint && (
+        <div key={activeHint.id} className="fade-up" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.25)", borderRadius: 12, padding: "0.9rem 1rem", marginBottom: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+            <span style={{ background: S.amber, color: "#000", fontSize: "0.6rem", fontWeight: 800, padding: "0.1rem 0.5rem", borderRadius: 100 }}>WARNSIGNAL #{activeHint.id}</span>
+            <span style={{ fontSize: "0.82rem", fontWeight: 700, color: S.text }}>{activeHint.label}</span>
+          </div>
+          <p style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>{activeHint.desc}</p>
+        </div>
+      )}
+
+      {allFound && (
+        <div className="pop" style={{ background: "rgba(0,217,126,0.06)", border: "1px solid rgba(0,217,126,0.22)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
+          <div style={{ fontSize: "1.6rem", marginBottom: 4 }}>🛡️</div>
+          <div style={{ fontWeight: 800, color: S.green, marginBottom: 2 }}>Alle 5 CEO-Fraud-Merkmale erkannt!</div>
+          <div style={{ fontSize: "0.75rem", color: S.text2 }}>Richtig: Anruf beim echten CEO über bekannte Firmennummer und IT-Sicherheit informieren.</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════
+   COOKIE CONSENT DEMO
+════════════════════════════════════════ */
+function CookieConsentDemo() {
+  const [ratings, setRatings] = useState<Record<number, "valid" | "invalid" | null>>({ 0: null, 1: null, 2: null });
+  const [shown, setShown] = useState<Record<number, boolean>>({ 0: false, 1: false, 2: false });
+
+  const dialogs = [
+    {
+      title: "Cookie-Einstellungen",
+      checkboxes: [
+        { label: "Notwendige Cookies", checked: true, locked: true },
+        { label: "Analyse-Cookies", checked: true, locked: false },
+        { label: "Marketing-Cookies", checked: true, locked: false },
+      ],
+      hasReject: false,
+      isValid: false,
+      verdict: "Nicht konform: Analyse- und Marketing-Cookies sind vorausgefüllt (Opt-Out statt Opt-In). Einwilligung muss aktiv erteilt werden. Zudem fehlt ein «Alles ablehnen»-Button.",
+    },
+    {
+      title: "Datenschutz-Einstellungen",
+      checkboxes: [
+        { label: "Notwendige Cookies", checked: true, locked: true },
+        { label: "Analyse-Cookies", checked: false, locked: false },
+        { label: "Marketing-Cookies", checked: false, locked: false },
+      ],
+      hasReject: true,
+      isValid: true,
+      verdict: "DSGVO-konform: Opt-In (nicht vorausgefüllt), klarer «Ablehnen»-Button, nur notwendige Cookies sind vorgewählt. Echte Wahlmöglichkeit ist gegeben.",
+    },
+    {
+      title: "Wir nutzen Cookies 🍪",
+      checkboxes: null,
+      hasReject: false,
+      isValid: false,
+      verdict: "Nicht konform: «Durch Nutzung der Website stimmen Sie zu» ist keine gültige Einwilligung. Es gibt keine echte Wahlmöglichkeit und keine Möglichkeit abzulehnen.",
+    },
+  ];
+
+  function rate(i: number, val: "valid" | "invalid") {
+    setRatings(r => ({ ...r, [i]: val }));
+    setShown(s => ({ ...s, [i]: true }));
+  }
+
+  const allDone = Object.values(ratings).every(v => v !== null);
+
+  return (
+    <div>
+      <p style={{ fontSize: "0.75rem", color: S.text2, marginBottom: 14 }}>
+        🍪 Bewertet jedes dieser Cookie-Banner — DSGVO-konform oder nicht?
+      </p>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {dialogs.map((dialog, i) => {
+          const myRating = ratings[i];
+          const correct = myRating === (dialog.isValid ? "valid" : "invalid");
+          const resultShown = shown[i];
+
+          return (
+            <div key={i} style={{ border: `1px solid ${resultShown ? (correct ? "rgba(0,217,126,0.35)" : "rgba(255,69,69,0.35)") : S.border}`, borderRadius: 14, overflow: "hidden", transition: "border-color 0.25s" }}>
+              {/* Mock banner */}
+              <div style={{ background: S.surface2, padding: "1rem", borderBottom: `1px solid ${S.border}` }}>
+                <div style={{ fontSize: "0.78rem", fontWeight: 700, marginBottom: 10 }}>
+                  <span style={{ fontSize: "0.62rem", fontWeight: 600, padding: "0.15rem 0.45rem", borderRadius: 100, background: S.surface3, color: S.text3, marginRight: 8 }}>Banner {i + 1}</span>
+                  {dialog.title}
+                </div>
+
+                {dialog.checkboxes ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 10 }}>
+                    {dialog.checkboxes.map((item, j) => (
+                      <label key={j} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.75rem", color: S.text2, cursor: "default" }}>
+                        <input type="checkbox" defaultChecked={item.checked} disabled style={{ accentColor: "#CCFF00", cursor: "default" }} />
+                        {item.label}
+                        {item.checked && !item.locked && (
+                          <span style={{ fontSize: "0.6rem", color: S.red, fontWeight: 700 }}>← vorausgefüllt!</span>
+                        )}
+                      </label>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: "0.75rem", color: S.text2, marginBottom: 10, lineHeight: 1.5 }}>
+                    Durch die Nutzung dieser Website stimmen Sie der Verwendung von Cookies für Analyse und Marketing zu.
+                  </p>
+                )}
+
+                <div style={{ display: "flex", gap: 6 }}>
+                  {dialog.hasReject && (
+                    <div style={{ flex: 1, padding: "0.4rem", background: "transparent", border: `1px solid ${S.border}`, borderRadius: 8, textAlign: "center", fontSize: "0.72rem", color: S.text2 }}>
+                      Alles ablehnen
+                    </div>
+                  )}
+                  <div style={{ flex: 1, padding: "0.4rem", background: S.accent, borderRadius: 8, textAlign: "center", fontSize: "0.72rem", fontWeight: 700, color: S.accentFg }}>
+                    Akzeptieren
+                  </div>
+                </div>
+              </div>
+
+              {/* Rating / result */}
+              {!resultShown ? (
+                <div style={{ padding: "0.75rem 1rem", display: "flex", alignItems: "center", gap: 8, background: S.surface }}>
+                  <span style={{ fontSize: "0.72rem", color: S.text2, flexShrink: 0 }}>Ihr Urteil:</span>
+                  <button onClick={() => rate(i, "valid")}
+                    style={{ flex: 1, padding: "0.4rem", borderRadius: 8, border: "1px solid rgba(0,217,126,0.3)", background: "rgba(0,217,126,0.06)", color: S.green, fontSize: "0.72rem", fontWeight: 700, cursor: "pointer" }}>
+                    ✓ Konform
+                  </button>
+                  <button onClick={() => rate(i, "invalid")}
+                    style={{ flex: 1, padding: "0.4rem", borderRadius: 8, border: "1px solid rgba(255,69,69,0.3)", background: "rgba(255,69,69,0.06)", color: S.red, fontSize: "0.72rem", fontWeight: 700, cursor: "pointer" }}>
+                    ✗ Nicht konform
+                  </button>
+                </div>
+              ) : (
+                <div key={`r-${i}`} className="fade-up" style={{ padding: "0.85rem 1rem", background: correct ? "rgba(0,217,126,0.05)" : "rgba(255,69,69,0.05)" }}>
+                  <div style={{ fontSize: "0.78rem", fontWeight: 700, color: correct ? S.green : S.red, marginBottom: 4 }}>
+                    {correct ? "✓ Richtig!" : "✗ Falsch!"}{" "}
+                    {dialog.isValid ? "Dieses Banner ist DSGVO-konform." : "Dieses Banner ist nicht DSGVO-konform."}
+                  </div>
+                  <p style={{ fontSize: "0.72rem", color: S.text2, lineHeight: 1.6, margin: 0 }}>{dialog.verdict}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {allDone && (
+        <div className="pop" style={{ marginTop: 14, background: "rgba(0,217,126,0.06)", border: "1px solid rgba(0,217,126,0.22)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
+          <div style={{ fontSize: "1.6rem", marginBottom: 4 }}>🏆</div>
+          <div style={{ fontWeight: 800, color: S.green, marginBottom: 2 }}>Alle Banner bewertet!</div>
+          <div style={{ fontSize: "0.75rem", color: S.text2 }}>Merke: Echte Einwilligung = freiwillig, spezifisch, informiert, aktiv (Opt-In) und jederzeit widerrufbar.</div>
+        </div>
+      )}
     </div>
   );
 }
@@ -214,12 +521,11 @@ const topicContents: Record<number, string[]> = {
   3: ["Ein **sicheres Passwort** hat min. 16 Zeichen mit Groß-/Kleinbuchstaben, Zahlen, Sonderzeichen. Besser: **Passphrase** aus 4+ zufälligen Wörtern.", "Ein **Passwortmanager** (Bitwarden, 1Password) speichert alle Passwörter verschlüsselt. Sie merken sich nur ein Master-Passwort und er generiert starke, einzigartige Passwörter.", "**2FA/MFA** fügt einen zweiten Faktor hinzu. Selbst bei gestohlenem Passwort kann sich niemand ohne den zweiten Faktor (App, Hardware-Key) einloggen.", "**Passwort-Hygiene**: Niemals mehrere Dienste mit gleichem Passwort. Nicht per E-Mail senden. Keine Post-Its. Regelmäßig auf Datenlecks prüfen (haveibeenpwned.com).", "**Sichere Wiederherstellung**: Backup-Codes sicher aufbewahren, Backup-E-Mail aktuell halten. Hardware-Keys (YubiKey) sind die sicherste 2FA-Methode."],
   4: ["**Personenbezogene Daten** sind alle Informationen, die eine Person direkt oder indirekt identifizieren: Name, E-Mail, IP-Adresse, Standort, biometrische Daten.", "Eine **Einwilligung** muss freiwillig, spezifisch, informiert und eindeutig sein. Vorausgefüllte Checkboxen sind ungültig. Jede Einwilligung ist widerrufbar.", "**Betroffenenrechte**: Auskunft, Berichtigung, Löschung ('Recht auf Vergessenwerden'), Einschränkung, Portabilität, Widerspruch. Antrag muss innerhalb eines Monats beantwortet werden.", "Eine **Datenpanne** muss binnen 72 Stunden der Aufsichtsbehörde gemeldet werden (Art. 33 DSGVO). Bei hohem Risiko müssen Betroffene direkt informiert werden.", "Ein **Datenschutzbeauftragter** (DSB) ist ab 20 Personen mit regelmäßiger Datenverarbeitung Pflicht. Er ist intern unabhängig und weisungsfrei tätig."],
   5: ["**Software-Updates** schließen Sicherheitslücken (CVEs). Automatische Updates aktivieren für OS und Anwendungen. Ungepatchte Systeme sind das häufigste Angriffsziel.", "Die **Bildschirmsperre** aktiviert nach max. 5 Min. Inaktivität und erfordert Authentifizierung. Shortcut: Win+L (Windows) / Ctrl+Cmd+Q (Mac). Immer beim Verlassen des Platzes.", "**VPN** verschlüsselt den gesamten Netzwerkverkehr. Pflicht bei öffentlichem WLAN, Homeoffice-Zugang zum Firmennetz. Nur firmenseitig bereitgestellte VPN-Dienste nutzen.", "In **öffentlichen WLANs** können Angreifer Daten mitlesen ('Man-in-the-Middle'). VPN aktivieren oder mobiles Netz verwenden für sensitive Aktivitäten.", "**Endpoint Security**: Antivirus, Firewall, Festplattenverschlüsselung (BitLocker/FileVault), regelmäßige Backups, MDM für Firmendaten auf Mobilgeräten."],
-  6: ["**Gefährliche Anhänge**: .exe, .bat, .vbs, .js sowie Office-Dokumente mit Makros (.docm, .xlsm). Niemals unerwartete Anhänge öffnen, auch nicht von bekannten Adressen.", "**Link-Prüfung**: Vor dem Klick über Link hovern für echte URL, Ziel-Domain prüfen. Kurz-URLs (bit.ly) können zu beliebigen Zielen führen – im Zweifel nicht klicken.", "**CEO-Fraud (BEC)**: Täter geben sich als CEO oder Lieferant aus und fordern Überweisungen. Regel: Finanzielle Anfragen per E-Mail immer telefonisch verifizieren.", "**E-Mail-Spoofing** fälscht die Absenderadresse. Auch bekannte Absender können gefälscht sein. Bei unerwarteten Anfragen immer persönlich oder telefonisch bestätigen.", "**Verdächtige E-Mails** immer an IT-Sicherheit weiterleiten und danach löschen. Nicht an Kollegen weiterleiten. IT kann wichtige Informationen daraus gewinnen."],
+  6: ["**Gefährliche Anhänge**: .exe, .bat, .vbs, .js sowie Office-Dokumente mit Makros (.docm, .xlsm). Niemals unerwartete Anhänge öffnen, auch nicht von bekannten Adressen.", "**Link-Prüfung**: Vor dem Klick über Link hovern für echte URL, Ziel-Domain prüfen. Kurz-URLs (bit.ly) können zu beliebigen Zielen führen – im Zweifel nicht klicken.", "**Spam-Filter** erkennen verdächtige Mails automatisch. Trotzdem landen gezielte **Spear-Phishing**-Mails oft im Posteingang. Niemals Absender blind vertrauen – immer die Adresse manuell prüfen.", "**CEO-Fraud (BEC)**: Täter geben sich als CEO oder Lieferant aus und fordern Überweisungen. Regel: Finanzielle Anfragen per E-Mail immer telefonisch verifizieren.", "**E-Mail-Verschlüsselung** mit S/MIME oder PGP stellt sicher, dass nur der Empfänger die Nachricht lesen kann. Signaturen beweisen die Identität des Absenders."],
   7: ["**Cloud-Anbieter** sollten Zertifizierungen (ISO 27001, SOC 2) haben. Für DSGVO-Konformität: Auftragsverarbeitungsvertrag (AVV) abschließen. Nur freigegebene Dienste nutzen.", "**Zugriffsrechte** nach Least Privilege: Jeder erhält nur notwendige Rechte. Regelmäßige Überprüfung und Entzug nicht mehr benötigter Rechte ist essentiell.", "Daten in der Cloud sollten verschlüsselt sein: **In Transit** (TLS) und **at Rest**. Für höchste Sicherheit: Client-seitige Verschlüsselung, bei der nur Sie den Schlüssel haben.", "**3-2-1-Backup-Regel**: 3 Kopien auf 2 verschiedenen Medientypen, davon 1 extern. Backups regelmäßig testen – ein nicht getestetes Backup ist kein Backup.", "Im **Shared Responsibility Model** schützt der Anbieter die Infrastruktur, der Kunde ist für Daten, Anwendungen und Zugriffsrechte selbst verantwortlich."],
   8: ["**App-Berechtigungen** nach Minimum-Prinzip: Taschenlampe braucht keine Kontakte. Einstellungen → Apps → Berechtigungen regelmäßig überprüfen und einschränken.", "**BYOD** (Bring Your Own Device): Klare Richtlinien für Sicherheit, Passwortschutz, verschlüsselter Speicher und MDM-Profil auf privaten Geräten, die geschäftlich genutzt werden.", "**MDM** (Mobile Device Management): Zentrale App-Verwaltung, Richtlinien durchsetzen, Fernlöschung bei Verlust, Verschlüsselung erzwingen auf allen Firmengeräten.", "**Fernlöschung** ('Remote Wipe'): Bei Verlust oder Diebstahl sofort IT informieren. Alle Daten können per MDM remote gelöscht werden. 'Mein Gerät finden' aktivieren.", "**Mobile Malware** über inoffizielle App-Stores, kompromittierte Apps, 'Smishing' (SMS-Phishing), gefälschte WLAN-Hotspots. Nur offizielle Stores nutzen."],
 };
 
-/* Extract bold keywords from text */
 function extractConcepts(text: string): string[] {
   const parts = text.split("**");
   const concepts: string[] = [];
@@ -229,7 +535,6 @@ function extractConcepts(text: string): string[] {
   return concepts.slice(0, 3);
 }
 
-/* Render text with **bold** */
 function renderBody(text: string) {
   return text.split("**").map((p, i) =>
     i % 2 === 1
@@ -245,13 +550,12 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
   const { id } = use(params);
   const mod = modules.find(m => m.id === parseInt(id));
 
-  const [phase, setPhase]           = useState<Phase>("intro");
+  const [phase, setPhase]             = useState<Phase>("intro");
   const [activeTopic, setActiveTopic] = useState(0);
   const [visitedTopics, setVisitedTopics] = useState<Set<number>>(new Set([0]));
-  const [animDir, setAnimDir]       = useState<"right" | "left">("right");
-  const [contentKey, setContentKey] = useState(0);
+  const [animDir, setAnimDir]         = useState<"right" | "left">("right");
+  const [contentKey, setContentKey]   = useState(0);
 
-  // Quiz state
   const [qi, setQi]           = useState(0);
   const [sel, setSel]         = useState<number | null>(null);
   const [answers, setAnswers] = useState<boolean[]>([]);
@@ -284,7 +588,7 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
 
   function nextQ() {
     setShowExp(false); setSel(null);
-    qi + 1 < mod.quizQuestions.length ? setQi(qi + 1) : setPhase("complete");
+    qi + 1 < mod!.quizQuestions.length ? setQi(qi + 1) : setPhase("complete");
   }
 
   const topicsVisitedCount = visitedTopics.size;
@@ -314,7 +618,7 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
                 <div className="label" style={{ marginBottom: 10 }}>Themen</div>
                 {mod.topics.map((t, i) => (
                   <div key={t} style={{ fontSize: "0.78rem", color: S.text2, marginBottom: 5, display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontSize: "0.6rem", color: S.accent, fontWeight: 700 }}>{i + 1}</span>{t}
+                    <span style={{ fontSize: "0.6rem", color: S.accentText, fontWeight: 700 }}>{i + 1}</span>{t}
                   </div>
                 ))}
               </div>
@@ -325,20 +629,35 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
                     <span style={{ fontSize: "0.72rem", fontWeight: 600 }}>{v}</span>
                   </div>
                 ))}
-                {(mod.id === 2) && (
-                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(255,69,69,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "#FF8080" }}>
-                    🎯 Enthält interaktive Phishing-Demo
+                {mod.id === 1 && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(96,165,250,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "#60A5FA" }}>
+                    🔗 Enthält interaktive URL-Demo
                   </div>
                 )}
-                {(mod.id === 3) && (
-                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(204,255,0,0.06)", borderRadius: 8, fontSize: "0.68rem", color: S.accent }}>
+                {mod.id === 2 && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(255,69,69,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "#FF8080" }}>
+                    🎣 Enthält interaktive Phishing-Demo
+                  </div>
+                )}
+                {mod.id === 3 && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: S.accentDim, borderRadius: 8, fontSize: "0.68rem", color: S.accentText }}>
                     🔑 Enthält Passwort-Stärke-Demo
+                  </div>
+                )}
+                {mod.id === 4 && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(167,139,250,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "#A78BFA" }}>
+                    🍪 Enthält Cookie-Consent-Demo
+                  </div>
+                )}
+                {mod.id === 6 && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(245,158,11,0.08)", borderRadius: 8, fontSize: "0.68rem", color: S.amber }}>
+                    💬 Enthält CEO-Fraud-Demo
                   </div>
                 )}
               </div>
             </div>
 
-            <button onClick={() => { setPhase("content"); setVisitedTopics(new Set([0])); }} style={{ width: "100%", padding: "0.9rem", background: S.accent, color: S.bg, fontWeight: 800, fontSize: "0.9rem", border: "none", borderRadius: 100, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "opacity 0.15s" }}
+            <button onClick={() => { setPhase("content"); setVisitedTopics(new Set([0])); }} style={{ width: "100%", padding: "0.9rem", background: S.accent, color: S.accentFg, fontWeight: 800, fontSize: "0.9rem", border: "none", borderRadius: 100, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "opacity 0.15s" }}
               onMouseEnter={e => (e.currentTarget.style.opacity = "0.9")}
               onMouseLeave={e => (e.currentTarget.style.opacity = "1")}>
               Modul starten <ArrowRight size={16} />
@@ -357,11 +676,10 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           <ArrowLeft size={14} /> Alle Module
         </Link>
 
-        {/* Progress */}
         <div style={{ marginBottom: "1.5rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: S.text2, marginBottom: 5 }}>
             <span>{topicsVisitedCount}/{mod.topics.length} Themen erkundet</span>
-            <span style={{ color: S.accent }}>{mod.title}</span>
+            <span style={{ color: S.accentText }}>{mod.title}</span>
           </div>
           <div style={{ height: 3, background: S.surface2, borderRadius: 100 }}>
             <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: S.accent, width: `${(topicsVisitedCount / mod.topics.length) * 100}%` }} />
@@ -371,18 +689,18 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         {/* Tab bar */}
         <div style={{ display: "flex", gap: 6, marginBottom: 16, overflowX: "auto", paddingBottom: 4 }}>
           {mod.topics.map((t, i) => {
-            const active = activeTopic === i;
+            const isActive = activeTopic === i;
             const visited = visitedTopics.has(i);
             return (
               <button key={t} onClick={() => goToTopic(i)} style={{
-                padding: "0.45rem 0.9rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: active ? 700 : 500,
-                border: active ? "none" : `1px solid ${S.border}`,
-                background: active ? S.accent : visited ? "rgba(204,255,0,0.06)" : "transparent",
-                color: active ? S.bg : visited ? S.accent : S.text2,
+                padding: "0.45rem 0.9rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: isActive ? 700 : 500,
+                border: isActive ? "none" : `1px solid ${S.border}`,
+                background: isActive ? S.accent : visited ? S.accentDim3 : "transparent",
+                color: isActive ? S.accentFg : visited ? S.accentText : S.text2,
                 cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", gap: 5,
                 transition: "all 0.18s ease",
               }}>
-                {visited && !active && <span style={{ fontSize: "0.6rem" }}>✓</span>}
+                {visited && !isActive && <span style={{ fontSize: "0.6rem" }}>✓</span>}
                 <span style={{ fontWeight: 700, fontSize: "0.62rem", opacity: 0.6, marginRight: 1 }}>{i + 1}</span>
                 {t}
               </button>
@@ -393,7 +711,6 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         {/* Content card */}
         <div style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem", marginBottom: 12 }}>
           <div key={`${mod.id}-${contentKey}`} className={animDir === "right" ? "slide-in-right" : "slide-in-left"}>
-            {/* Topic header */}
             <div className="label" style={{ marginBottom: "0.5rem" }}>Thema {activeTopic + 1} von {mod.topics.length}</div>
             <h2 style={{ fontSize: "1.35rem", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "1.25rem" }}>{mod.topics[activeTopic]}</h2>
 
@@ -404,18 +721,23 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
               return (
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "1.25rem" }}>
                   {concepts.map(c => (
-                    <span key={c} style={{ fontSize: "0.68rem", fontWeight: 700, padding: "0.2rem 0.65rem", borderRadius: 100, background: "rgba(204,255,0,0.08)", color: S.accent, border: "1px solid rgba(204,255,0,0.15)" }}>{c}</span>
+                    <span key={c} style={{ fontSize: "0.68rem", fontWeight: 700, padding: "0.2rem 0.65rem", borderRadius: 100, background: S.accentDim2, color: S.accentText, border: `1px solid ${S.accentDim3}` }}>{c}</span>
                   ))}
                 </div>
               );
             })()}
 
-            {/* Main text */}
             <div style={{ fontSize: "0.92rem", color: S.text2, lineHeight: 1.85, marginBottom: "1.5rem" }}>
               {renderBody(contents[activeTopic] ?? "")}
             </div>
 
             {/* Interactive demos */}
+            {mod.id === 1 && activeTopic === 0 && (
+              <div>
+                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — URL-Anatomie</div>
+                <URLAnatomyDemo />
+              </div>
+            )}
             {mod.id === 2 && activeTopic === 1 && (
               <div>
                 <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Phishing-Mail</div>
@@ -428,8 +750,20 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
                 <PasswordStrengthDemo />
               </div>
             )}
+            {mod.id === 4 && activeTopic === 1 && (
+              <div>
+                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Cookie-Consent</div>
+                <CookieConsentDemo />
+              </div>
+            )}
+            {mod.id === 6 && activeTopic === 3 && (
+              <div>
+                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — CEO-Fraud-Chat</div>
+                <CEOFraudChatDemo />
+              </div>
+            )}
 
-            {/* Key takeaway box */}
+            {/* Key takeaway */}
             <div style={{ background: S.surface2, borderRadius: 14, padding: "1rem 1.25rem", display: "flex", gap: 10, alignItems: "flex-start" }}>
               <span style={{ fontSize: "1rem", flexShrink: 0 }}>💡</span>
               <span style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>
@@ -450,12 +784,12 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           <div style={{ display: "flex", gap: 8 }}>
             {activeTopic < mod.topics.length - 1 ? (
               <button onClick={() => goToTopic(activeTopic + 1)}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
                 Weiter <ArrowRight size={14} />
               </button>
             ) : (
               <button onClick={() => setPhase("quiz")}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}
                 className="glow-accent">
                 Zum Wissenscheck <ArrowRight size={14} />
               </button>
@@ -463,7 +797,6 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
 
-        {/* Skip to quiz link */}
         {topicsVisitedCount < mod.topics.length && (
           <div style={{ textAlign: "center", marginTop: 12 }}>
             <button onClick={() => setPhase("quiz")} style={{ background: "none", border: "none", color: S.text3, fontSize: "0.72rem", cursor: "pointer", textDecoration: "underline" }}>
@@ -483,11 +816,10 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           <ArrowLeft size={14} /> Alle Module
         </Link>
 
-        {/* Progress bar */}
         <div style={{ marginBottom: "1.5rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: S.text2, marginBottom: 5 }}>
             <span>Frage {qi + 1} von {mod.quizQuestions.length}</span>
-            <span style={{ color: S.accent }}>Wissenscheck</span>
+            <span style={{ color: S.accentText }}>Wissenscheck</span>
           </div>
           <div style={{ height: 3, background: S.surface2, borderRadius: 100 }}>
             <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: S.accent, width: `${((qi) / mod.quizQuestions.length) * 100}%` }} />
@@ -495,7 +827,6 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         </div>
 
         <div className="fade-up" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem" }}>
-          {/* Answer dots */}
           <div style={{ display: "flex", gap: 4, marginBottom: "1.5rem" }}>
             {mod.quizQuestions.map((_, i) => (
               <div key={i} style={{ flex: 1, height: 4, borderRadius: 100, transition: "background 0.3s",
@@ -503,7 +834,6 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
             ))}
           </div>
 
-          {/* Question type badge */}
           <span style={{ display: "inline-block", fontSize: "0.62rem", fontWeight: 700, padding: "0.18rem 0.6rem", borderRadius: 100, marginBottom: "1rem",
             background: q.type === "scenario" ? "rgba(139,92,246,0.15)" : "rgba(59,130,246,0.15)",
             color: q.type === "scenario" ? "#A78BFA" : "#60A5FA",
@@ -513,11 +843,10 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
 
           <h2 style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.5, marginBottom: "1.5rem" }}>{q.question}</h2>
 
-          {/* Answers */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: "1.5rem" }}>
             {q.options.map((opt, i) => {
-              let bg = S.surface2, borderCol = S.border, color = S.text2;
-              if (!showExp && sel === i) { bg = "rgba(204,255,0,0.08)"; borderCol = "rgba(204,255,0,0.45)"; color = S.text; }
+              let bg: string = S.surface2, borderCol: string = S.border, color: string = S.text2;
+              if (!showExp && sel === i) { bg = S.accentDim; borderCol = S.accentDim2; color = S.text; }
               if (showExp) {
                 if (i === q.correctIndex) { bg = "rgba(0,217,126,0.08)"; borderCol = "rgba(0,217,126,0.45)"; color = S.green; }
                 else if (i === sel && i !== q.correctIndex) { bg = "rgba(255,69,69,0.08)"; borderCol = "rgba(255,69,69,0.35)"; color = S.red; }
@@ -538,7 +867,6 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
             })}
           </div>
 
-          {/* Explanation */}
           {showExp && (
             <div className="fade-up" style={{
               background: answers[answers.length - 1] ? "rgba(0,217,126,0.06)" : "rgba(255,69,69,0.06)",
@@ -546,68 +874,56 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
               borderRadius: 14, padding: "1rem", marginBottom: "1.25rem", fontSize: "0.82rem",
               color: answers[answers.length - 1] ? S.green : "#FF8080", lineHeight: 1.6,
             }}>
-              <strong>{answers[answers.length - 1] ? "✓ Richtig! " : "✗ Falsch — "}</strong>{q.explanation}
+              <span style={{ fontWeight: 700 }}>{answers[answers.length - 1] ? "✓ Richtig! " : "✗ Falsch — "}</span>
+              {q.explanation}
             </div>
           )}
 
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            {!showExp
-              ? <button onClick={confirmAnswer} disabled={sel === null} style={{ padding: "0.7rem 1.75rem", background: sel === null ? S.surface2 : S.accent, color: sel === null ? S.text2 : S.bg, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: sel === null ? "not-allowed" : "pointer", transition: "all 0.15s" }}>
-                  Bestätigen
-                </button>
-              : <button onClick={nextQ} style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.7rem 1.75rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
-                  {qi + 1 < mod.quizQuestions.length ? "Nächste Frage" : "Abschließen"} <ArrowRight size={14} />
-                </button>
-            }
-          </div>
+          {!showExp ? (
+            <button onClick={confirmAnswer} disabled={sel === null}
+              style={{ width: "100%", padding: "0.75rem", background: sel !== null ? S.accent : S.surface2, color: sel !== null ? S.accentFg : S.text3, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: sel !== null ? "pointer" : "default", transition: "all 0.15s" }}>
+              Antwort bestätigen
+            </button>
+          ) : (
+            <button onClick={nextQ}
+              style={{ width: "100%", padding: "0.75rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
+              {qi + 1 < mod.quizQuestions.length ? "Nächste Frage →" : "Ergebnis anzeigen →"}
+            </button>
+          )}
         </div>
       </div>
     </DashboardLayout>
   );
 
   /* ── COMPLETE ── */
+  const passed = score >= 70;
   return (
     <DashboardLayout>
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
-        <div className="scale-in" style={{ background: S.surface, border: `1px solid ${score >= 70 ? "rgba(204,255,0,0.2)" : S.border}`, borderRadius: 24, padding: "3rem 2rem", textAlign: "center" }}>
-          <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>{score >= 70 ? "🎉" : "📚"}</div>
-          <div style={{ fontSize: "4.5rem", fontWeight: 900, letterSpacing: "-0.06em", lineHeight: 1, color: score >= 70 ? S.accent : S.text, marginBottom: "0.4rem" }}>
-            {score}<span style={{ fontSize: "2rem", color: S.text2 }}>%</span>
-          </div>
-          <div style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "0.4rem" }}>{score >= 70 ? "Modul abgeschlossen!" : "Nicht bestanden"}</div>
-          <div style={{ color: S.text2, fontSize: "0.85rem", marginBottom: "2rem" }}>
-            {answers.filter(Boolean).length}/{answers.length} Fragen richtig
-            {score >= 70 ? " · +150 Punkte" : " · 70 % zum Bestehen"}
-          </div>
+        <div className="scale-in" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2.5rem", textAlign: "center" }}>
+          <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>{passed ? "🎉" : "📚"}</div>
+          <h1 style={{ fontSize: "1.6rem", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "0.5rem" }}>
+            {passed ? "Modul abgeschlossen!" : "Fast geschafft!"}
+          </h1>
+          <p style={{ color: S.text2, marginBottom: "1.5rem" }}>
+            {passed ? `Ausgezeichnet! Sie haben ${score}% erreicht.` : `${score}% — noch ein bisschen Übung, dann klappt's!`}
+          </p>
 
-          {/* Score breakdown */}
-          <div style={{ display: "flex", gap: 4, justifyContent: "center", marginBottom: "2rem" }}>
-            {answers.map((a, i) => (
-              <div key={i} className="fade-up" style={{ width: 10, height: 10, borderRadius: "50%", background: a ? S.green : S.red, animationDelay: `${i * 0.05}s` }} />
-            ))}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.75rem 1.5rem", borderRadius: 100, marginBottom: "2rem",
+            background: passed ? "rgba(0,217,126,0.08)" : "rgba(255,69,69,0.08)",
+            border: `1px solid ${passed ? "rgba(0,217,126,0.25)" : "rgba(255,69,69,0.25)"}` }}>
+            <span style={{ fontSize: "1.4rem", fontWeight: 900, color: passed ? S.green : S.red }}>{score}%</span>
+            <span style={{ fontSize: "0.78rem", color: S.text2 }}>{answers.filter(Boolean).length}/{answers.length} richtig</span>
           </div>
 
-          {score >= 70 && (
-            <div style={{ background: "rgba(204,255,0,0.06)", border: "1px solid rgba(204,255,0,0.2)", borderRadius: 14, padding: "1rem", marginBottom: "2rem", fontSize: "0.82rem", color: S.accent }}>
-              Fortschritt gespeichert ✓
-            </div>
-          )}
-
-          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
-            {score < 70 && (
-              <button onClick={() => { setPhase("content"); setActiveTopic(0); setQi(0); setAnswers([]); setSel(null); setShowExp(false); setVisitedTopics(new Set([0])); }}
-                style={{ padding: "0.65rem 1.25rem", border: `1px solid ${S.border}`, background: "transparent", color: S.text2, borderRadius: 100, fontSize: "0.85rem", cursor: "pointer" }}>
-                Wiederholen
-              </button>
-            )}
-            <Link href="/modules" style={{ padding: "0.65rem 1.25rem", border: `1px solid ${S.border}`, background: "transparent", color: S.text2, borderRadius: 100, fontSize: "0.85rem", textDecoration: "none" }}>
-              Alle Module
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <Link href="/modules" style={{ display: "block", padding: "0.75rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.85rem", borderRadius: 100, textDecoration: "none", textAlign: "center" }}>
+              Zurück zur Übersicht
             </Link>
-            {mod.id < 8 && score >= 70 && (
-              <Link href={`/modules/${mod.id + 1}`} style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.65rem 1.5rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.85rem", borderRadius: 100, textDecoration: "none" }}>
-                Nächstes Modul <ArrowRight size={14} />
-              </Link>
-            )}
+            <button onClick={() => { setPhase("content"); setActiveTopic(0); setVisitedTopics(new Set([0])); setQi(0); setSel(null); setAnswers([]); setShowExp(false); setContentKey(k => k + 1); }}
+              style={{ padding: "0.75rem", background: "transparent", border: `1px solid ${S.border}`, color: S.text2, fontWeight: 600, fontSize: "0.85rem", borderRadius: 100, cursor: "pointer" }}>
+              Modul wiederholen
+            </button>
           </div>
         </div>
       </div>

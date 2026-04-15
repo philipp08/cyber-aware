@@ -3,8 +3,7 @@ import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { companyEmployees, phishingCampaigns } from "@/lib/data";
 import { Download, CheckCircle } from "lucide-react";
-
-const S = { accent: "#CCFF00", text: "#F5F5F7", text2: "#88888E", text3: "#44444C", border: "rgba(255,255,255,0.06)", surface: "#131316", surface2: "#1A1A1E", bg: "#0C0C0F", green: "#00D97E", red: "#FF4545", amber: "#F59E0B" };
+import { S } from "@/lib/theme";
 
 const reportTypes = [
   { id: "iso27001", name: "ISO-27001-Compliance-Report", desc: "Detaillierter Bericht für ISO-27001-Audits. Enthält Schulungsstand aller Mitarbeiter, Phishing-Ergebnisse und Zertifikatsstatus.", standard: "ISO 27001:2022 · A.6.3", pages: "12 Seiten", emoji: "🛡️" },
@@ -52,13 +51,13 @@ export default function ReportsPage() {
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ marginBottom: "2rem" }}>
-          <p style={{ fontSize: "0.7rem", color: S.text2, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Compliance</p>
+          <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Compliance</p>
           <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Compliance-Berichte</h1>
         </div>
 
         {/* Status overview */}
-        <div style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 18, padding: "1.5rem", marginBottom: 16 }}>
-          <div style={{ fontSize: "0.7rem", color: S.text2, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1.25rem" }}>Aktueller Schulungsstand</div>
+        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 18, padding: "1.5rem", marginBottom: 16 }}>
+          <div style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1.25rem" }}>Aktueller Schulungsstand</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
             {[
               { label: "Mitarbeiter", value: total },
@@ -66,9 +65,9 @@ export default function ReportsPage() {
               { label: "Abschlussquote", value: `${completionRate}%` },
               { label: "Phishing-Klickrate", value: `${phishingRate}%` },
             ].map(s => (
-              <div key={s.label} style={{ background: S.surface2, borderRadius: 14, padding: "1rem", textAlign: "center" }}>
+              <div key={s.label} style={{ background: "var(--surface-2)", borderRadius: 14, padding: "1rem", textAlign: "center" }}>
                 <div style={{ fontSize: "1.6rem", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
-                <div style={{ fontSize: "0.68rem", color: S.text2 }}>{s.label}</div>
+                <div style={{ fontSize: "0.68rem", color: "var(--text-2)" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -77,11 +76,11 @@ export default function ReportsPage() {
         {/* Compliance status grid */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
           {complianceItems.map(item => (
-            <div key={item.standard} style={{ background: item.ok ? "rgba(0,217,126,0.06)" : "rgba(245,158,11,0.06)", border: `1px solid ${item.ok ? "rgba(0,217,126,0.2)" : "rgba(245,158,11,0.2)"}`, borderRadius: 16, padding: "1.25rem", display: "flex", gap: 12 }}>
+            <div key={item.standard} style={{ background: item.ok ? "var(--green-dim)" : "var(--amber-dim)", border: `1px solid ${item.ok ? "var(--green-dim2)" : "var(--amber-dim2)"}`, borderRadius: 16, padding: "1.25rem", display: "flex", gap: 12 }}>
               <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: 1 }}>{item.ok ? "✅" : "⚠️"}</span>
               <div>
                 <div style={{ fontSize: "0.85rem", fontWeight: 700, marginBottom: 2 }}>{item.standard}</div>
-                <div style={{ fontSize: "0.72rem", color: S.text2, marginBottom: 4 }}>{item.control}</div>
+                <div style={{ fontSize: "0.72rem", color: "var(--text-2)", marginBottom: 4 }}>{item.control}</div>
                 <div style={{ fontSize: "0.72rem", fontWeight: 600, color: item.ok ? S.green : S.amber }}>{item.detail}</div>
               </div>
             </div>
@@ -89,29 +88,29 @@ export default function ReportsPage() {
         </div>
 
         {/* Report generation */}
-        <div style={{ fontSize: "0.7rem", color: S.text2, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Reports generieren</div>
+        <div style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Reports generieren</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
           {reportTypes.map(report => {
             const isGenerating = generating === report.id;
             const isDone = generated.includes(report.id);
 
             return (
-              <div key={report.id} style={{ background: S.surface, border: `1px solid ${isDone ? "rgba(0,217,126,0.2)" : S.border}`, borderRadius: 18, padding: "1.5rem" }}>
+              <div key={report.id} style={{ background: "var(--surface)", border: `1px solid ${isDone ? "var(--green-dim2)" : S.border}`, borderRadius: 18, padding: "1.5rem" }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: "1rem" }}>
                   <span style={{ fontSize: "1.8rem" }}>{report.emoji}</span>
                   <div>
                     <div style={{ fontSize: "0.88rem", fontWeight: 700, marginBottom: 4 }}>{report.name}</div>
                     <div style={{ display: "flex", gap: 8 }}>
-                      <span style={{ fontSize: "0.65rem", padding: "0.15rem 0.5rem", borderRadius: 100, background: S.surface2, color: S.text2 }}>{report.standard}</span>
+                      <span style={{ fontSize: "0.65rem", padding: "0.15rem 0.5rem", borderRadius: 100, background: "var(--surface-2)", color: "var(--text-2)" }}>{report.standard}</span>
                       <span style={{ fontSize: "0.65rem", color: S.text3 }}>{report.pages}</span>
                     </div>
                   </div>
                 </div>
-                <p style={{ fontSize: "0.75rem", color: S.text2, lineHeight: 1.65, marginBottom: "1.25rem" }}>{report.desc}</p>
-                <div style={{ background: S.surface2, borderRadius: 10, padding: "0.75rem", marginBottom: "1rem" }}>
+                <p style={{ fontSize: "0.75rem", color: "var(--text-2)", lineHeight: 1.65, marginBottom: "1.25rem" }}>{report.desc}</p>
+                <div style={{ background: "var(--surface-2)", borderRadius: 10, padding: "0.75rem", marginBottom: "1rem" }}>
                   <div style={{ fontSize: "0.65rem", color: S.text3, marginBottom: 6 }}>Berichtsinhalt:</div>
                   {["Schulungsstand aller Mitarbeiter", "Zertifikatsstatus & Ablaufdaten", report.id !== "executive" ? "Phishing-Simulationsergebnisse" : "Executive-KPIs & Trends", "Handlungsempfehlungen"].map(item => (
-                    <div key={item} style={{ display: "flex", gap: 6, fontSize: "0.68rem", color: S.text2, marginBottom: 3 }}>
+                    <div key={item} style={{ display: "flex", gap: 6, fontSize: "0.68rem", color: "var(--text-2)", marginBottom: 3 }}>
                       <span style={{ color: S.text3 }}>·</span>{item}
                     </div>
                   ))}
@@ -119,8 +118,8 @@ export default function ReportsPage() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <span style={{ fontSize: "0.68rem", color: S.text3 }}>Stichtag: {new Date().toLocaleDateString("de-DE")}</span>
                   <button onClick={() => !isDone && handleGenerate(report.id)} style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.5rem 1rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: 700, border: "none", cursor: isDone ? "default" : "pointer",
-                    background: isDone ? "rgba(0,217,126,0.12)" : isGenerating ? S.surface2 : S.accent,
-                    color: isDone ? S.green : isGenerating ? S.text2 : S.bg,
+                    background: isDone ? "var(--green-dim2)" : isGenerating ? "var(--surface-2)" : S.accent,
+                    color: isDone ? S.green : isGenerating ? "var(--text-2)" : "var(--accent-fg)",
                   }}>
                     {isGenerating ? (
                       <><div style={{ width: 10, height: 10, borderRadius: "50%", border: `1.5px solid ${S.text3}`, borderTopColor: "transparent", animation: "spin 0.7s linear infinite" }} /> Generiere...</>
@@ -137,19 +136,19 @@ export default function ReportsPage() {
         </div>
 
         {/* Scheduled reports */}
-        <div style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 18, padding: "1.5rem" }}>
-          <div style={{ fontSize: "0.7rem", color: S.text2, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1.25rem" }}>📬 Automatische Berichte</div>
+        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 18, padding: "1.5rem" }}>
+          <div style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1.25rem" }}>📬 Automatische Berichte</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {scheduledReports.map(sched => (
-              <div key={sched.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.85rem 1rem", background: S.surface2, borderRadius: 12 }}>
+              <div key={sched.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.85rem 1rem", background: "var(--surface-2)", borderRadius: 12 }}>
                 <div>
                   <div style={{ fontSize: "0.82rem", fontWeight: 500, marginBottom: 2 }}>{sched.label}</div>
-                  <div style={{ fontSize: "0.68rem", color: S.text2 }}>{sched.schedule}</div>
+                  <div style={{ fontSize: "0.68rem", color: "var(--text-2)" }}>{sched.schedule}</div>
                 </div>
                 {/* Toggle */}
                 <div onClick={() => setToggles(t => ({ ...t, [sched.label]: !t[sched.label] }))}
-                  style={{ width: 38, height: 22, borderRadius: 100, background: toggles[sched.label] ? S.accent : S.surface, border: `1px solid ${S.border}`, position: "relative", cursor: "pointer", transition: "background 0.2s" }}>
-                  <div style={{ position: "absolute", top: 2, left: toggles[sched.label] ? 18 : 2, width: 16, height: 16, borderRadius: "50%", background: toggles[sched.label] ? S.bg : S.text3, transition: "left 0.2s" }} />
+                  style={{ width: 38, height: 22, borderRadius: 100, background: toggles[sched.label] ? S.accent : "var(--surface)", border: `1px solid ${S.border}`, position: "relative", cursor: "pointer", transition: "background 0.2s" }}>
+                  <div style={{ position: "absolute", top: 2, left: toggles[sched.label] ? 18 : 2, width: 16, height: 16, borderRadius: "50%", background: toggles[sched.label] ? "var(--accent-fg)" : S.text3, transition: "left 0.2s" }} />
                 </div>
               </div>
             ))}
