@@ -1,0 +1,616 @@
+"use client";
+import { use, useState } from "react";
+import Link from "next/link";
+import DashboardLayout from "@/components/DashboardLayout";
+import { modules } from "@/lib/data";
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
+
+const S = {
+  accent: "#CCFF00", text: "#F5F5F7", text2: "#88888E", text3: "#44444C",
+  border: "rgba(255,255,255,0.06)", surface: "#131316", surface2: "#1A1A1E", surface3: "#222228",
+  bg: "#0C0C0F", green: "#00D97E", red: "#FF4545", amber: "#F59E0B",
+};
+
+type Phase = "intro" | "content" | "quiz" | "complete";
+
+/* ════════════════════════════════════════
+   PHISHING EMAIL DEMO
+════════════════════════════════════════ */
+function PhishingEmailDemo() {
+  const [found, setFound] = useState<Set<number>>(new Set());
+  const [active, setActive] = useState<number | null>(null);
+
+  const hints = [
+    { id: 1, label: "Gefälschte Absender-Domain", desc: "«microsofft-helpdesk.com» ist nicht Microsoft. Echte Microsoft-Mails kommen ausschließlich von @microsoft.com. Achte immer auf alles nach dem @-Zeichen." },
+    { id: 2, label: "Künstliche Dringlichkeit", desc: "«In 24 Stunden gesperrt» soll Panik auslösen und zu übereiltem Handeln verleiten. Seriöse Unternehmen setzen Nutzer nie so unter Zeitdruck." },
+    { id: 3, label: "Zugangsdaten-Abfrage", desc: "Kein seriöser Dienst fordert Dich per E-Mail auf, Anmeldedaten zu «bestätigen». Das ist das Kern-Ziel von Phishing." },
+    { id: 4, label: "Gefälschte Link-URL", desc: "Der Button führt zu «microsoft-login.security-verify.com» — nicht zu microsoft.com. Die echte Domain steht immer direkt vor dem ersten «/»." },
+    { id: 5, label: "Fear-Tactic: Datenverlust", desc: "«Alle Daten unwiderruflich gelöscht» ist eine Drohung, um Dich ohne Nachdenken klicken zu lassen. Typische Einschüchterungstaktik." },
+  ];
+
+  function Hint({ id, children }: { id: number; children: React.ReactNode }) {
+    const cls = found.has(id) ? (active === id ? "hint-target active" : "hint-target found") : "hint-target";
+    return (
+      <span className={cls} onClick={() => { setActive(id); setFound(f => new Set([...f, id])); }}>
+        {children}
+        <sup style={{ fontSize: "0.55em", color: S.red, marginLeft: 1, fontWeight: 800 }}>{id}</sup>
+      </span>
+    );
+  }
+
+  const activeHint = hints.find(h => h.id === active);
+  const allFound = found.size === hints.length;
+
+  return (
+    <div>
+      {/* Counter */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+        <span style={{ fontSize: "0.7rem", color: S.text2 }}>🔍 Klicke auf die unterstrichenen Stellen</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ display: "flex", gap: 3 }}>
+            {hints.map(h => (
+              <div key={h.id} style={{ width: 7, height: 7, borderRadius: "50%", background: found.has(h.id) ? S.red : S.surface3, transition: "background 0.3s ease" }} />
+            ))}
+          </div>
+          <span style={{ fontSize: "0.7rem", fontWeight: 700, color: allFound ? S.red : S.text2 }}>{found.size}/5</span>
+        </div>
+      </div>
+
+      {/* Email client */}
+      <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)", marginBottom: 10 }}>
+        {/* Mac title bar */}
+        <div style={{ background: "#1E1E22", padding: "8px 12px", display: "flex", alignItems: "center", gap: 6, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+          <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FF5F57" }} />
+          <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FEBC2E" }} />
+          <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#28C840" }} />
+          <span style={{ marginLeft: "auto", fontSize: "0.62rem", color: "#555" }}>Mail — Posteingang (1)</span>
+        </div>
+        {/* Headers */}
+        <div style={{ background: "#16161A", padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)", fontSize: "0.75rem", lineHeight: 2.1 }}>
+          <div style={{ display: "flex", gap: 8 }}>
+            <span style={{ color: "#555", width: 56, flexShrink: 0 }}>Von:</span>
+            <Hint id={1}>support@<strong>microsofft-helpdesk.com</strong></Hint>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <span style={{ color: "#555", width: 56, flexShrink: 0 }}>An:</span>
+            <span style={{ color: "#777" }}>sie@ihr-unternehmen.de</span>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <span style={{ color: "#555", width: 56, flexShrink: 0 }}>Betreff:</span>
+            <span style={{ color: "#EEE", fontWeight: 600 }}>⚠️ DRINGEND: Ihr Konto wird <Hint id={2}>in 24 Stunden gesperrt</Hint></span>
+          </div>
+        </div>
+        {/* Body */}
+        <div style={{ background: "#141417", padding: "16px 20px", fontSize: "0.82rem", color: "#AAA", lineHeight: 1.9 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 5, marginBottom: 14, background: "#0078d4", padding: "4px 10px", borderRadius: 5 }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.72rem", letterSpacing: "0.05em" }}>Microsoft</span>
+          </div>
+          <p style={{ marginBottom: 10, color: "#CCC" }}>Sehr geehrte/r Nutzer/in,</p>
+          <p style={{ marginBottom: 10, color: "#CCC" }}>
+            wir haben ungewöhnliche Aktivitäten in Ihrem Konto festgestellt. Um eine Sperrung zu verhindern, müssen Sie Ihre <Hint id={3}>Anmeldedaten sofort bestätigen</Hint>.
+          </p>
+          <div style={{ margin: "16px 0" }}>
+            <Hint id={4}>
+              <span style={{ display: "inline-block", background: "#0078d4", color: "#fff", padding: "8px 18px", borderRadius: 6, fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.02em" }}>
+                JETZT KONTO SICHERN →
+              </span>
+            </Hint>
+            <div style={{ fontSize: "0.6rem", color: "#3A3A40", marginTop: 4 }}>
+              https://microsoft-login.<strong style={{ color: "#555" }}>security-verify.com</strong>/auth?session=...
+            </div>
+          </div>
+          <p style={{ color: "#888" }}>
+            Falls Sie nicht reagieren, wird Ihr Konto gesperrt und <Hint id={5}>alle Ihre Daten werden unwiderruflich gelöscht</Hint>.
+          </p>
+          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.04)", fontSize: "0.62rem", color: "#3A3A40" }}>
+            Microsoft Corporation · One Microsoft Way · Redmond, WA 98052
+          </div>
+        </div>
+      </div>
+
+      {/* Explanation */}
+      {activeHint && (
+        <div key={activeHint.id} className="fade-up" style={{ background: "rgba(255,69,69,0.06)", border: "1px solid rgba(255,69,69,0.2)", borderRadius: 12, padding: "0.9rem 1rem", marginBottom: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+            <span style={{ background: S.red, color: "#fff", fontSize: "0.6rem", fontWeight: 800, padding: "0.1rem 0.5rem", borderRadius: 100 }}>GEFAHR #{activeHint.id}</span>
+            <span style={{ fontSize: "0.82rem", fontWeight: 700, color: S.text }}>{activeHint.label}</span>
+          </div>
+          <p style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>{activeHint.desc}</p>
+        </div>
+      )}
+
+      {allFound && (
+        <div className="pop" style={{ background: "rgba(0,217,126,0.06)", border: "1px solid rgba(0,217,126,0.22)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
+          <div style={{ fontSize: "1.6rem", marginBottom: 4 }}>🎉</div>
+          <div style={{ fontWeight: 800, color: S.green, marginBottom: 2 }}>Alle 5 Phishing-Merkmale gefunden!</div>
+          <div style={{ fontSize: "0.75rem", color: S.text2 }}>Sie können Phishing-Mails jetzt sicher erkennen.</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════
+   PASSWORD STRENGTH DEMO
+════════════════════════════════════════ */
+function PasswordStrengthDemo() {
+  const [pw, setPw] = useState("");
+  const [show, setShow] = useState(false);
+
+  const checks = [
+    { label: "Mindestens 12 Zeichen", ok: pw.length >= 12 },
+    { label: "Großbuchstaben (A–Z)", ok: /[A-Z]/.test(pw) },
+    { label: "Kleinbuchstaben (a–z)", ok: /[a-z]/.test(pw) },
+    { label: "Zahlen (0–9)", ok: /[0-9]/.test(pw) },
+    { label: "Sonderzeichen (!@#$…)", ok: /[^A-Za-z0-9]/.test(pw) },
+  ];
+  const strength = checks.filter(c => c.ok).length;
+  const labels = ["Sehr schwach", "Schwach", "Mittel", "Stark", "Sehr stark"];
+  const colors = [S.red, "#FF8C00", S.amber, S.green, S.accent];
+  const examples = ["Hund123", "P@ssw0rd", "korrekt-pferd-batterie", "X9#mK!2vQ&wR"];
+
+  return (
+    <div>
+      <p style={{ fontSize: "0.75rem", color: S.text2, marginBottom: 12 }}>
+        💡 Gib ein Passwort ein und sieh in Echtzeit wie sicher es ist:
+      </p>
+      <div style={{ position: "relative", marginBottom: 12 }}>
+        <input
+          type={show ? "text" : "password"}
+          value={pw}
+          onChange={e => setPw(e.target.value)}
+          placeholder="Passwort eingeben…"
+          style={{ width: "100%", background: S.surface2, border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "0.8rem 3rem 0.8rem 1rem", fontSize: "0.95rem", color: S.text, outline: "none", fontFamily: "monospace", letterSpacing: "0.05em" }}
+        />
+        <button onClick={() => setShow(s => !s)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", lineHeight: 1 }}>
+          {show ? "🙈" : "👁️"}
+        </button>
+      </div>
+
+      {/* Strength bars */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 6 }}>
+        {[0,1,2,3,4].map(i => (
+          <div key={i} style={{ flex: 1, height: 5, borderRadius: 100, background: i < strength ? colors[Math.min(strength - 1, 4)] : S.surface3, transition: "background 0.3s ease" }} />
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: pw.length > 0 ? 12 : 0, fontSize: "0.72rem" }}>
+        <span style={{ color: pw.length > 0 ? colors[Math.min(strength - 1, 4)] : S.text3, fontWeight: 700, transition: "color 0.3s" }}>
+          {pw.length > 0 ? (labels[Math.min(strength - 1, 4)] ?? "Sehr schwach") : ""}
+        </span>
+        {pw.length > 0 && <span style={{ color: S.text2 }}>{pw.length} Zeichen</span>}
+      </div>
+
+      {/* Checklist */}
+      {pw.length > 0 && (
+        <div className="fade-in" style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+          {checks.map(c => (
+            <div key={c.label} style={{ display: "flex", gap: 8, alignItems: "center", fontSize: "0.78rem", color: c.ok ? S.green : S.text2, transition: "color 0.25s" }}>
+              <span style={{ fontWeight: 700, color: c.ok ? S.green : S.text3, transition: "color 0.25s", width: 14, flexShrink: 0 }}>{c.ok ? "✓" : "○"}</span>
+              {c.label}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Examples */}
+      <p style={{ fontSize: "0.68rem", color: S.text3, marginBottom: 7 }}>Beispiele ausprobieren:</p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {examples.map(ex => (
+          <button key={ex} onClick={() => setPw(ex)} style={{ padding: "0.3rem 0.75rem", borderRadius: 100, fontSize: "0.7rem", background: S.surface3, border: "1px solid rgba(255,255,255,0.06)", color: S.text2, cursor: "pointer", fontFamily: "monospace", transition: "border-color 0.15s" }}>
+            {ex}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════
+   TOPIC CONTENT MAP
+════════════════════════════════════════ */
+const topicContents: Record<number, string[]> = {
+  1: ["Eine **Domain** ist die lesbare Adresse einer Website (z.B. 'example.com'). Die **URL** ist die vollständige Adresse inklusive Protokoll und Pfad: 'https://example.com/seite'.", "**HTTP** überträgt Daten unverschlüsselt. **HTTPS** nutzt TLS-Verschlüsselung. Erkennbar am Schloss-Symbol im Browser – immer auf HTTPS achten bei sensiblen Daten.", "Das **DNS** ist das 'Telefonbuch des Internets'. Es übersetzt Domainnamen wie 'google.com' in numerische IP-Adressen, die Computer für Verbindungen brauchen.", "**IP-Adressen** identifizieren Geräte im Netzwerk eindeutig. IPv4-Format: 192.168.1.1 – IPv6 ist länger. Öffentliche IPs sind weltweit eindeutig, private nur lokal.", "Prüfen Sie immer das **Schlosssymbol** und die Domain im Browser. Misstrauisch bei ähnlichen Domains wie 'gooogle.com' oder 'bank-login.de' (Typosquatting)."],
+  2: ["Phishing-Mails erkennt man an: **Dringlichkeit** ('Konto gesperrt!'), **Rechtschreibfehlern**, **verdächtiger Absenderadresse** und **unerwarteten Anhängen**.", "**Social Engineering** manipuliert psychologisch: Autorität ('Ich bin Ihr CEO'), Dringlichkeit, Angst, Hilfsbereitschaft. Immer kritisch hinterfragen.", "Prüfen Sie den **vollständigen Absender**: 'service@paypal-sicher.net' ≠ PayPal. Hover über Links für echte URL. Im Zweifel direkt die Website aufrufen.", "**Gefährliche Links** imitieren echte URLs: 'paypa1.com', 'paypal.login-check.com', 'paypal.com.phish.net'. Die echte Domain steht immer direkt vor dem ersten '/'.", "**Sofortmaßnahmen**: Nicht klicken, IT-Sicherheitsbeauftragten informieren, als Phishing melden. Bei Klick: Passwörter sofort ändern und IT kontaktieren."],
+  3: ["Ein **sicheres Passwort** hat min. 16 Zeichen mit Groß-/Kleinbuchstaben, Zahlen, Sonderzeichen. Besser: **Passphrase** aus 4+ zufälligen Wörtern.", "Ein **Passwortmanager** (Bitwarden, 1Password) speichert alle Passwörter verschlüsselt. Sie merken sich nur ein Master-Passwort und er generiert starke, einzigartige Passwörter.", "**2FA/MFA** fügt einen zweiten Faktor hinzu. Selbst bei gestohlenem Passwort kann sich niemand ohne den zweiten Faktor (App, Hardware-Key) einloggen.", "**Passwort-Hygiene**: Niemals mehrere Dienste mit gleichem Passwort. Nicht per E-Mail senden. Keine Post-Its. Regelmäßig auf Datenlecks prüfen (haveibeenpwned.com).", "**Sichere Wiederherstellung**: Backup-Codes sicher aufbewahren, Backup-E-Mail aktuell halten. Hardware-Keys (YubiKey) sind die sicherste 2FA-Methode."],
+  4: ["**Personenbezogene Daten** sind alle Informationen, die eine Person direkt oder indirekt identifizieren: Name, E-Mail, IP-Adresse, Standort, biometrische Daten.", "Eine **Einwilligung** muss freiwillig, spezifisch, informiert und eindeutig sein. Vorausgefüllte Checkboxen sind ungültig. Jede Einwilligung ist widerrufbar.", "**Betroffenenrechte**: Auskunft, Berichtigung, Löschung ('Recht auf Vergessenwerden'), Einschränkung, Portabilität, Widerspruch. Antrag muss innerhalb eines Monats beantwortet werden.", "Eine **Datenpanne** muss binnen 72 Stunden der Aufsichtsbehörde gemeldet werden (Art. 33 DSGVO). Bei hohem Risiko müssen Betroffene direkt informiert werden.", "Ein **Datenschutzbeauftragter** (DSB) ist ab 20 Personen mit regelmäßiger Datenverarbeitung Pflicht. Er ist intern unabhängig und weisungsfrei tätig."],
+  5: ["**Software-Updates** schließen Sicherheitslücken (CVEs). Automatische Updates aktivieren für OS und Anwendungen. Ungepatchte Systeme sind das häufigste Angriffsziel.", "Die **Bildschirmsperre** aktiviert nach max. 5 Min. Inaktivität und erfordert Authentifizierung. Shortcut: Win+L (Windows) / Ctrl+Cmd+Q (Mac). Immer beim Verlassen des Platzes.", "**VPN** verschlüsselt den gesamten Netzwerkverkehr. Pflicht bei öffentlichem WLAN, Homeoffice-Zugang zum Firmennetz. Nur firmenseitig bereitgestellte VPN-Dienste nutzen.", "In **öffentlichen WLANs** können Angreifer Daten mitlesen ('Man-in-the-Middle'). VPN aktivieren oder mobiles Netz verwenden für sensitive Aktivitäten.", "**Endpoint Security**: Antivirus, Firewall, Festplattenverschlüsselung (BitLocker/FileVault), regelmäßige Backups, MDM für Firmendaten auf Mobilgeräten."],
+  6: ["**Gefährliche Anhänge**: .exe, .bat, .vbs, .js sowie Office-Dokumente mit Makros (.docm, .xlsm). Niemals unerwartete Anhänge öffnen, auch nicht von bekannten Adressen.", "**Link-Prüfung**: Vor dem Klick über Link hovern für echte URL, Ziel-Domain prüfen. Kurz-URLs (bit.ly) können zu beliebigen Zielen führen – im Zweifel nicht klicken.", "**CEO-Fraud (BEC)**: Täter geben sich als CEO oder Lieferant aus und fordern Überweisungen. Regel: Finanzielle Anfragen per E-Mail immer telefonisch verifizieren.", "**E-Mail-Spoofing** fälscht die Absenderadresse. Auch bekannte Absender können gefälscht sein. Bei unerwarteten Anfragen immer persönlich oder telefonisch bestätigen.", "**Verdächtige E-Mails** immer an IT-Sicherheit weiterleiten und danach löschen. Nicht an Kollegen weiterleiten. IT kann wichtige Informationen daraus gewinnen."],
+  7: ["**Cloud-Anbieter** sollten Zertifizierungen (ISO 27001, SOC 2) haben. Für DSGVO-Konformität: Auftragsverarbeitungsvertrag (AVV) abschließen. Nur freigegebene Dienste nutzen.", "**Zugriffsrechte** nach Least Privilege: Jeder erhält nur notwendige Rechte. Regelmäßige Überprüfung und Entzug nicht mehr benötigter Rechte ist essentiell.", "Daten in der Cloud sollten verschlüsselt sein: **In Transit** (TLS) und **at Rest**. Für höchste Sicherheit: Client-seitige Verschlüsselung, bei der nur Sie den Schlüssel haben.", "**3-2-1-Backup-Regel**: 3 Kopien auf 2 verschiedenen Medientypen, davon 1 extern. Backups regelmäßig testen – ein nicht getestetes Backup ist kein Backup.", "Im **Shared Responsibility Model** schützt der Anbieter die Infrastruktur, der Kunde ist für Daten, Anwendungen und Zugriffsrechte selbst verantwortlich."],
+  8: ["**App-Berechtigungen** nach Minimum-Prinzip: Taschenlampe braucht keine Kontakte. Einstellungen → Apps → Berechtigungen regelmäßig überprüfen und einschränken.", "**BYOD** (Bring Your Own Device): Klare Richtlinien für Sicherheit, Passwortschutz, verschlüsselter Speicher und MDM-Profil auf privaten Geräten, die geschäftlich genutzt werden.", "**MDM** (Mobile Device Management): Zentrale App-Verwaltung, Richtlinien durchsetzen, Fernlöschung bei Verlust, Verschlüsselung erzwingen auf allen Firmengeräten.", "**Fernlöschung** ('Remote Wipe'): Bei Verlust oder Diebstahl sofort IT informieren. Alle Daten können per MDM remote gelöscht werden. 'Mein Gerät finden' aktivieren.", "**Mobile Malware** über inoffizielle App-Stores, kompromittierte Apps, 'Smishing' (SMS-Phishing), gefälschte WLAN-Hotspots. Nur offizielle Stores nutzen."],
+};
+
+/* Extract bold keywords from text */
+function extractConcepts(text: string): string[] {
+  const parts = text.split("**");
+  const concepts: string[] = [];
+  for (let i = 1; i < parts.length; i += 2) {
+    if (parts[i].length < 32) concepts.push(parts[i]);
+  }
+  return concepts.slice(0, 3);
+}
+
+/* Render text with **bold** */
+function renderBody(text: string) {
+  return text.split("**").map((p, i) =>
+    i % 2 === 1
+      ? <strong key={i} style={{ color: S.text, fontWeight: 700 }}>{p}</strong>
+      : <span key={i}>{p}</span>
+  );
+}
+
+/* ════════════════════════════════════════
+   MAIN PAGE
+════════════════════════════════════════ */
+export default function ModuleDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const mod = modules.find(m => m.id === parseInt(id));
+
+  const [phase, setPhase]           = useState<Phase>("intro");
+  const [activeTopic, setActiveTopic] = useState(0);
+  const [visitedTopics, setVisitedTopics] = useState<Set<number>>(new Set([0]));
+  const [animDir, setAnimDir]       = useState<"right" | "left">("right");
+  const [contentKey, setContentKey] = useState(0);
+
+  // Quiz state
+  const [qi, setQi]           = useState(0);
+  const [sel, setSel]         = useState<number | null>(null);
+  const [answers, setAnswers] = useState<boolean[]>([]);
+  const [showExp, setShowExp] = useState(false);
+  const [shakeIdx, setShakeIdx] = useState<number | null>(null);
+
+  if (!mod) return <DashboardLayout><div style={{ textAlign: "center", padding: "4rem", color: S.text2 }}>Modul nicht gefunden.</div></DashboardLayout>;
+
+  const contents = topicContents[mod.id] ?? mod.topics.map(t => `Inhalt zu "${t}"`);
+  const q = mod.quizQuestions[qi];
+  const score = answers.length ? Math.round((answers.filter(Boolean).length / answers.length) * 100) : 0;
+
+  function goToTopic(i: number) {
+    setAnimDir(i >= activeTopic ? "right" : "left");
+    setActiveTopic(i);
+    setVisitedTopics(v => new Set([...v, i]));
+    setContentKey(k => k + 1);
+  }
+
+  function confirmAnswer() {
+    if (sel === null) return;
+    const correct = sel === q.correctIndex;
+    setAnswers(a => [...a, correct]);
+    setShowExp(true);
+    if (!correct) {
+      setShakeIdx(sel);
+      setTimeout(() => setShakeIdx(null), 500);
+    }
+  }
+
+  function nextQ() {
+    setShowExp(false); setSel(null);
+    qi + 1 < mod.quizQuestions.length ? setQi(qi + 1) : setPhase("complete");
+  }
+
+  const topicsVisitedCount = visitedTopics.size;
+
+  /* ── INTRO ── */
+  if (phase === "intro") return (
+    <DashboardLayout>
+      <div style={{ maxWidth: 700, margin: "0 auto" }}>
+        <Link href="/modules" className="fade-up" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: S.text2, textDecoration: "none", fontSize: "0.82rem", marginBottom: "1.5rem" }}>
+          <ArrowLeft size={14} /> Alle Module
+        </Link>
+
+        <div className="fade-up-1" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, overflow: "hidden" }}>
+          <div style={{ height: 160, background: "linear-gradient(135deg, #1A1A1E, #222228)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "5rem" }}>
+            {mod.icon}
+          </div>
+          <div style={{ padding: "2rem" }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: "1rem" }}>
+              <span style={{ fontSize: "0.65rem", fontWeight: 700, padding: "0.2rem 0.6rem", borderRadius: 100, background: mod.category === "Pflicht" ? "rgba(59,130,246,0.15)" : "rgba(255,69,69,0.15)", color: mod.category === "Pflicht" ? "#60A5FA" : "#FF6B6B" }}>{mod.category}</span>
+              <span style={{ fontSize: "0.65rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 100, background: S.surface2, color: S.text2 }}>{mod.difficulty}</span>
+            </div>
+            <h1 style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "0.75rem" }}>{mod.title}</h1>
+            <p style={{ color: S.text2, lineHeight: 1.65, marginBottom: "1.5rem" }}>{mod.description}</p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: "1.75rem" }}>
+              <div style={{ background: S.surface2, borderRadius: 14, padding: "1rem" }}>
+                <div className="label" style={{ marginBottom: 10 }}>Themen</div>
+                {mod.topics.map((t, i) => (
+                  <div key={t} style={{ fontSize: "0.78rem", color: S.text2, marginBottom: 5, display: "flex", gap: 8, alignItems: "center" }}>
+                    <span style={{ fontSize: "0.6rem", color: S.accent, fontWeight: 700 }}>{i + 1}</span>{t}
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: S.surface2, borderRadius: 14, padding: "1rem" }}>
+                {[["Dauer", mod.duration], ["Level", mod.difficulty], ["Kategorie", mod.category], ["Wissenscheck", `${mod.quizQuestions.length} Fragen`]].map(([k, v]) => (
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", marginBottom: 9 }}>
+                    <span style={{ fontSize: "0.72rem", color: S.text2 }}>{k}</span>
+                    <span style={{ fontSize: "0.72rem", fontWeight: 600 }}>{v}</span>
+                  </div>
+                ))}
+                {(mod.id === 2) && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(255,69,69,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "#FF8080" }}>
+                    🎯 Enthält interaktive Phishing-Demo
+                  </div>
+                )}
+                {(mod.id === 3) && (
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(204,255,0,0.06)", borderRadius: 8, fontSize: "0.68rem", color: S.accent }}>
+                    🔑 Enthält Passwort-Stärke-Demo
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <button onClick={() => { setPhase("content"); setVisitedTopics(new Set([0])); }} style={{ width: "100%", padding: "0.9rem", background: S.accent, color: S.bg, fontWeight: 800, fontSize: "0.9rem", border: "none", borderRadius: 100, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "opacity 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = "0.9")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "1")}>
+              Modul starten <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+
+  /* ── CONTENT ── */
+  if (phase === "content") return (
+    <DashboardLayout>
+      <div style={{ maxWidth: 780, margin: "0 auto" }}>
+        <Link href="/modules" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: S.text2, textDecoration: "none", fontSize: "0.82rem", marginBottom: "1.25rem" }}>
+          <ArrowLeft size={14} /> Alle Module
+        </Link>
+
+        {/* Progress */}
+        <div style={{ marginBottom: "1.5rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: S.text2, marginBottom: 5 }}>
+            <span>{topicsVisitedCount}/{mod.topics.length} Themen erkundet</span>
+            <span style={{ color: S.accent }}>{mod.title}</span>
+          </div>
+          <div style={{ height: 3, background: S.surface2, borderRadius: 100 }}>
+            <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: S.accent, width: `${(topicsVisitedCount / mod.topics.length) * 100}%` }} />
+          </div>
+        </div>
+
+        {/* Tab bar */}
+        <div style={{ display: "flex", gap: 6, marginBottom: 16, overflowX: "auto", paddingBottom: 4 }}>
+          {mod.topics.map((t, i) => {
+            const active = activeTopic === i;
+            const visited = visitedTopics.has(i);
+            return (
+              <button key={t} onClick={() => goToTopic(i)} style={{
+                padding: "0.45rem 0.9rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: active ? 700 : 500,
+                border: active ? "none" : `1px solid ${S.border}`,
+                background: active ? S.accent : visited ? "rgba(204,255,0,0.06)" : "transparent",
+                color: active ? S.bg : visited ? S.accent : S.text2,
+                cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", gap: 5,
+                transition: "all 0.18s ease",
+              }}>
+                {visited && !active && <span style={{ fontSize: "0.6rem" }}>✓</span>}
+                <span style={{ fontWeight: 700, fontSize: "0.62rem", opacity: 0.6, marginRight: 1 }}>{i + 1}</span>
+                {t}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Content card */}
+        <div style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem", marginBottom: 12 }}>
+          <div key={`${mod.id}-${contentKey}`} className={animDir === "right" ? "slide-in-right" : "slide-in-left"}>
+            {/* Topic header */}
+            <div className="label" style={{ marginBottom: "0.5rem" }}>Thema {activeTopic + 1} von {mod.topics.length}</div>
+            <h2 style={{ fontSize: "1.35rem", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "1.25rem" }}>{mod.topics[activeTopic]}</h2>
+
+            {/* Concept chips */}
+            {(() => {
+              const concepts = extractConcepts(contents[activeTopic] ?? "");
+              if (!concepts.length) return null;
+              return (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "1.25rem" }}>
+                  {concepts.map(c => (
+                    <span key={c} style={{ fontSize: "0.68rem", fontWeight: 700, padding: "0.2rem 0.65rem", borderRadius: 100, background: "rgba(204,255,0,0.08)", color: S.accent, border: "1px solid rgba(204,255,0,0.15)" }}>{c}</span>
+                  ))}
+                </div>
+              );
+            })()}
+
+            {/* Main text */}
+            <div style={{ fontSize: "0.92rem", color: S.text2, lineHeight: 1.85, marginBottom: "1.5rem" }}>
+              {renderBody(contents[activeTopic] ?? "")}
+            </div>
+
+            {/* Interactive demos */}
+            {mod.id === 2 && activeTopic === 1 && (
+              <div>
+                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Phishing-Mail</div>
+                <PhishingEmailDemo />
+              </div>
+            )}
+            {mod.id === 3 && activeTopic === 0 && (
+              <div>
+                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Passwort-Stärke</div>
+                <PasswordStrengthDemo />
+              </div>
+            )}
+
+            {/* Key takeaway box */}
+            <div style={{ background: S.surface2, borderRadius: 14, padding: "1rem 1.25rem", display: "flex", gap: 10, alignItems: "flex-start" }}>
+              <span style={{ fontSize: "1rem", flexShrink: 0 }}>💡</span>
+              <span style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>
+                {activeTopic < mod.topics.length - 1
+                  ? `Weiter mit: ${mod.topics[activeTopic + 1]}`
+                  : "Alle Themen erkundet! Bereit für den Wissenscheck?"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Nav */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <button onClick={() => activeTopic > 0 ? goToTopic(activeTopic - 1) : setPhase("intro")}
+            style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.25rem", background: "transparent", border: `1px solid ${S.border}`, borderRadius: 100, color: S.text2, fontSize: "0.82rem", cursor: "pointer" }}>
+            <ArrowLeft size={14} /> Zurück
+          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            {activeTopic < mod.topics.length - 1 ? (
+              <button onClick={() => goToTopic(activeTopic + 1)}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
+                Weiter <ArrowRight size={14} />
+              </button>
+            ) : (
+              <button onClick={() => setPhase("quiz")}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}
+                className="glow-accent">
+                Zum Wissenscheck <ArrowRight size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Skip to quiz link */}
+        {topicsVisitedCount < mod.topics.length && (
+          <div style={{ textAlign: "center", marginTop: 12 }}>
+            <button onClick={() => setPhase("quiz")} style={{ background: "none", border: "none", color: S.text3, fontSize: "0.72rem", cursor: "pointer", textDecoration: "underline" }}>
+              Direkt zum Wissenscheck
+            </button>
+          </div>
+        )}
+      </div>
+    </DashboardLayout>
+  );
+
+  /* ── QUIZ ── */
+  if (phase === "quiz") return (
+    <DashboardLayout>
+      <div style={{ maxWidth: 680, margin: "0 auto" }}>
+        <Link href="/modules" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: S.text2, textDecoration: "none", fontSize: "0.82rem", marginBottom: "1.5rem" }}>
+          <ArrowLeft size={14} /> Alle Module
+        </Link>
+
+        {/* Progress bar */}
+        <div style={{ marginBottom: "1.5rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: S.text2, marginBottom: 5 }}>
+            <span>Frage {qi + 1} von {mod.quizQuestions.length}</span>
+            <span style={{ color: S.accent }}>Wissenscheck</span>
+          </div>
+          <div style={{ height: 3, background: S.surface2, borderRadius: 100 }}>
+            <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: S.accent, width: `${((qi) / mod.quizQuestions.length) * 100}%` }} />
+          </div>
+        </div>
+
+        <div className="fade-up" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem" }}>
+          {/* Answer dots */}
+          <div style={{ display: "flex", gap: 4, marginBottom: "1.5rem" }}>
+            {mod.quizQuestions.map((_, i) => (
+              <div key={i} style={{ flex: 1, height: 4, borderRadius: 100, transition: "background 0.3s",
+                background: i < answers.length ? (answers[i] ? S.green : S.red) : i === qi ? "rgba(255,255,255,0.25)" : S.surface2 }} />
+            ))}
+          </div>
+
+          {/* Question type badge */}
+          <span style={{ display: "inline-block", fontSize: "0.62rem", fontWeight: 700, padding: "0.18rem 0.6rem", borderRadius: 100, marginBottom: "1rem",
+            background: q.type === "scenario" ? "rgba(139,92,246,0.15)" : "rgba(59,130,246,0.15)",
+            color: q.type === "scenario" ? "#A78BFA" : "#60A5FA",
+          }}>
+            {q.type === "scenario" ? "Szenario" : "Multiple Choice"}
+          </span>
+
+          <h2 style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.5, marginBottom: "1.5rem" }}>{q.question}</h2>
+
+          {/* Answers */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: "1.5rem" }}>
+            {q.options.map((opt, i) => {
+              let bg = S.surface2, borderCol = S.border, color = S.text2;
+              if (!showExp && sel === i) { bg = "rgba(204,255,0,0.08)"; borderCol = "rgba(204,255,0,0.45)"; color = S.text; }
+              if (showExp) {
+                if (i === q.correctIndex) { bg = "rgba(0,217,126,0.08)"; borderCol = "rgba(0,217,126,0.45)"; color = S.green; }
+                else if (i === sel && i !== q.correctIndex) { bg = "rgba(255,69,69,0.08)"; borderCol = "rgba(255,69,69,0.35)"; color = S.red; }
+                else { color = S.text3; }
+              }
+              return (
+                <button key={i} onClick={() => !showExp && setSel(i)}
+                  className={shakeIdx === i ? "shake" : showExp && i === q.correctIndex ? "pop" : ""}
+                  style={{ width: "100%", textAlign: "left", padding: "0.85rem 1rem", borderRadius: 14, border: `1px solid ${borderCol}`, background: bg, color, fontSize: "0.85rem", cursor: showExp ? "default" : "pointer", display: "flex", gap: 12, alignItems: "flex-start", transition: "all 0.15s" }}>
+                  <span style={{ width: 22, height: 22, borderRadius: "50%", border: `1.5px solid ${borderCol}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.68rem", fontWeight: 700, flexShrink: 0, marginTop: 1, transition: "border-color 0.15s" }}>
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  <span style={{ flex: 1, lineHeight: 1.5 }}>{opt}</span>
+                  {showExp && i === q.correctIndex && <CheckCircle size={16} color={S.green} style={{ flexShrink: 0, marginTop: 2 }} />}
+                  {showExp && i === sel && i !== q.correctIndex && <XCircle size={16} color={S.red} style={{ flexShrink: 0, marginTop: 2 }} />}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Explanation */}
+          {showExp && (
+            <div className="fade-up" style={{
+              background: answers[answers.length - 1] ? "rgba(0,217,126,0.06)" : "rgba(255,69,69,0.06)",
+              border: `1px solid ${answers[answers.length - 1] ? "rgba(0,217,126,0.2)" : "rgba(255,69,69,0.2)"}`,
+              borderRadius: 14, padding: "1rem", marginBottom: "1.25rem", fontSize: "0.82rem",
+              color: answers[answers.length - 1] ? S.green : "#FF8080", lineHeight: 1.6,
+            }}>
+              <strong>{answers[answers.length - 1] ? "✓ Richtig! " : "✗ Falsch — "}</strong>{q.explanation}
+            </div>
+          )}
+
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            {!showExp
+              ? <button onClick={confirmAnswer} disabled={sel === null} style={{ padding: "0.7rem 1.75rem", background: sel === null ? S.surface2 : S.accent, color: sel === null ? S.text2 : S.bg, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: sel === null ? "not-allowed" : "pointer", transition: "all 0.15s" }}>
+                  Bestätigen
+                </button>
+              : <button onClick={nextQ} style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.7rem 1.75rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
+                  {qi + 1 < mod.quizQuestions.length ? "Nächste Frage" : "Abschließen"} <ArrowRight size={14} />
+                </button>
+            }
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+
+  /* ── COMPLETE ── */
+  return (
+    <DashboardLayout>
+      <div style={{ maxWidth: 600, margin: "0 auto" }}>
+        <div className="scale-in" style={{ background: S.surface, border: `1px solid ${score >= 70 ? "rgba(204,255,0,0.2)" : S.border}`, borderRadius: 24, padding: "3rem 2rem", textAlign: "center" }}>
+          <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>{score >= 70 ? "🎉" : "📚"}</div>
+          <div style={{ fontSize: "4.5rem", fontWeight: 900, letterSpacing: "-0.06em", lineHeight: 1, color: score >= 70 ? S.accent : S.text, marginBottom: "0.4rem" }}>
+            {score}<span style={{ fontSize: "2rem", color: S.text2 }}>%</span>
+          </div>
+          <div style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "0.4rem" }}>{score >= 70 ? "Modul abgeschlossen!" : "Nicht bestanden"}</div>
+          <div style={{ color: S.text2, fontSize: "0.85rem", marginBottom: "2rem" }}>
+            {answers.filter(Boolean).length}/{answers.length} Fragen richtig
+            {score >= 70 ? " · +150 Punkte" : " · 70 % zum Bestehen"}
+          </div>
+
+          {/* Score breakdown */}
+          <div style={{ display: "flex", gap: 4, justifyContent: "center", marginBottom: "2rem" }}>
+            {answers.map((a, i) => (
+              <div key={i} className="fade-up" style={{ width: 10, height: 10, borderRadius: "50%", background: a ? S.green : S.red, animationDelay: `${i * 0.05}s` }} />
+            ))}
+          </div>
+
+          {score >= 70 && (
+            <div style={{ background: "rgba(204,255,0,0.06)", border: "1px solid rgba(204,255,0,0.2)", borderRadius: 14, padding: "1rem", marginBottom: "2rem", fontSize: "0.82rem", color: S.accent }}>
+              Fortschritt gespeichert ✓
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+            {score < 70 && (
+              <button onClick={() => { setPhase("content"); setActiveTopic(0); setQi(0); setAnswers([]); setSel(null); setShowExp(false); setVisitedTopics(new Set([0])); }}
+                style={{ padding: "0.65rem 1.25rem", border: `1px solid ${S.border}`, background: "transparent", color: S.text2, borderRadius: 100, fontSize: "0.85rem", cursor: "pointer" }}>
+                Wiederholen
+              </button>
+            )}
+            <Link href="/modules" style={{ padding: "0.65rem 1.25rem", border: `1px solid ${S.border}`, background: "transparent", color: S.text2, borderRadius: 100, fontSize: "0.85rem", textDecoration: "none" }}>
+              Alle Module
+            </Link>
+            {mod.id < 8 && score >= 70 && (
+              <Link href={`/modules/${mod.id + 1}`} style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.65rem 1.5rem", background: S.accent, color: S.bg, fontWeight: 700, fontSize: "0.85rem", borderRadius: 100, textDecoration: "none" }}>
+                Nächstes Modul <ArrowRight size={14} />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+}
