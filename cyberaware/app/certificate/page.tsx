@@ -97,7 +97,7 @@ export default function CertificatePage() {
                 style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: `1px solid ${S.border}`, borderRadius: 12, padding: "0.75rem 1rem", display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer" }}>
                 <span style={{ fontSize: "1.2rem" }}>⬛</span>
                 <div style={{ flex: 1, textAlign: "left" }}>
-                  <div style={{ fontSize: "0.7rem", color: "var(--text-2)" }}>Verifikations-Hash</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-2)" }}>Zertifikat-ID · öffentlich prüfbar</div>
                   <div style={{ fontFamily: "monospace", fontSize: "0.75rem", color: "var(--text)" }}>{hash}</div>
                 </div>
                 <span style={{ fontSize: "0.7rem", color: "var(--text-2)" }}>{showQR ? "↑" : "QR"}</span>
@@ -113,7 +113,9 @@ export default function CertificatePage() {
                       return <div key={i} style={{ width: 10, height: 10, borderRadius: 2, background: (corner || (b === 1 && i % 4 !== 0)) ? "var(--bg)" : "transparent" }} />;
                     })}
                   </div>
-                  <div style={{ fontSize: "0.72rem", color: "var(--text-2)", marginTop: 8 }}>cyberaware.de/verify/{hash}</div>
+                  <Link href={`/check?id=${hash}`} style={{ fontSize: "0.72rem", color: "var(--accent-text)", marginTop: 8, display: "block", textDecoration: "none" }}>
+                    🔗 /check?id={hash}
+                  </Link>
                 </div>
               )}
             </div>

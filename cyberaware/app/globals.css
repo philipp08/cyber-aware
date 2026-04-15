@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════
-   DARK MODE (default)
+   THEME: White Page · Black Cards
 ═══════════════════════════════════════ */
 :root {
-  --bg:        #0C0C0F;
-  --surface:   #131316;
+  --bg:        #F0F0F4;
+  --surface:   #111116;
   --surface-2: #1A1A1E;
   --surface-3: #222228;
 
   --accent:      #CCFF00;
-  --accent-text: #CCFF00;          /* lime text on dark backgrounds */
-  --accent-fg:   #0C0C0F;          /* text ON lime buttons */
+  --accent-text: #CCFF00;
+  --accent-fg:   #0C0C0F;
   --accent-dim:  rgba(204,255,0,0.08);
   --accent-dim2: rgba(204,255,0,0.15);
   --accent-dim3: rgba(204,255,0,0.22);
 
-  --text:   #F0F0F2;               /* improved: was #F5F5F7 */
-  --text-2: #9A9AA6;               /* improved: was #88888E */
-  --text-3: #585862;               /* improved: was #44444C */
+  --text:   #F0F0F2;
+  --text-2: #8A8A96;
+  --text-3: #585862;
 
   --border:   rgba(255,255,255,0.08);
   --border-2: rgba(255,255,255,0.13);
@@ -33,48 +33,11 @@
   --amber-dim: rgba(245,158,11,0.08);
   --amber-dim2:rgba(245,158,11,0.20);
 
-  --shadow: 0 4px 24px rgba(0,0,0,0.5);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,0.6);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
   --radius-sm: 12px;
   --radius:    18px;
   --radius-lg: 24px;
-}
-
-/* ═══════════════════════════════════════
-   LIGHT MODE
-═══════════════════════════════════════ */
-html.light {
-  --bg:        #F2F2F7;
-  --surface:   #FFFFFF;
-  --surface-2: #EBEBF2;
-  --surface-3: #DFDFE8;
-
-  --accent:      #CCFF00;          /* lime fills stay the same */
-  --accent-text: #4A6B00;          /* dark olive — readable on white */
-  --accent-fg:   #0C0C0F;          /* text ON lime buttons */
-  --accent-dim:  rgba(120,190,0,0.10);
-  --accent-dim2: rgba(120,190,0,0.20);
-  --accent-dim3: rgba(120,190,0,0.28);
-
-  --text:   #111116;
-  --text-2: #4A4A58;
-  --text-3: #8888A0;
-
-  --border:   rgba(0,0,0,0.09);
-  --border-2: rgba(0,0,0,0.15);
-
-  --red:       #C82020;
-  --red-dim:   rgba(200,32,32,0.08);
-  --red-dim2:  rgba(200,32,32,0.18);
-  --green:     #007040;
-  --green-dim: rgba(0,112,64,0.08);
-  --green-dim2:rgba(0,112,64,0.16);
-  --amber:     #9A5E00;
-  --amber-dim: rgba(154,94,0,0.08);
-  --amber-dim2:rgba(154,94,0,0.18);
-
-  --shadow: 0 2px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
-  --shadow-lg: 0 6px 32px rgba(0,0,0,0.12);
 }
 
 /* ═══════════════════════════════════════
@@ -83,7 +46,7 @@ html.light {
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { background: var(--bg); color: var(--text); }
-html, html.light { transition: background 0.25s ease, color 0.25s ease; }
+html { transition: background 0.25s ease, color 0.25s ease; }
 
 body {
   background: var(--bg);
