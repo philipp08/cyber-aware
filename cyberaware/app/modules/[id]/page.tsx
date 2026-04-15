@@ -50,33 +50,36 @@ function PhishingEmailDemo() {
         </div>
       </div>
 
-      <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)", marginBottom: 10 }}>
-        <div style={{ background: "#1E1E22", padding: "8px 12px", display: "flex", alignItems: "center", gap: 6, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(0,0,0,0.08)", marginBottom: 10 }}>
+        {/* Mail app title bar */}
+        <div style={{ background: "#F8F8FC", padding: "8px 12px", display: "flex", alignItems: "center", gap: 6, borderBottom: "1px solid rgba(0,0,0,0.07)" }}>
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FF5F57" }} />
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FEBC2E" }} />
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#28C840" }} />
-          <span style={{ marginLeft: "auto", fontSize: "0.62rem", color: "#555" }}>Mail — Posteingang (1)</span>
+          <span style={{ marginLeft: "auto", fontSize: "0.62rem", color: "#8888A8" }}>Mail — Posteingang (1)</span>
         </div>
-        <div style={{ background: "#16161A", padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.04)", fontSize: "0.75rem", lineHeight: 2.1 }}>
+        {/* Mail header fields */}
+        <div style={{ background: "#FFFFFF", padding: "12px 16px", borderBottom: "1px solid rgba(0,0,0,0.06)", fontSize: "0.75rem", lineHeight: 2.1 }}>
           <div style={{ display: "flex", gap: 8 }}>
-            <span style={{ color: "#555", width: 56, flexShrink: 0 }}>Von:</span>
+            <span style={{ color: "#8888A8", width: 56, flexShrink: 0 }}>Von:</span>
             <Hint id={1}>support@<strong>microsofft-helpdesk.com</strong></Hint>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <span style={{ color: "#555", width: 56, flexShrink: 0 }}>An:</span>
-            <span style={{ color: "#777" }}>sie@ihr-unternehmen.de</span>
+            <span style={{ color: "#8888A8", width: 56, flexShrink: 0 }}>An:</span>
+            <span style={{ color: "#4A4A62" }}>sie@ihr-unternehmen.de</span>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <span style={{ color: "#555", width: 56, flexShrink: 0 }}>Betreff:</span>
-            <span style={{ color: "#EEE", fontWeight: 600 }}>⚠️ DRINGEND: Ihr Konto wird <Hint id={2}>in 24 Stunden gesperrt</Hint></span>
+            <span style={{ color: "#8888A8", width: 56, flexShrink: 0 }}>Betreff:</span>
+            <span style={{ color: "#0D0D16", fontWeight: 600 }}>⚠️ DRINGEND: Ihr Konto wird <Hint id={2}>in 24 Stunden gesperrt</Hint></span>
           </div>
         </div>
-        <div style={{ background: "#141417", padding: "16px 20px", fontSize: "0.82rem", color: "#AAA", lineHeight: 1.9 }}>
+        {/* Mail body */}
+        <div style={{ background: "#FAFAFA", padding: "16px 20px", fontSize: "0.82rem", color: "#4A4A62", lineHeight: 1.9 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 5, marginBottom: 14, background: "#0078d4", padding: "4px 10px", borderRadius: 5 }}>
             <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.72rem", letterSpacing: "0.05em" }}>Microsoft</span>
           </div>
-          <p style={{ marginBottom: 10, color: "#CCC" }}>Sehr geehrte/r Nutzer/in,</p>
-          <p style={{ marginBottom: 10, color: "#CCC" }}>
+          <p style={{ marginBottom: 10, color: "#0D0D16" }}>Sehr geehrte/r Nutzer/in,</p>
+          <p style={{ marginBottom: 10, color: "#0D0D16" }}>
             wir haben ungewöhnliche Aktivitäten in Ihrem Konto festgestellt. Um eine Sperrung zu verhindern, müssen Sie Ihre <Hint id={3}>Anmeldedaten sofort bestätigen</Hint>.
           </p>
           <div style={{ margin: "16px 0" }}>
@@ -85,14 +88,14 @@ function PhishingEmailDemo() {
                 JETZT KONTO SICHERN →
               </span>
             </Hint>
-            <div style={{ fontSize: "0.6rem", color: "#3A3A40", marginTop: 4 }}>
-              https://microsoft-login.<strong style={{ color: "#555" }}>security-verify.com</strong>/auth?session=...
+            <div style={{ fontSize: "0.6rem", color: "#8888A8", marginTop: 4 }}>
+              https://microsoft-login.<strong style={{ color: "#4A4A62" }}>security-verify.com</strong>/auth?session=...
             </div>
           </div>
-          <p style={{ color: "#888" }}>
+          <p style={{ color: "#4A4A62" }}>
             Falls Sie nicht reagieren, wird Ihr Konto gesperrt und <Hint id={5}>alle Ihre Daten werden unwiderruflich gelöscht</Hint>.
           </p>
-          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.04)", fontSize: "0.62rem", color: "#3A3A40" }}>
+          <div style={{ marginTop: 14, paddingTop: 10, borderTop: "1px solid rgba(0,0,0,0.06)", fontSize: "0.62rem", color: "#8888A8" }}>
             Microsoft Corporation · One Microsoft Way · Redmond, WA 98052
           </div>
         </div>
@@ -214,8 +217,10 @@ function URLAnatomyDemo() {
         🔍 Klicke auf die farbigen Teile der URL, um sie zu verstehen:
       </p>
 
-      {/* URL bar */}
-      <div style={{ background: "#141417", borderRadius: 12, padding: "0.85rem 1rem", marginBottom: 12, fontFamily: "monospace", fontSize: "0.9rem", display: "flex", flexWrap: "wrap", border: "1px solid rgba(255,255,255,0.07)", lineHeight: 2 }}>
+      {/* URL bar — styled like a browser address bar */}
+      <div style={{ background: "#F1F1F7", borderRadius: 12, padding: "0.65rem 1rem", marginBottom: 12, fontFamily: "monospace", fontSize: "0.9rem", display: "flex", flexWrap: "wrap", alignItems: "center", border: "1px solid rgba(0,0,0,0.08)", lineHeight: 2, gap: 0 }}>
+        {/* Lock icon */}
+        <span style={{ fontSize: "0.75rem", marginRight: 6, color: "#3B82F6", flexShrink: 0 }}>🔒</span>
         {parts.map(part => (
           <span
             key={part.id}
@@ -602,8 +607,18 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         </Link>
 
         <div className="fade-up-1" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, overflow: "hidden" }}>
-          <div style={{ height: 160, background: "linear-gradient(135deg, #1A1A1E, #222228)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "5rem" }}>
-            {mod.icon}
+          <div style={{
+            height: 160,
+            background: mod.category === "Pflicht"
+              ? "linear-gradient(135deg, #EFF6FF, #DBEAFE)"
+              : mod.category === "Kritisch"
+              ? "linear-gradient(135deg, #FFF1F0, #FFE4E6)"
+              : "linear-gradient(135deg, #FFFBEB, #FEF3C7)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <div style={{ width: 80, height: 80, background: "#FFFFFF", borderRadius: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "3rem", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+              {mod.icon}
+            </div>
           </div>
           <div style={{ padding: "2rem" }}>
             <div style={{ display: "flex", gap: 6, marginBottom: "1rem" }}>
@@ -693,12 +708,16 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
             const visited = visitedTopics.has(i);
             return (
               <button key={t} onClick={() => goToTopic(i)} style={{
-                padding: "0.45rem 0.9rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: isActive ? 700 : 500,
-                border: isActive ? "none" : `1px solid ${S.border}`,
-                background: isActive ? S.accent : visited ? S.accentDim3 : "transparent",
-                color: isActive ? S.accentFg : visited ? S.accentText : S.text2,
+                padding: "0.45rem 0.9rem",
+                borderRadius: 100,
+                fontSize: "0.75rem",
+                fontWeight: isActive ? 700 : 500,
+                border: isActive ? `2px solid ${S.accent}` : `1px solid ${S.border}`,
+                background: isActive ? S.accentDim : visited ? S.accentDim3 : "transparent",
+                color: isActive ? S.accentText : visited ? S.accentText : S.text2,
                 cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", gap: 5,
                 transition: "all 0.18s ease",
+                boxShadow: isActive ? `0 0 0 2px ${S.accentDim2}` : "none",
               }}>
                 {visited && !isActive && <span style={{ fontSize: "0.6rem" }}>✓</span>}
                 <span style={{ fontWeight: 700, fontSize: "0.62rem", opacity: 0.6, marginRight: 1 }}>{i + 1}</span>
@@ -709,7 +728,18 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         </div>
 
         {/* Content card */}
-        <div style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem", marginBottom: 12 }}>
+        <div style={{
+          background: S.surface,
+          border: `1px solid ${S.border}`,
+          borderRadius: 24,
+          padding: "2rem",
+          marginBottom: 12,
+          borderLeft: mod.category === "Pflicht"
+            ? "4px solid #3B82F6"
+            : mod.category === "Kritisch"
+            ? "4px solid #EF4444"
+            : "4px solid #F59E0B",
+        }}>
           <div key={`${mod.id}-${contentKey}`} className={animDir === "right" ? "slide-in-right" : "slide-in-left"}>
             <div className="label" style={{ marginBottom: "0.5rem" }}>Thema {activeTopic + 1} von {mod.topics.length}</div>
             <h2 style={{ fontSize: "1.35rem", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "1.25rem" }}>{mod.topics[activeTopic]}</h2>

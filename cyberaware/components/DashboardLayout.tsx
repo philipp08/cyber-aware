@@ -41,10 +41,10 @@ export default function DashboardLayout({
       {/* Top Nav */}
       <header style={{
         position: "sticky", top: 0, zIndex: 50,
-        background: "rgba(17,17,22,0.92)",
+        background: "rgba(255,255,255,0.92)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        borderBottom: "1px solid rgba(0,0,0,0.08)",
       }}>
         <div style={{
           maxWidth: 1280, margin: "0 auto",
@@ -54,14 +54,14 @@ export default function DashboardLayout({
         }}>
           {/* Logo */}
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
-            <div style={{ width: 28, height: 28, background: "var(--accent)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 28, height: 28, background: "#CCFF00", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Shield size={16} color="#0C0C0F" strokeWidth={2.5} />
             </div>
-            <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "#F0F0F2", letterSpacing: "-0.01em" }}>
+            <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "#0D0D16", letterSpacing: "-0.01em" }}>
               CyberAware
             </span>
             {isAdmin && (
-              <span style={{ fontSize: "0.6rem", fontWeight: 700, padding: "0.1rem 0.45rem", borderRadius: 100, background: "var(--accent-dim2)", color: "var(--accent-text)" }}>
+              <span style={{ fontSize: "0.6rem", fontWeight: 700, padding: "0.1rem 0.45rem", borderRadius: 100, background: "rgba(180,230,0,0.22)", color: "#3A5800" }}>
                 Admin
               </span>
             )}
@@ -77,8 +77,8 @@ export default function DashboardLayout({
                   fontSize: "0.8rem", fontWeight: active ? 600 : 400,
                   textDecoration: "none", whiteSpace: "nowrap",
                   transition: "all 0.15s",
-                  background: active ? "var(--accent)" : "transparent",
-                  color: active ? "var(--accent-fg)" : "#8A8A96",
+                  background: active ? "#CCFF00" : "transparent",
+                  color: active ? "#0C0C0F" : "#4A4A62",
                 }}>
                   {item.label}
                 </Link>
@@ -90,25 +90,25 @@ export default function DashboardLayout({
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
             <button style={{
               width: 34, height: 34, borderRadius: "50%",
-              background: "var(--surface)", border: "1px solid var(--border)",
+              background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)",
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", position: "relative",
             }}>
-              <Bell size={14} color="#8A8A96" />
+              <Bell size={14} color="#4A4A62" />
               <span style={{
                 position: "absolute", top: 7, right: 7,
-                width: 6, height: 6, background: "var(--accent)",
-                borderRadius: "50%", border: "1.5px solid #111116",
+                width: 6, height: 6, background: "#CCFF00",
+                borderRadius: "50%", border: "1.5px solid #FFFFFF",
               }} />
             </button>
 
             <div style={{
               width: 34, height: 34, borderRadius: "50%",
-              background: isAdmin ? "var(--accent-dim2)" : "var(--surface-2)",
-              border: "1px solid var(--border-2)",
+              background: isAdmin ? "rgba(180,230,0,0.22)" : "#EDEDF5",
+              border: "1px solid rgba(0,0,0,0.08)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: "0.7rem", fontWeight: 700,
-              color: isAdmin ? "var(--accent-text)" : "var(--text)",
+              color: isAdmin ? "#3A5800" : "#0D0D16",
             }}>
               {userInitials}
             </div>

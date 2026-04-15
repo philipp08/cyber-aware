@@ -1,40 +1,40 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════
-   THEME: White Page · Black Cards
+   THEME — Professional Light Mode
 ═══════════════════════════════════════ */
 :root {
-  --bg:        #F0F0F4;
-  --surface:   #111116;
-  --surface-2: #1A1A1E;
-  --surface-3: #222228;
+  --bg:        #F4F4FA;
+  --surface:   #FFFFFF;
+  --surface-2: #EDEDF5;
+  --surface-3: #E2E2EE;
 
   --accent:      #CCFF00;
-  --accent-text: #CCFF00;
+  --accent-text: #3A5800;
   --accent-fg:   #0C0C0F;
-  --accent-dim:  rgba(204,255,0,0.08);
-  --accent-dim2: rgba(204,255,0,0.15);
-  --accent-dim3: rgba(204,255,0,0.22);
+  --accent-dim:  rgba(180,230,0,0.12);
+  --accent-dim2: rgba(180,230,0,0.22);
+  --accent-dim3: rgba(180,230,0,0.32);
 
-  --text:   #F0F0F2;
-  --text-2: #8A8A96;
-  --text-3: #585862;
+  --text:   #0D0D16;
+  --text-2: #4A4A62;
+  --text-3: #8888A8;
 
-  --border:   rgba(255,255,255,0.08);
-  --border-2: rgba(255,255,255,0.13);
+  --border:   rgba(0,0,0,0.08);
+  --border-2: rgba(0,0,0,0.13);
 
-  --red:       #FF4545;
-  --red-dim:   rgba(255,69,69,0.08);
-  --red-dim2:  rgba(255,69,69,0.20);
-  --green:     #00D97E;
-  --green-dim: rgba(0,217,126,0.08);
-  --green-dim2:rgba(0,217,126,0.18);
-  --amber:     #F59E0B;
-  --amber-dim: rgba(245,158,11,0.08);
-  --amber-dim2:rgba(245,158,11,0.20);
+  --red:       #D42020;
+  --red-dim:   rgba(212,32,32,0.08);
+  --red-dim2:  rgba(212,32,32,0.16);
+  --green:     #007840;
+  --green-dim: rgba(0,120,64,0.08);
+  --green-dim2:rgba(0,120,64,0.16);
+  --amber:     #C06000;
+  --amber-dim: rgba(192,96,0,0.08);
+  --amber-dim2:rgba(192,96,0,0.18);
 
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+  --shadow:    0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+  --shadow-lg: 0 2px 8px rgba(0,0,0,0.06), 0 12px 40px rgba(0,0,0,0.08);
   --radius-sm: 12px;
   --radius:    18px;
   --radius-lg: 24px;
@@ -61,6 +61,9 @@ body {
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 4px; }
+
+/* Card elevation */
+[style*="var(--surface)"] { box-shadow: var(--shadow); }
 
 /* ═══════════════════════════════════════
    TYPOGRAPHY
@@ -197,4 +200,27 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Scroll reveal */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile burger menu */
+.desktop-nav { display: flex; }
+.burger-btn  { display: none; }
+.mobile-drawer { display: none; }
+
+@media (max-width: 768px) {
+  .desktop-nav { display: none !important; }
+  .desktop-cta { display: none !important; }
+  .burger-btn  { display: flex !important; }
+  .mobile-drawer { display: flex !important; }
 }
