@@ -313,16 +313,16 @@ export default function AiChat({ moduleName }: { moduleName?: string }) {
                         /_(.*?)_/g,
                         '<em style="opacity:0.7;font-size:0.72rem">$1</em>'
                       )
-                      .replace(
-                        /\[MODULE:(\d+):([^:]+)(?::(\d+))?\]/g,
+                      .replace( // swallowing trailing dots/commas to prevent orphan punctuation
+                        /\[MODULE:(\d+):([^:]+)(?::(\d+))?\][\.,;]?/g,
                         (match, p1, p2, p3) => {
                           const url = p3 !== undefined ? `/modules/${p1}?topic=${p3}` : `/modules/${p1}`;
-                          return `<a href="${url}" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:10px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background='rgba(15,118,110,0.04)';this.style.borderColor='rgba(15,118,110,0.3)'" onmouseout="this.style.background='var(--surface)';this.style.borderColor='rgba(15,118,110,0.15)'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">🎓</span>${p2}<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>`;
+                          return `<a href="${url}" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:10px;margin-bottom:10px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background='rgba(15,118,110,0.04)';this.style.borderColor='rgba(15,118,110,0.3)'" onmouseout="this.style.background='var(--surface)';this.style.borderColor='rgba(15,118,110,0.15)'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">🎓</span>${p2}<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>`;
                         }
                       )
                       .replace(
-                        /\[KNOWLEDGE:(.*?)\]/g,
-                        '<a href="/knowledge-base?q=$1" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:8px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background=\'rgba(15,118,110,0.04)\';this.style.borderColor=\'rgba(15,118,110,0.3)\'" onmouseout="this.style.background=\'var(--surface)\';this.style.borderColor=\'rgba(15,118,110,0.15)\'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">📖</span>Im Lexikon ansehen<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>'
+                        /\[KNOWLEDGE:(.*?)\][\.,;]?/g,
+                        '<a href="/knowledge-base?q=$1" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:10px;margin-bottom:10px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background=\'rgba(15,118,110,0.04)\';this.style.borderColor=\'rgba(15,118,110,0.3)\'" onmouseout="this.style.background=\'var(--surface)\';this.style.borderColor=\'rgba(15,118,110,0.15)\'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">📖</span>Im Lexikon ansehen<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>'
                       ),
                   }}
                 />
