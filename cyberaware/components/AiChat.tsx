@@ -10,89 +10,7 @@ interface Message {
 }
 
 /* Simple local AI: searches knowledgeBase + static Q&A */
-function getAiResponse(question: string): string {
-  const q = question.toLowerCase().trim();
-
-  // 1. Fallback responses (First priority for common topics)
-  const fallbacks: [RegExp, string][] = [
-    [
-      /\b(kostenlos|preis|kosten|lokal|offline|api|umsonst|gratis)\b/i,
-      "Ja! Die CyberAware KI ist zu **100% kostenlos** und läuft komplett **lokal und offline** in Ihrem Browser. Es werden keine Daten an externe Server wie OpenAI oder Google gesendet. Das bedeutet maximale Privatsphäre, Sicherheit und garantierte DSGVO-Konformität!\n\n[MODULE:4:DSGVO Grundlagen:0]\n[KNOWLEDGE:DSGVO]",
-    ],
-    [
-      /\b(passw[oö]rt(er)?|kennwort|password)\b/i,
-      "Ein sicheres Passwort sollte mindestens 16 Zeichen lang sein und Groß-/Kleinbuchstaben, Zahlen und Sonderzeichen enthalten. Am besten nutzen Sie einen **Passwortmanager** wie Bitwarden oder 1Password und aktivieren **2FA/MFA** für alle wichtigen Konten.\n\n[MODULE:3:Sichere Passwörter:0]",
-    ],
-    [
-      /phish|fishing|fisching/i,
-      "Um Phishing zu erkennen, achten Sie auf: ① Dringlichkeit/Drohungen ② Unbekannter oder gefälschter Absender ③ Grammatikfehler ④ Verdächtige Links (Hover!) ⑤ Unerwartete Anhänge. Im Zweifel: **Nicht klicken, IT-Abteilung informieren.**\n\n[MODULE:2:Phishing erkennen:0]",
-    ],
-    [
-      /\b(dsgvo|datenschutz|daten)\b/i,
-      "Die DSGVO regelt seit 2018 den Umgang mit personenbezogenen Daten in der EU. Kernprinzipien: Zweckbindung, Datenminimierung, Speicherbegrenzung. Betroffene haben Recht auf Auskunft, Löschung und Datenportabilität.\n\n[MODULE:4:DSGVO Grundlagen:0]\n[KNOWLEDGE:DSGVO]",
-    ],
-    [
-      /\b(vpn|wlan|netzwerk|wifi)\b/i,
-      "Ein VPN verschlüsselt Ihren Internetverkehr und ist besonders wichtig bei öffentlichen WLANs. Im Unternehmenskontext ermöglicht es sicheren Zugriff auf interne Ressourcen. **Firmeneigene VPNs sind Pflicht im Homeoffice.**\n\n[MODULE:5:Gerätesicherheit:2]",
-    ],
-    [
-      /email|e-mail|mail/i,
-      "E-Mail-Sicherheit basiert auf drei Säulen: **SPF** (autorisierte Absender-Server), **DKIM** (digitale Signatur) und **DMARC** (Richtlinie für gescheiterte Prüfungen). Verdächtige E-Mails niemals öffnen – sofort IT melden.",
-    ],
-    [
-      /\b(hallo|hi|hilfe|help|hey|moin|servus)\b/i,
-      "Hallo! 👋 Ich bin der CyberAware KI-Assistent. Fragen Sie mich zu jedem Thema rund um IT-Sicherheit, Datenschutz, Phishing oder Compliance. Ich durchsuche für Sie die Wissensdatenbank mit über 150 Fachbegriffen.",
-    ],
-  ];
-
-  for (const [regex, answer] of fallbacks) {
-    if (regex.test(q)) return answer;
-  }
-
-  // 2. Search knowledge base
-  // Exact or strong term matches
-  const exactMatches = knowledgeBase.filter(k => k.term.toLowerCase() === q || q.includes(k.term.toLowerCase()));
-  
-  if (exactMatches.length > 0) {
-    // Return the best match directly
-    const best = exactMatches[0];
-    return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_\n\n[KNOWLEDGE:${best.term}]`;
-  }
-
-  // Deep text match based on significant words from user question
-  const stopwords = ['was', 'ist', 'wie', 'der', 'die', 'das', 'ein', 'eine', 'und', 'oder', 'ich', 'mich', 'mir', 'sichere', 'erstelle', 'machen'];
-  const qWords = q.split(/[\s?.,!]+/).filter(w => w.length > 3 && !stopwords.includes(w));
-  
-  if (qWords.length > 0) {
-    // Score matches to get the most relevant ones, rather than random first ones
-    const deepMatches = knowledgeBase.map((k) => {
-      let score = 0;
-      for (const w of qWords) {
-        if (k.term.toLowerCase().includes(w)) score += 3; // Term match is very strong
-        else if (k.definition.toLowerCase().includes(w)) score += 1;
-      }
-      return { item: k, score };
-    }).filter(m => m.score > 0).sort((a, b) => b.score - a.score);
-
-    if (deepMatches.length > 0) {
-      if (deepMatches[0].score >= 3 && deepMatches.length === 1) {
-        const best = deepMatches[0].item;
-        return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_\n\n[KNOWLEDGE:${best.term}]`;
-      }
-      return (
-        deepMatches
-          .slice(0, 3)
-          .map((m) => `**${m.item.term}** — ${m.item.definition}`)
-          .join("\n\n") +
-        (deepMatches.length > 3
-          ? `\n\n_…und ${deepMatches.length - 3} weitere Treffer. Fragen Sie spezifischer!_`
-          : "")
-      );
-    }
-  }
-
-  return "Das ist eine gute Frage! Leider konnte ich dazu keinen passenden Eintrag in der Wissensdatenbank finden. Versuchen Sie es mit spezifischeren Begriffen wie z.B. 'Phishing', 'DSGVO', '2FA' oder 'Ransomware'. Tipp: In der **Wissensdatenbank** finden Sie über 150 Fachbegriffe zum Nachschlagen.";
-}
+// Real AI implemented via /api/chat
 
 export default function AiChat({ moduleName }: { moduleName?: string }) {
   const [open, setOpen] = useState(false);
@@ -105,17 +23,26 @@ export default function AiChat({ moduleName }: { moduleName?: string }) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typing]);
 
-  function send() {
-    if (!input.trim()) return;
+  async function send() {
+    if (!input.trim() || typing) return;
     const userMsg = input.trim();
     setInput("");
     setMessages((m) => [...m, { role: "user", text: userMsg }]);
     setTyping(true);
-    setTimeout(() => {
-      const response = getAiResponse(userMsg);
-      setMessages((m) => [...m, { role: "ai", text: response }]);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg }),
+      });
+      const data = await res.json();
+      setMessages((m) => [...m, { role: "ai", text: data.text }]);
+    } catch (e) {
+      setMessages((m) => [...m, { role: "ai", text: "Verbindungsfehler zur KI. Bitte überprüfen Sie Ihre Internetverbindung." }]);
+    } finally {
       setTyping(false);
-    }, 600 + Math.random() * 800);
+    }
   }
 
   return (
