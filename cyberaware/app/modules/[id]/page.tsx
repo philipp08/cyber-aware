@@ -1,6 +1,7 @@
 "use client";
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import DashboardLayout from "@/components/DashboardLayout";
 import { modules } from "@/lib/data";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
@@ -553,11 +554,15 @@ function renderBody(text: string) {
 ════════════════════════════════════════ */
 export default function ModuleDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const searchParams = useSearchParams();
+  const initParam = searchParams.get("topic");
+  const initTopic = initParam ? parseInt(initParam) : null;
+
   const mod = modules.find(m => m.id === parseInt(id));
 
-  const [phase, setPhase]             = useState<Phase>("intro");
-  const [activeTopic, setActiveTopic] = useState(0);
-  const [visitedTopics, setVisitedTopics] = useState<Set<number>>(new Set([0]));
+  const [phase, setPhase]             = useState<Phase>(initTopic !== null ? "content" : "intro");
+  const [activeTopic, setActiveTopic] = useState(initTopic !== null ? initTopic : 0);
+  const [visitedTopics, setVisitedTopics] = useState<Set<number>>(new Set([initTopic !== null ? initTopic : 0]));
   const [animDir, setAnimDir]         = useState<"right" | "left">("right");
   const [contentKey, setContentKey]   = useState(0);
 

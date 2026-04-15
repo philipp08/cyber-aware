@@ -1,14 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { knowledgeBase } from "@/lib/data";
 import { Search } from "lucide-react";
 import { S } from "@/lib/theme";
+import { useSearchParams } from "next/navigation";
 
 export default function KnowledgeBasePage() {
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams.get("q") || "";
+  
+  const [search, setSearch] = useState(initialSearch);
   const [cat, setCat] = useState("Alle");
-  const [open, setOpen] = useState<string | null>(null);
+  const [open, setOpen] = useState<string | null>(initialSearch || null);
 
   const cats = ["Alle", ...Array.from(new Set(knowledgeBase.map(k => k.category)))];
   const filtered = knowledgeBase.filter(k =>

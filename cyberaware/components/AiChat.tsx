@@ -16,20 +16,24 @@ function getAiResponse(question: string): string {
   // 1. Fallback responses (First priority for common topics)
   const fallbacks: [RegExp, string][] = [
     [
+      /kostenlos|preis|kosten|lokal|offline|api|umsonst/i,
+      "Ja! Die CyberAware KI ist zu **100% kostenlos** und läuft komplett **lokal und offline** in Ihrem Browser. Es werden keine Daten an externe Server wie OpenAI oder Google gesendet. Das bedeutet maximale Privatsphäre, Sicherheit und garantierte DSGVO-Konformität!\n\n[MODULE:4:DSGVO Grundlagen:0]\n[KNOWLEDGE:DSGVO]",
+    ],
+    [
       /passw[oö]rt|kennwort|password/i,
-      "Ein sicheres Passwort sollte mindestens 16 Zeichen lang sein und Groß-/Kleinbuchstaben, Zahlen und Sonderzeichen enthalten. Am besten nutzen Sie einen **Passwortmanager** wie Bitwarden oder 1Password und aktivieren **2FA/MFA** für alle wichtigen Konten.\n\n[MODULE:3:Sichere Passwörter]",
+      "Ein sicheres Passwort sollte mindestens 16 Zeichen lang sein und Groß-/Kleinbuchstaben, Zahlen und Sonderzeichen enthalten. Am besten nutzen Sie einen **Passwortmanager** wie Bitwarden oder 1Password und aktivieren **2FA/MFA** für alle wichtigen Konten.\n\n[MODULE:3:Sichere Passwörter:0]",
     ],
     [
       /phish/i,
-      "Um Phishing zu erkennen, achten Sie auf: ① Dringlichkeit/Drohungen ② Unbekannter oder gefälschter Absender ③ Grammatikfehler ④ Verdächtige Links (Hover!) ⑤ Unerwartete Anhänge. Im Zweifel: **Nicht klicken, IT-Abteilung informieren.**\n\n[MODULE:2:Phishing erkennen]",
+      "Um Phishing zu erkennen, achten Sie auf: ① Dringlichkeit/Drohungen ② Unbekannter oder gefälschter Absender ③ Grammatikfehler ④ Verdächtige Links (Hover!) ⑤ Unerwartete Anhänge. Im Zweifel: **Nicht klicken, IT-Abteilung informieren.**\n\n[MODULE:2:Phishing erkennen:0]",
     ],
     [
       /dsgvo|datenschutz|daten/i,
-      "Die DSGVO regelt seit 2018 den Umgang mit personenbezogenen Daten in der EU. Kernprinzipien: Zweckbindung, Datenminimierung, Speicherbegrenzung. Betroffene haben Recht auf Auskunft, Löschung und Datenportabilität.\n\n[MODULE:4:DSGVO Grundlagen]",
+      "Die DSGVO regelt seit 2018 den Umgang mit personenbezogenen Daten in der EU. Kernprinzipien: Zweckbindung, Datenminimierung, Speicherbegrenzung. Betroffene haben Recht auf Auskunft, Löschung und Datenportabilität.\n\n[MODULE:4:DSGVO Grundlagen:0]\n[KNOWLEDGE:DSGVO]",
     ],
     [
       /vpn|wlan|netzwerk/i,
-      "Ein VPN verschlüsselt Ihren Internetverkehr und ist besonders wichtig bei öffentlichen WLANs. Im Unternehmenskontext ermöglicht es sicheren Zugriff auf interne Ressourcen. **Firmeneigene VPNs sind Pflicht im Homeoffice.**\n\n[MODULE:5:Gerätesicherheit]",
+      "Ein VPN verschlüsselt Ihren Internetverkehr und ist besonders wichtig bei öffentlichen WLANs. Im Unternehmenskontext ermöglicht es sicheren Zugriff auf interne Ressourcen. **Firmeneigene VPNs sind Pflicht im Homeoffice.**\n\n[MODULE:5:Gerätesicherheit:2]",
     ],
     [
       /email|e-mail|mail/i,
@@ -52,7 +56,7 @@ function getAiResponse(question: string): string {
   if (exactMatches.length > 0) {
     // Return the best match directly
     const best = exactMatches[0];
-    return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_`;
+    return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_\n\n[KNOWLEDGE:${best.term}]`;
   }
 
   // Deep text match based on significant words from user question
@@ -73,7 +77,7 @@ function getAiResponse(question: string): string {
     if (deepMatches.length > 0) {
       if (deepMatches[0].score >= 3 && deepMatches.length === 1) {
         const best = deepMatches[0].item;
-        return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_`;
+        return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_\n\n[KNOWLEDGE:${best.term}]`;
       }
       return (
         deepMatches
@@ -393,8 +397,15 @@ export default function AiChat({ moduleName }: { moduleName?: string }) {
                         '<em style="opacity:0.7;font-size:0.72rem">$1</em>'
                       )
                       .replace(
-                        /\[MODULE:(\d+):(.*?)\]/g,
-                        '<a href="/modules/$1" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:14px;margin-bottom:4px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background=\'rgba(15,118,110,0.04)\';this.style.borderColor=\'rgba(15,118,110,0.3)\'" onmouseout="this.style.background=\'var(--surface)\';this.style.borderColor=\'rgba(15,118,110,0.15)\'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">📚</span>$2<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>'
+                        /\[MODULE:(\d+):([^:]+)(?::(\d+))?\]/g,
+                        (match, p1, p2, p3) => {
+                          const url = p3 !== undefined ? `/modules/${p1}?topic=${p3}` : `/modules/${p1}`;
+                          return `<a href="${url}" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:10px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background='rgba(15,118,110,0.04)';this.style.borderColor='rgba(15,118,110,0.3)'" onmouseout="this.style.background='var(--surface)';this.style.borderColor='rgba(15,118,110,0.15)'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">🎓</span>${p2}<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>`;
+                        }
+                      )
+                      .replace(
+                        /\[KNOWLEDGE:(.*?)\]/g,
+                        '<a href="/knowledge-base?q=$1" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid rgba(15,118,110,0.15);border-radius:12px;text-decoration:none;color:var(--text);margin-top:8px;font-weight:600;font-size:0.82rem;transition:all 0.2s" onmouseover="this.style.background=\'rgba(15,118,110,0.04)\';this.style.borderColor=\'rgba(15,118,110,0.3)\'" onmouseout="this.style.background=\'var(--surface)\';this.style.borderColor=\'rgba(15,118,110,0.15)\'"><span style="background:rgba(15,118,110,0.1);color:#0F766E;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem">📖</span>Im Lexikon ansehen<span style="margin-left:auto;color:#0F766E;font-size:1.1rem;line-height:1">→</span></a>'
                       ),
                   }}
                 />
