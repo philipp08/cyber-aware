@@ -795,9 +795,9 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
               )}
 
               {/* Key takeaway */}
-              <div style={{ background: "rgba(15,118,110,0.04)", border: "1px solid rgba(15,118,110,0.1)", borderRadius: 16, padding: "1.25rem", display: "flex", gap: 12, alignItems: "flex-start" }}>
-                <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: -2 }}>💡</span>
-                <span style={{ fontSize: "0.8rem", color: "var(--accent-text)", lineHeight: 1.6, fontWeight: 500 }}>
+              <div style={{ background: "rgba(15,118,110,0.04)", border: "1px solid rgba(15,118,110,0.1)", borderRadius: 12, padding: "0.85rem 1rem", display: "flex", gap: 10, alignItems: "center" }}>
+                <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>💡</span>
+                <span style={{ fontSize: "0.8rem", color: "var(--accent-text)", lineHeight: 1.5, fontWeight: 500 }}>
                   {activeTopic < mod.topics.length - 1
                     ? `Weiter mit: ${mod.topics[activeTopic + 1]}`
                     : "Alle Themen erkundet! Bereit für den Wissenscheck?"}
