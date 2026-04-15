@@ -407,7 +407,7 @@ export default function AiChat({ moduleName }: { moduleName?: string }) {
               }}
             />
             <button
-              onClick={send}
+              onClick={() => send()}
               disabled={!input.trim()}
               style={{
                 width: 38,
