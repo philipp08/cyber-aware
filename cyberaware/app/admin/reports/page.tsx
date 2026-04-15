@@ -52,7 +52,7 @@ export default function ReportsPage() {
         {/* Header */}
         <div style={{ marginBottom: "2rem" }}>
           <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Compliance</p>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Compliance-Berichte</h1>
+          <h1 style={{ fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.03em" }}>Compliance-Berichte</h1>
         </div>
 
         {/* Status overview */}
@@ -66,7 +66,7 @@ export default function ReportsPage() {
               { label: "Phishing-Klickrate", value: `${phishingRate}%` },
             ].map(s => (
               <div key={s.label} style={{ background: "var(--surface-2)", borderRadius: 14, padding: "1rem", textAlign: "center" }}>
-                <div style={{ fontSize: "1.6rem", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+                <div style={{ fontSize: "1.6rem", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
                 <div style={{ fontSize: "0.68rem", color: "var(--text-2)" }}>{s.label}</div>
               </div>
             ))}
@@ -119,7 +119,7 @@ export default function ReportsPage() {
                   <span style={{ fontSize: "0.68rem", color: S.text3 }}>Stichtag: {new Date().toLocaleDateString("de-DE")}</span>
                   <button onClick={() => !isDone && handleGenerate(report.id)} style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.5rem 1rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: 700, border: "none", cursor: isDone ? "default" : "pointer",
                     background: isDone ? "var(--green-dim2)" : isGenerating ? "var(--surface-2)" : S.accent,
-                    color: isDone ? S.green : isGenerating ? "var(--text-2)" : "var(--accent-fg)",
+                    color: isDone ? S.green : isGenerating ? "var(--text-2)" : "#fff",
                   }}>
                     {isGenerating ? (
                       <><div style={{ width: 10, height: 10, borderRadius: "50%", border: `1.5px solid ${S.text3}`, borderTopColor: "transparent", animation: "spin 0.7s linear infinite" }} /> Generiere...</>
@@ -148,7 +148,7 @@ export default function ReportsPage() {
                 {/* Toggle */}
                 <div onClick={() => setToggles(t => ({ ...t, [sched.label]: !t[sched.label] }))}
                   style={{ width: 38, height: 22, borderRadius: 100, background: toggles[sched.label] ? S.accent : "var(--surface)", border: `1px solid ${S.border}`, position: "relative", cursor: "pointer", transition: "background 0.2s" }}>
-                  <div style={{ position: "absolute", top: 2, left: toggles[sched.label] ? 18 : 2, width: 16, height: 16, borderRadius: "50%", background: toggles[sched.label] ? "var(--accent-fg)" : S.text3, transition: "left 0.2s" }} />
+                  <div style={{ position: "absolute", top: 2, left: toggles[sched.label] ? 18 : 2, width: 16, height: 16, borderRadius: "50%", background: toggles[sched.label] ? "#fff" : S.text3, transition: "left 0.2s" }} />
                 </div>
               </div>
             ))}

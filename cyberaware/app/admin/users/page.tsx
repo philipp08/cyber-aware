@@ -35,9 +35,9 @@ export default function AdminUsersPage() {
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "2rem" }}>
           <div>
             <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Verwaltung</p>
-            <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Mitarbeiter</h1>
+            <h1 style={{ fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.03em" }}>Mitarbeiter</h1>
           </div>
-          <button onClick={() => setShowInvite(true)} style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.65rem 1.25rem", background: S.accent, border: "none", borderRadius: 100, color: "var(--accent-fg)", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}>
+          <button onClick={() => setShowInvite(true)} style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.65rem 1.25rem", background: S.accent, border: "none", borderRadius: 100, color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}>
             <UserPlus size={14} /> Einladen
           </button>
         </div>
@@ -51,7 +51,7 @@ export default function AdminUsersPage() {
             { label: "Nicht gestartet", value: companyEmployees.filter(e => e.completedModules === 0).length },
           ].map(s => (
             <div key={s.label} style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 16, padding: "1rem", textAlign: "center" }}>
-              <div style={{ fontSize: "1.8rem", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+              <div style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
               <div style={{ fontSize: "0.68rem", color: "var(--text-2)" }}>{s.label}</div>
             </div>
           ))}
@@ -66,7 +66,7 @@ export default function AdminUsersPage() {
           </div>
           <div style={{ display: "flex", gap: 6 }}>
             {filters.map(f => (
-              <button key={f} onClick={() => setFilter(f)} style={{ padding: "0.3rem 0.85rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: 500, cursor: "pointer", background: filter === f ? S.accent : "transparent", color: filter === f ? "var(--accent-fg)" : "var(--text-2)", border: filter === f ? "none" : `1px solid ${S.border}` }}>{f}</button>
+              <button key={f} onClick={() => setFilter(f)} style={{ padding: "0.3rem 0.85rem", borderRadius: 100, fontSize: "0.75rem", fontWeight: 500, cursor: "pointer", background: filter === f ? S.accent : "transparent", color: filter === f ? "#fff" : "var(--text-2)", border: filter === f ? "none" : `1px solid ${S.border}` }}>{f}</button>
             ))}
           </div>
         </div>
@@ -138,10 +138,10 @@ export default function AdminUsersPage() {
       {/* Invite modal */}
       {showInvite && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50, padding: "1rem" }}>
-          <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem", width: "100%", maxWidth: 440 }}>
+          <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 16, padding: "2rem", width: "100%", maxWidth: 440 }}>
             {!inviteSent ? (
               <>
-                <h2 style={{ fontSize: "1.1rem", fontWeight: 800, marginBottom: "1.5rem" }}>Mitarbeiter einladen</h2>
+                <h2 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "1.5rem" }}>Mitarbeiter einladen</h2>
                 <form onSubmit={handleInvite}>
                   {[
                     { label: "E-Mail-Adresse", type: "email", value: inviteEmail, onChange: (v: string) => setInviteEmail(v), placeholder: "mitarbeiter@firma.de", required: true },
@@ -168,7 +168,7 @@ export default function AdminUsersPage() {
                   </div>
                   <div style={{ display: "flex", gap: 8, marginTop: "1.5rem" }}>
                     <button type="button" onClick={() => setShowInvite(false)} style={{ flex: 1, padding: "0.65rem", background: "transparent", border: `1px solid ${S.border}`, borderRadius: 100, color: "var(--text-2)", fontSize: "0.82rem", cursor: "pointer" }}>Abbrechen</button>
-                    <button type="submit" style={{ flex: 1, padding: "0.65rem", background: S.accent, border: "none", borderRadius: 100, color: "var(--accent-fg)", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}>Einladung senden</button>
+                    <button type="submit" style={{ flex: 1, padding: "0.65rem", background: S.accent, border: "none", borderRadius: 100, color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}>Einladung senden</button>
                   </div>
                 </form>
               </>

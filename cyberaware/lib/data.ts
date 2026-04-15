@@ -1100,76 +1100,212 @@ export const phishingCampaigns: PhishingCampaign[] = [
 ];
 
 export const knowledgeBase = [
-  {
-    term: "2FA / MFA",
-    definition:
-      "Zwei-Faktor-Authentifizierung (2FA) oder Multi-Faktor-Authentifizierung (MFA) ist ein Sicherheitsverfahren, bei dem sich Nutzer mit zwei oder mehr unabhängigen Faktoren authentifizieren müssen: etwas, das sie wissen (Passwort), haben (Token/Handy) oder sind (Biometrie).",
-    category: "Authentifizierung",
-  },
-  {
-    term: "BEC (Business Email Compromise)",
-    definition:
-      "Eine Betrugsmasche, bei der Angreifer gefälschte E-Mails im Namen von Führungskräften oder Lieferanten senden, um Mitarbeiter zu unautorisierten Überweisungen zu verleiten. Auch als CEO-Fraud bekannt.",
-    category: "Angriffsmethoden",
-  },
-  {
-    term: "DSGVO",
-    definition:
-      "Die Datenschutz-Grundverordnung (DSGVO) ist eine EU-Verordnung, die seit Mai 2018 den Umgang mit personenbezogenen Daten regelt. Sie gewährt Betroffenen umfangreiche Rechte und verpflichtet Unternehmen zu transparenter Datenverarbeitung.",
-    category: "Recht & Compliance",
-  },
-  {
-    term: "DNS (Domain Name System)",
-    definition:
-      "Das Domain Name System ist das 'Telefonbuch des Internets'. Es übersetzt menschenlesbare Domainnamen (z.B. google.com) in numerische IP-Adressen, die Computer für die Kommunikation benötigen.",
-    category: "Netzwerk",
-  },
-  {
-    term: "Phishing",
-    definition:
-      "Phishing ist eine Methode, bei der Angreifer gefälschte E-Mails, Websites oder Nachrichten verwenden, um vertrauliche Informationen wie Passwörter oder Kreditkartendaten zu stehlen. Der Name leitet sich vom englischen 'fishing' (Angeln) ab.",
-    category: "Angriffsmethoden",
-  },
-  {
-    term: "SSL/TLS",
-    definition:
-      "SSL (Secure Sockets Layer) und sein Nachfolger TLS (Transport Layer Security) sind kryptographische Protokolle, die eine verschlüsselte Kommunikation über das Internet ermöglichen. Sie bilden die Grundlage für HTTPS.",
-    category: "Verschlüsselung",
-  },
-  {
-    term: "VPN (Virtual Private Network)",
-    definition:
-      "Ein VPN schafft einen verschlüsselten Tunnel zwischen Ihrem Gerät und einem VPN-Server, sodass Ihr Internetverkehr für Dritte nicht einsehbar ist. Besonders wichtig bei der Nutzung öffentlicher WLANs.",
-    category: "Netzwerk",
-  },
-  {
-    term: "Zero-Day",
-    definition:
-      "Eine Zero-Day-Schwachstelle ist eine Sicherheitslücke in Software, die dem Hersteller noch unbekannt ist oder für die noch kein Patch veröffentlicht wurde. Angreifer, die solche Lücken ausnutzen, haben einen erheblichen Vorteil.",
-    category: "Schwachstellen",
-  },
-  {
-    term: "Ransomware",
-    definition:
-      "Ransomware ist Schadsoftware, die Dateien auf einem Computer verschlüsselt und ein Lösegeld (Ransom) für die Entschlüsselung fordert. Bekannte Beispiele sind WannaCry und NotPetya.",
-    category: "Malware",
-  },
-  {
-    term: "Social Engineering",
-    definition:
-      "Social Engineering bezeichnet psychologische Manipulationstechniken, mit denen Angreifer Menschen dazu bringen, vertrauliche Informationen preiszugeben oder sicherheitsrelevante Handlungen durchzuführen. Phishing ist die bekannteste Form.",
-    category: "Angriffsmethoden",
-  },
-  {
-    term: "Endpoint Security",
-    definition:
-      "Endpoint Security bezeichnet den Schutz von Endgeräten (Laptops, Smartphones, Tablets) vor Cyberbedrohungen. Umfasst Antivirensoftware, Firewalls, Verschlüsselung und MDM.",
-    category: "Gerätesicherheit",
-  },
-  {
-    term: "SCORM",
-    definition:
-      "Sharable Content Object Reference Model (SCORM) ist ein Standard für e-Learning-Inhalte, der die Kompatibilität zwischen verschiedenen Lernmanagementsystemen (LMS) wie Moodle oder SAP SuccessFactors sicherstellt.",
-    category: "E-Learning",
-  },
+  // ─── Netzwerk ───
+  { term: "DNS (Domain Name System)", definition: "Das Domain Name System ist das 'Telefonbuch des Internets'. Es übersetzt menschenlesbare Domainnamen (z.B. google.com) in numerische IP-Adressen, die Computer für die Kommunikation benötigen.", category: "Netzwerk" },
+  { term: "DHCP", definition: "Dynamic Host Configuration Protocol — weist Geräten im Netzwerk automatisch IP-Adressen und Netzwerkkonfigurationen zu.", category: "Netzwerk" },
+  { term: "VPN (Virtual Private Network)", definition: "Ein VPN schafft einen verschlüsselten Tunnel zwischen Ihrem Gerät und einem VPN-Server, sodass Ihr Internetverkehr für Dritte nicht einsehbar ist. Besonders wichtig bei der Nutzung öffentlicher WLANs.", category: "Netzwerk" },
+  { term: "Firewall", definition: "Ein Sicherheitssystem, das den ein- und ausgehenden Netzwerkverkehr anhand vordefinierter Regeln überwacht und kontrolliert. Firewalls können hardware- oder softwarebasiert sein.", category: "Netzwerk" },
+  { term: "IP-Adresse", definition: "Eine numerische Kennung, die jedem Gerät in einem Computernetzwerk zugewiesen wird. IPv4 (z.B. 192.168.1.1) und IPv6 sind die zwei verwendeten Versionen.", category: "Netzwerk" },
+  { term: "MAC-Adresse", definition: "Media Access Control — eine weltweit eindeutige, 48 Bit lange Hardware-Adresse, die jedem Netzwerkadapter bei der Herstellung zugewiesen wird.", category: "Netzwerk" },
+  { term: "NAT (Network Address Translation)", definition: "Ein Verfahren, bei dem private IP-Adressen in öffentliche IP-Adressen übersetzt werden, um mehreren Geräten den Internetzugang über eine einzige öffentliche IP zu ermöglichen.", category: "Netzwerk" },
+  { term: "Proxy-Server", definition: "Ein Vermittlungsserver, der als Zwischenstation zwischen Client und Zielserver agiert. Kann für Caching, Filterung, Anonymisierung und Lastverteilung eingesetzt werden.", category: "Netzwerk" },
+  { term: "TCP/IP", definition: "Transmission Control Protocol/Internet Protocol — das grundlegende Kommunikationsprotokoll des Internets, das den zuverlässigen Datenaustausch zwischen Computern regelt.", category: "Netzwerk" },
+  { term: "WLAN", definition: "Wireless Local Area Network — ein drahtloses lokales Netzwerk, das Geräte über Funkwellen verbindet. Sicherheitsstandards: WPA2 und WPA3.", category: "Netzwerk" },
+  { term: "Port", definition: "Eine logische Adresse (0–65535) für Netzwerkdienste. Bekannte Ports: 80 (HTTP), 443 (HTTPS), 22 (SSH), 25 (SMTP). Port-Scanning wird zur Schwachstellenanalyse eingesetzt.", category: "Netzwerk" },
+  { term: "Subnetting", definition: "Die Aufteilung eines IP-Netzwerks in kleinere Teilnetze. Verbessert Sicherheit durch Netzwerksegmentierung und effizientere IP-Adressvergabe.", category: "Netzwerk" },
+  { term: "SSID", definition: "Service Set Identifier — der Name eines WLANs. Kann versteckt werden, was jedoch keinen echten Sicherheitsgewinn bietet.", category: "Netzwerk" },
+  { term: "Bandbreite", definition: "Die maximale Datenübertragungsrate einer Netzwerkverbindung, gemessen in Bit pro Sekunde (bps). Unterschied zwischen Upload- und Download-Geschwindigkeit.", category: "Netzwerk" },
+  { term: "Latenz", definition: "Die Verzögerung bei der Datenübertragung im Netzwerk, gemessen in Millisekunden. Niedrige Latenz ist wichtig für Echtzeitanwendungen wie VoIP oder Videokonferenzen.", category: "Netzwerk" },
+
+  // ─── Angriffsmethoden ───
+  { term: "Phishing", definition: "Phishing ist eine Methode, bei der Angreifer gefälschte E-Mails, Websites oder Nachrichten verwenden, um vertrauliche Informationen wie Passwörter oder Kreditkartendaten zu stehlen.", category: "Angriffsmethoden" },
+  { term: "Spear-Phishing", definition: "Gezielte Phishing-Angriffe auf bestimmte Personen oder Organisationen. Im Gegensatz zu Massen-Phishing werden die Nachrichten individuell auf das Opfer zugeschnitten.", category: "Angriffsmethoden" },
+  { term: "Whaling", definition: "Eine Form des Spear-Phishing, die sich gezielt gegen hochrangige Führungskräfte (C-Level) richtet. Die E-Mails sind besonders sorgfältig erstellt.", category: "Angriffsmethoden" },
+  { term: "Smishing", definition: "Phishing per SMS. Angreifer senden gefälschte Textnachrichten mit Links zu schadhaften Websites oder fordern zur Preisgabe persönlicher Daten auf.", category: "Angriffsmethoden" },
+  { term: "Vishing", definition: "Voice Phishing — Betrug per Telefonanruf. Angreifer geben sich als Bank, Behörde oder IT-Support aus, um an vertrauliche Informationen zu gelangen.", category: "Angriffsmethoden" },
+  { term: "BEC (Business Email Compromise)", definition: "Eine Betrugsmasche, bei der Angreifer gefälschte E-Mails im Namen von Führungskräften oder Lieferanten senden, um Mitarbeiter zu unautorisierten Überweisungen zu verleiten. Auch als CEO-Fraud bekannt.", category: "Angriffsmethoden" },
+  { term: "Social Engineering", definition: "Psychologische Manipulationstechniken, mit denen Angreifer Menschen dazu bringen, vertrauliche Informationen preiszugeben oder sicherheitsrelevante Handlungen durchzuführen.", category: "Angriffsmethoden" },
+  { term: "Man-in-the-Middle (MitM)", definition: "Ein Angriff, bei dem sich der Angreifer unbemerkt in die Kommunikation zwischen zwei Parteien einklinkt und Daten mitlesen oder manipulieren kann.", category: "Angriffsmethoden" },
+  { term: "DDoS-Angriff", definition: "Distributed Denial of Service — ein Angriff, bei dem ein Server mit so vielen Anfragen überflutet wird, dass er für legitime Nutzer nicht mehr erreichbar ist.", category: "Angriffsmethoden" },
+  { term: "Brute-Force-Angriff", definition: "Ein Angriff, bei dem systematisch alle möglichen Passwörter oder Schlüssel durchprobiert werden, bis der richtige gefunden wird.", category: "Angriffsmethoden" },
+  { term: "Dictionary Attack", definition: "Eine Variante des Brute-Force-Angriffs, bei der eine Liste häufig verwendeter Passwörter und Wörter durchprobiert wird.", category: "Angriffsmethoden" },
+  { term: "SQL Injection", definition: "Ein Angriff, bei dem schadhafter SQL-Code in Eingabefelder eingefügt wird, um Datenbankabfragen zu manipulieren und an sensible Daten zu gelangen.", category: "Angriffsmethoden" },
+  { term: "Cross-Site Scripting (XSS)", definition: "Ein Angriff, bei dem schadhafter JavaScript-Code in Webseiten eingeschleust wird, der dann im Browser anderer Nutzer ausgeführt wird.", category: "Angriffsmethoden" },
+  { term: "Credential Stuffing", definition: "Automatisiertes Ausprobieren gestohlener Zugangsdaten (aus Datenlecks) bei verschiedenen Diensten, da viele Nutzer Passwörter wiederverwenden.", category: "Angriffsmethoden" },
+  { term: "Typosquatting", definition: "Registrierung von Domains mit Tippfehlern bekannter Marken (z.B. gooogle.com), um Nutzer auf gefälschte Websites zu locken.", category: "Angriffsmethoden" },
+  { term: "Shoulder Surfing", definition: "Das heimliche Beobachten von Bildschirmen, Tastaturen oder Displays, um Passwörter oder PINs auszuspähen — z.B. am Geldautomaten oder im Büro.", category: "Angriffsmethoden" },
+  { term: "Tailgating / Piggybacking", definition: "Unbefugtes Betreten gesicherter Bereiche, indem man einer autorisierten Person durch die Tür folgt, ohne sich selbst zu authentifizieren.", category: "Angriffsmethoden" },
+  { term: "Watering Hole Attack", definition: "Gezielter Angriff, bei dem eine Website kompromittiert wird, die von der Zielgruppe häufig besucht wird, um Schadsoftware zu verbreiten.", category: "Angriffsmethoden" },
+  { term: "Supply Chain Attack", definition: "Angriff auf die Lieferkette eines Unternehmens, z.B. über kompromittierte Software-Updates eines Drittanbieters (Beispiel: SolarWinds-Angriff 2020).", category: "Angriffsmethoden" },
+  { term: "Pharming", definition: "Manipulation des DNS-Systems, um Nutzer ohne ihr Wissen auf gefälschte Websites umzuleiten, selbst wenn sie die korrekte URL eingeben.", category: "Angriffsmethoden" },
+  { term: "Dumpster Diving", definition: "Das Durchsuchen von Abfall (physisch oder digital) nach vertraulichen Informationen wie Passwörtern, internen Dokumenten oder Hardwarekomponenten.", category: "Angriffsmethoden" },
+  { term: "Pretexting", definition: "Social-Engineering-Technik, bei der der Angreifer eine erfundene Geschichte (Pretext) nutzt, um das Vertrauen des Opfers zu gewinnen und an Informationen zu gelangen.", category: "Angriffsmethoden" },
+  { term: "Baiting", definition: "Angriff, bei dem ein mit Malware infizierter USB-Stick oder ein verlockend beschrifteter Datenträger absichtlich platziert wird, damit ein Opfer ihn findet und anschließt.", category: "Angriffsmethoden" },
+
+  // ─── Verschlüsselung ───
+  { term: "SSL/TLS", definition: "SSL (Secure Sockets Layer) und sein Nachfolger TLS (Transport Layer Security) sind kryptographische Protokolle für verschlüsselte Kommunikation über das Internet. Sie bilden die Grundlage für HTTPS.", category: "Verschlüsselung" },
+  { term: "HTTPS", definition: "HyperText Transfer Protocol Secure — die verschlüsselte Variante von HTTP. Erkennbar am Schloss-Symbol im Browser. Daten werden per TLS verschlüsselt übertragen.", category: "Verschlüsselung" },
+  { term: "AES (Advanced Encryption Standard)", definition: "Symmetrischer Verschlüsselungsstandard mit 128-, 192- oder 256-Bit-Schlüsseln. Gilt als sicher und wird weltweit für die Verschlüsselung von Daten eingesetzt.", category: "Verschlüsselung" },
+  { term: "RSA", definition: "Asymmetrisches Verschlüsselungsverfahren, bei dem ein öffentlicher Schlüssel zum Verschlüsseln und ein privater Schlüssel zum Entschlüsseln verwendet wird.", category: "Verschlüsselung" },
+  { term: "End-to-End-Verschlüsselung", definition: "Verschlüsselungsverfahren, bei dem nur Sender und Empfänger die Nachrichten lesen können. Selbst der Dienstanbieter hat keinen Zugriff auf den Inhalt (z.B. Signal, WhatsApp).", category: "Verschlüsselung" },
+  { term: "Hash-Funktion", definition: "Mathematische Einwegfunktion, die eine beliebige Eingabe in einen festen Ausgabewert (Hash) umwandelt. Verwendung für Passwort-Speicherung und Integritätsprüfung. Beispiele: SHA-256, bcrypt.", category: "Verschlüsselung" },
+  { term: "Symmetrische Verschlüsselung", definition: "Verschlüsselungsverfahren mit einem einzigen Schlüssel für Ver- und Entschlüsselung. Schnell, aber das Schlüsselaustausch-Problem muss gelöst werden.", category: "Verschlüsselung" },
+  { term: "Asymmetrische Verschlüsselung", definition: "Verschlüsselungsverfahren mit einem Schlüsselpaar (öffentlich/privat). Der öffentliche Schlüssel verschlüsselt, der private entschlüsselt. Basis für digitale Signaturen.", category: "Verschlüsselung" },
+  { term: "PKI (Public Key Infrastructure)", definition: "Infrastruktur zur Erstellung, Verwaltung und Überprüfung digitaler Zertifikate. Bildet die Vertrauensbasis für HTTPS und digitale Signaturen.", category: "Verschlüsselung" },
+  { term: "S/MIME", definition: "Secure/Multipurpose Internet Mail Extensions — Standard für die Verschlüsselung und digitale Signierung von E-Mails per Zertifikat.", category: "Verschlüsselung" },
+  { term: "PGP / GPG", definition: "Pretty Good Privacy / GNU Privacy Guard — Verschlüsselungssoftware für E-Mails und Dateien basierend auf asymmetrischer Kryptographie mit Web of Trust.", category: "Verschlüsselung" },
+  { term: "Zertifikat (Digital)", definition: "Ein digitaler Ausweis, der die Identität einer Website oder Person bestätigt. Ausgestellt von einer Certificate Authority (CA) und Grundlage für HTTPS.", category: "Verschlüsselung" },
+  { term: "Salt (Kryptographie)", definition: "Zufällige Daten, die vor dem Hashing an ein Passwort angehängt werden. Verhindert Rainbow-Table-Angriffe und stellt sicher, dass gleiche Passwörter unterschiedliche Hashes erzeugen.", category: "Verschlüsselung" },
+  { term: "BitLocker", definition: "Microsoft-Vollverschlüsselung für Windows-Festplatten. Schützt Daten auf dem Gerät, selbst wenn die Festplatte physisch ausgebaut wird.", category: "Verschlüsselung" },
+  { term: "FileVault", definition: "Apple-Vollverschlüsselung für macOS. Verschlüsselt die gesamte Festplatte mit XTS-AES-128-Verschlüsselung.", category: "Verschlüsselung" },
+
+  // ─── Authentifizierung ───
+  { term: "2FA / MFA", definition: "Zwei-Faktor-Authentifizierung (2FA) oder Multi-Faktor-Authentifizierung (MFA) erfordert zwei oder mehr Faktoren: Wissen (Passwort), Besitz (Token/Handy) oder Biometrie (Fingerabdruck).", category: "Authentifizierung" },
+  { term: "TOTP", definition: "Time-based One-Time Password — ein zeitbasiertes Einmalpasswort, das von Authenticator-Apps (Google Authenticator, Authy) generiert wird und alle 30 Sekunden wechselt.", category: "Authentifizierung" },
+  { term: "FIDO2 / WebAuthn", definition: "Moderner Authentifizierungsstandard, der passwortlose Anmeldung per Hardware-Schlüssel (YubiKey) oder biometrischen Sensoren ermöglicht.", category: "Authentifizierung" },
+  { term: "SSO (Single Sign-On)", definition: "Einmalanmeldung — ein Authentifizierungsverfahren, bei dem ein einzelner Login-Vorgang den Zugriff auf mehrere Systeme ermöglicht (z.B. Microsoft 365, Google Workspace).", category: "Authentifizierung" },
+  { term: "OAuth 2.0", definition: "Autorisierungsprotokoll, das Drittanbieter-Apps den begrenzten Zugriff auf Ressourcen eines Nutzers erlaubt, ohne das Passwort preiszugeben (z.B. 'Mit Google anmelden').", category: "Authentifizierung" },
+  { term: "SAML", definition: "Security Assertion Markup Language — XML-basierter Standard für den Austausch von Authentifizierungs- und Autorisierungsdaten zwischen Identity Provider und Service Provider.", category: "Authentifizierung" },
+  { term: "Passkey", definition: "Modernes, passwortloses Anmeldeverfahren basierend auf FIDO2. Verwendet kryptographische Schlüsselpaare statt Passwörter. Von Apple, Google und Microsoft unterstützt.", category: "Authentifizierung" },
+  { term: "Passwortmanager", definition: "Software zur sicheren Verwaltung aller Passwörter in einem verschlüsselten Tresor. Beispiele: Bitwarden, 1Password, KeePass. Generiert starke, einzigartige Passwörter.", category: "Authentifizierung" },
+  { term: "YubiKey", definition: "Hardware-Sicherheitsschlüssel von Yubico für 2FA und passwortlose Authentifizierung. Unterstützt FIDO2, OTP und PIV. Gilt als sicherste 2FA-Methode.", category: "Authentifizierung" },
+  { term: "Biometrische Authentifizierung", definition: "Identitätsprüfung anhand körperlicher Merkmale: Fingerabdruck, Gesichtserkennung, Iris-Scan. Bequem, aber bei Kompromittierung nicht änderbar.", category: "Authentifizierung" },
+  { term: "Kerberos", definition: "Netzwerk-Authentifizierungsprotokoll, das Tickets zur sicheren Identitätsprüfung in Windows-Domänen verwendet. Vermeidet die Übertragung von Passwörtern.", category: "Authentifizierung" },
+  { term: "LDAP", definition: "Lightweight Directory Access Protocol — Protokoll für den Zugriff auf Verzeichnisdienste (z.B. Active Directory), die Benutzerkonten und Berechtigungen verwalten.", category: "Authentifizierung" },
+
+  // ─── Recht & Compliance ───
+  { term: "DSGVO", definition: "Die Datenschutz-Grundverordnung ist eine EU-Verordnung, die seit Mai 2018 den Umgang mit personenbezogenen Daten regelt. Sie gewährt Betroffenen umfangreiche Rechte und verpflichtet Unternehmen zu transparenter Datenverarbeitung.", category: "Recht & Compliance" },
+  { term: "BDSG", definition: "Bundesdatenschutzgesetz — das deutsche Datenschutzgesetz, das die DSGVO für Deutschland ergänzt und konkretisiert.", category: "Recht & Compliance" },
+  { term: "CCPA", definition: "California Consumer Privacy Act — das kalifornische Datenschutzgesetz, das Verbrauchern ähnliche Rechte wie die DSGVO einräumt.", category: "Recht & Compliance" },
+  { term: "NIS2-Richtlinie", definition: "EU-Richtlinie für Cybersicherheit, die seit 2024 gilt. Erweitert den Kreis der betroffenen Unternehmen und verschärft die Meldepflichten bei Sicherheitsvorfällen.", category: "Recht & Compliance" },
+  { term: "ISO 27001", definition: "Internationaler Standard für Informationssicherheits-Managementsysteme (ISMS). Zertifizierung belegt, dass ein Unternehmen systematisch Informationssicherheit betreibt.", category: "Recht & Compliance" },
+  { term: "BSI Grundschutz", definition: "Vom Bundesamt für Sicherheit in der Informationstechnik (BSI) entwickelte Methodik zur Identifizierung und Umsetzung von IT-Sicherheitsmaßnahmen.", category: "Recht & Compliance" },
+  { term: "Auftragsverarbeitung (AVV)", definition: "Vertrag nach Art. 28 DSGVO, der geschlossen werden muss, wenn ein externer Dienstleister personenbezogene Daten im Auftrag eines Unternehmens verarbeitet.", category: "Recht & Compliance" },
+  { term: "Datenschutzbeauftragter (DSB)", definition: "Ab 20 Personen mit regelmäßiger Datenverarbeitung gesetzlich vorgeschrieben. Intern unabhängig und weisungsfrei tätig. Berät und kontrolliert die DSGVO-Einhaltung.", category: "Recht & Compliance" },
+  { term: "Datenschutz-Folgenabschätzung", definition: "DSFA nach Art. 35 DSGVO — Pflicht bei hohem Risiko für die Rechte von Betroffenen. Analysiert die Risiken einer Datenverarbeitung und legt Schutzmaßnahmen fest.", category: "Recht & Compliance" },
+  { term: "Recht auf Vergessenwerden", definition: "Art. 17 DSGVO — Betroffene können die Löschung ihrer Daten verlangen, wenn der Zweck der Verarbeitung entfallen ist oder die Einwilligung widerrufen wurde.", category: "Recht & Compliance" },
+  { term: "Datenportabilität", definition: "Art. 20 DSGVO — das Recht, persönliche Daten in einem maschinenlesbaren Format zu erhalten und an einen anderen Anbieter zu übertragen.", category: "Recht & Compliance" },
+  { term: "Privacy by Design", definition: "Datenschutzprinzip, das verlangt, dass Datenschutz von Anfang an in die Entwicklung von Systemen und Prozessen eingebaut wird, nicht erst nachträglich.", category: "Recht & Compliance" },
+  { term: "Privacy by Default", definition: "Standardmäßig datenschutzfreundliche Einstellungen — nur die für den Zweck notwendigen Daten werden erhoben und verarbeitet.", category: "Recht & Compliance" },
+  { term: "Whistleblower-Schutz", definition: "Gesetzlicher Schutz für Personen, die Missstände oder Rechtsverstöße in Unternehmen melden. EU-Whistleblower-Richtlinie seit 2023 in deutsches Recht umgesetzt.", category: "Recht & Compliance" },
+  { term: "SOC 2", definition: "Service Organization Control 2 — Audit-Standard für Cloud-Dienstleister zu Sicherheit, Verfügbarkeit, Integrität, Vertraulichkeit und Datenschutz.", category: "Recht & Compliance" },
+  { term: "TISAX", definition: "Trusted Information Security Assessment Exchange — branchenspezifischer Sicherheitsstandard der Automobilindustrie basierend auf ISO 27001.", category: "Recht & Compliance" },
+
+  // ─── Malware ───
+  { term: "Ransomware", definition: "Schadsoftware, die Dateien verschlüsselt und ein Lösegeld (Ransom) für die Entschlüsselung fordert. Bekannte Beispiele: WannaCry, LockBit, Conti.", category: "Malware" },
+  { term: "Trojaner", definition: "Schadsoftware, die sich als nützliches Programm tarnt und im Hintergrund schädliche Funktionen ausführt, z.B. Daten ausspähen oder Hintertüren öffnen.", category: "Malware" },
+  { term: "Rootkit", definition: "Software, die sich tief im Betriebssystem verankert, um einem Angreifer dauerhaften, versteckten Zugriff auf ein System zu ermöglichen.", category: "Malware" },
+  { term: "Keylogger", definition: "Schadsoftware oder Hardware, die Tastatureingaben aufzeichnet, um Passwörter, Kreditkartennummern und andere sensible Daten zu stehlen.", category: "Malware" },
+  { term: "Spyware", definition: "Software, die heimlich Informationen über die Aktivitäten eines Nutzers sammelt und an Dritte übermittelt — z.B. Browsing-Verhalten, Tastatureingaben.", category: "Malware" },
+  { term: "Adware", definition: "Software, die unerwünschte Werbung anzeigt. Oft mit Freeware gebündelt. Kann die Privatsphäre gefährden, indem sie das Surfverhalten trackt.", category: "Malware" },
+  { term: "Wurm", definition: "Selbstreplizierende Malware, die sich ohne menschliches Zutun über Netzwerke verbreitet. Im Gegensatz zu Viren benötigt ein Wurm kein Wirtsprogramm.", category: "Malware" },
+  { term: "Bot / Botnet", definition: "Ein infizierter Computer (Bot), der ferngesteuert werden kann. Viele Bots bilden ein Botnet, das für DDoS-Angriffe, Spam-Versand oder Krypto-Mining missbraucht wird.", category: "Malware" },
+  { term: "Fileless Malware", definition: "Schadsoftware, die ohne Dateien auf der Festplatte auskommt. Läuft nur im Arbeitsspeicher und nutzt System-Tools wie PowerShell, was die Erkennung erschwert.", category: "Malware" },
+  { term: "Polymorphe Malware", definition: "Malware, die ihren Code bei jeder Infektion verändert, um signaturbasierte Antivirenprogramme zu umgehen.", category: "Malware" },
+  { term: "Cryptojacking", definition: "Unbefugte Nutzung von Computerressourcen zum Schürfen von Kryptowährungen, oft über JavaScript-Code in Webseiten oder durch Malware.", category: "Malware" },
+  { term: "Dropper", definition: "Malware-Typ, dessen einziger Zweck es ist, andere Schadsoftware herunterzuladen und auf dem System zu installieren.", category: "Malware" },
+
+  // ─── Gerätesicherheit ───
+  { term: "Endpoint Security", definition: "Der Schutz von Endgeräten (Laptops, Smartphones, Tablets) vor Cyberbedrohungen. Umfasst Antivirensoftware, Firewalls, Verschlüsselung und MDM.", category: "Gerätesicherheit" },
+  { term: "MDM (Mobile Device Management)", definition: "Zentrale Verwaltung mobiler Firmengräte: App-Verteilung, Richtlinien durchsetzen, Fernlöschung bei Verlust, Verschlüsselung erzwingen.", category: "Gerätesicherheit" },
+  { term: "BYOD", definition: "Bring Your Own Device — Richtlinie, die Mitarbeitern erlaubt, private Geräte geschäftlich zu nutzen. Erfordert klare Sicherheitsregeln und MDM-Profile.", category: "Gerätesicherheit" },
+  { term: "Patch Management", definition: "Systematischer Prozess zur Identifikation, Bewertung und Installation von Software-Updates, um bekannte Sicherheitslücken zu schließen.", category: "Gerätesicherheit" },
+  { term: "EDR (Endpoint Detection & Response)", definition: "Erweiterte Endpoint-Security-Lösung, die Bedrohungen in Echtzeit erkennt, analysiert und automatisch darauf reagiert.", category: "Gerätesicherheit" },
+  { term: "Festplattenverschlüsselung", definition: "Vollständige Verschlüsselung der Festplatte (BitLocker, FileVault). Schützt Daten bei Verlust oder Diebstahl des Geräts.", category: "Gerätesicherheit" },
+  { term: "Secure Boot", definition: "Firmware-Sicherheitsfunktion, die sicherstellt, dass nur vertrauenswürdige Software beim Systemstart geladen wird.", category: "Gerätesicherheit" },
+  { term: "Remote Wipe", definition: "Fernlöschung aller Daten auf einem verlorenen oder gestohlenen Gerät über MDM. Sofort IT informieren bei Geräteverlust.", category: "Gerätesicherheit" },
+  { term: "Bildschirmsperre", definition: "Automatische Sperrung nach max. 5 Min. Inaktivität. Shortcut: Win+L (Windows) / Ctrl+Cmd+Q (Mac). Standard-Sicherheitsmaßnahme am Arbeitsplatz.", category: "Gerätesicherheit" },
+  { term: "USB-Sicherheit", definition: "Richtlinien zum Umgang mit USB-Geräten: keine unbekannten USB-Sticks verwenden, USB-Ports sperren, verschlüsselte USB-Sticks für Firmendaten.", category: "Gerätesicherheit" },
+  { term: "Antivirus / Anti-Malware", definition: "Software zur Erkennung, Quarantäne und Entfernung von Schadsoftware. Moderne Lösungen nutzen heuristiken und KI neben Signaturen.", category: "Gerätesicherheit" },
+
+  // ─── Cloud & Infrastruktur ───
+  { term: "SaaS", definition: "Software as a Service — Cloud-Modell, bei dem Software über das Internet bereitgestellt wird (z.B. Microsoft 365, Google Workspace). Keine lokale Installation nötig.", category: "Cloud" },
+  { term: "IaaS", definition: "Infrastructure as a Service — Cloud-Modell, bei dem virtuelle Server, Speicher und Netzwerke gemietet werden (z.B. AWS EC2, Azure VMs).", category: "Cloud" },
+  { term: "PaaS", definition: "Platform as a Service — Cloud-Modell, das eine Entwicklungsplattform bereitstellt (z.B. Heroku, Google App Engine).", category: "Cloud" },
+  { term: "Shared Responsibility Model", definition: "Verantwortungsteilung in der Cloud: Der Anbieter schützt die Infrastruktur, der Kunde ist für Daten, Anwendungen und Zugriffsrechte selbst verantwortlich.", category: "Cloud" },
+  { term: "3-2-1-Backup-Regel", definition: "Best Practice: 3 Kopien auf 2 verschiedenen Medientypen, davon 1 extern. Ein nicht getestetes Backup ist kein Backup.", category: "Cloud" },
+  { term: "Data Residency", definition: "Bestimmung des physischen Speicherorts von Daten. DSGVO-relevant: Daten von EU-Bürgern sollten idealerweise in der EU gespeichert werden.", category: "Cloud" },
+  { term: "Shadow IT", definition: "IT-Systeme, Software oder Cloud-Dienste, die ohne Wissen oder Genehmigung der IT-Abteilung von Mitarbeitern genutzt werden.", category: "Cloud" },
+  { term: "Container-Sicherheit", definition: "Schutz von Docker- und Kubernetes-Containern: Image-Scanning, minimale Basis-Images, keine Root-Rechte, Netzwerkpolicies.", category: "Cloud" },
+  { term: "Least Privilege", definition: "Minimale Rechtevergabe — jeder Nutzer und jede Anwendung erhält nur die Berechtigungen, die für die jeweilige Aufgabe notwendig sind.", category: "Cloud" },
+
+  // ─── Schwachstellen ───
+  { term: "Zero-Day", definition: "Eine Sicherheitslücke in Software, die dem Hersteller noch unbekannt ist oder für die noch kein Patch existiert. 'Zero Days' seit Bekanntwerden.", category: "Schwachstellen" },
+  { term: "CVE", definition: "Common Vulnerabilities and Exposures — ein standardisiertes Nummerierungssystem für bekannte Sicherheitslücken (z.B. CVE-2023-44487).", category: "Schwachstellen" },
+  { term: "CVSS", definition: "Common Vulnerability Scoring System — Bewertungsskala (0–10) für den Schweregrad von Schwachstellen. Ab 7.0 gilt eine Lücke als 'hoch'.", category: "Schwachstellen" },
+  { term: "Exploit", definition: "Code oder Technik, die eine Sicherheitslücke ausnutzt. Exploits können automatisiert in Exploit-Kits gebündelt werden.", category: "Schwachstellen" },
+  { term: "Bug Bounty", definition: "Programm, bei dem Unternehmen ethische Hacker dafür bezahlen, Sicherheitslücken zu finden und verantwortungsvoll zu melden.", category: "Schwachstellen" },
+  { term: "Penetrationstest (Pentest)", definition: "Autorisierter, simulierter Cyberangriff auf ein System, um Schwachstellen zu identifizieren, bevor echte Angreifer sie finden.", category: "Schwachstellen" },
+  { term: "Vulnerability Scanning", definition: "Automatisierte Überprüfung von Systemen auf bekannte Schwachstellen. Tools: Nessus, Qualys, OpenVAS.", category: "Schwachstellen" },
+  { term: "Attack Surface", definition: "Die Gesamtheit aller Angriffspunkte eines Systems — alle Ports, Dienste, APIs, E-Mail-Adressen und Schnittstellen, die ein Angreifer potenziell nutzen kann.", category: "Schwachstellen" },
+  { term: "OWASP Top 10", definition: "Liste der zehn häufigsten Sicherheitsrisiken in Webanwendungen, herausgegeben von der Open Worldwide Application Security Project Foundation.", category: "Schwachstellen" },
+
+  // ─── E-Mail-Sicherheit ───
+  { term: "SPF (Sender Policy Framework)", definition: "DNS-Eintrag, der festlegt, welche Server E-Mails im Namen einer Domain senden dürfen. Verhindert E-Mail-Spoofing.", category: "E-Mail" },
+  { term: "DKIM", definition: "DomainKeys Identified Mail — digitale Signatur für E-Mails, die die Authentizität und Unverändertheit einer Nachricht bestätigt.", category: "E-Mail" },
+  { term: "DMARC", definition: "Domain-based Message Authentication, Reporting & Conformance — Richtlinie, die SPF und DKIM kombiniert und vorschreibt, was mit nicht-authentifizierten E-Mails geschehen soll.", category: "E-Mail" },
+  { term: "E-Mail-Spoofing", definition: "Fälschung des Absenderfeldes einer E-Mail, um den Anschein zu erwecken, sie stamme von einer vertrauenswürdigen Quelle.", category: "E-Mail" },
+  { term: "Spam", definition: "Unerwünschte Massen-E-Mails, die Werbung, Betrugsversuche oder Malware enthalten. Spam-Filter sortieren diese automatisch aus.", category: "E-Mail" },
+  { term: "Sandbox (E-Mail)", definition: "Isolierte Umgebung, in der E-Mail-Anhänge automatisch geöffnet und analysiert werden, bevor sie den Empfänger erreichen.", category: "E-Mail" },
+  { term: "URL Rewriting", definition: "Sicherheitstechnik, bei der Links in E-Mails durch einen Proxy-Link ersetzt werden, der die Ziel-URL vor dem Weiterleiten auf Gefahren prüft.", category: "E-Mail" },
+  { term: "Makro-Sicherheit", definition: "Office-Makros (.docm, .xlsm) können Schadcode enthalten. Best Practice: Makros standardmäßig deaktivieren, nur signierte Makros aus vertrauenswürdigen Quellen erlauben.", category: "E-Mail" },
+
+  // ─── Incident Response ───
+  { term: "SIEM", definition: "Security Information and Event Management — zentralisierte Plattform, die Sicherheitsereignisse aus verschiedenen Quellen sammelt, korreliert und analysiert.", category: "Incident Response" },
+  { term: "SOC (Security Operations Center)", definition: "Team und Einrichtung, die IT-Sicherheit rund um die Uhr überwacht, Sicherheitsvorfälle erkennt und darauf reagiert.", category: "Incident Response" },
+  { term: "Incident Response Plan", definition: "Dokumentierter Ablaufplan für den Umgang mit Sicherheitsvorfällen: Erkennung, Eindämmung, Beseitigung, Wiederherstellung und Nachbereitung.", category: "Incident Response" },
+  { term: "Forensik (IT)", definition: "Wissenschaftliche Untersuchung digitaler Geräte und Daten zur Aufklärung von Sicherheitsvorfällen und Straftaten. Beweissicherung ist entscheidend.", category: "Incident Response" },
+  { term: "Chain of Custody", definition: "Lückenlose Dokumentation der Beweiskette bei digitaler Forensik. Stellt sicher, dass Beweise vor Gericht verwertbar sind.", category: "Incident Response" },
+  { term: "Datenpanne (Breach)", definition: "Verletzung der Datensicherheit, bei der personenbezogene Daten unbefugt offengelegt werden. Meldepflicht: 72 Stunden an die Aufsichtsbehörde (Art. 33 DSGVO).", category: "Incident Response" },
+  { term: "Business Continuity", definition: "Strategien und Maßnahmen, die sicherstellen, dass kritische Geschäftsprozesse auch bei Störungen oder Katastrophen weiterlaufen können.", category: "Incident Response" },
+  { term: "Disaster Recovery", definition: "Plan zur Wiederherstellung von IT-Infrastruktur und Daten nach einem Zwischenfall. Definiert RTO (Wiederherstellungszeit) und RPO (max. Datenverlust).", category: "Incident Response" },
+  { term: "Threat Intelligence", definition: "Sammlung und Analyse von Informationen über aktuelle Bedrohungen, Angreifer und Angriffstechniken zur proaktiven Verteidigung.", category: "Incident Response" },
+  { term: "IOC (Indicator of Compromise)", definition: "Indikatoren eines Sicherheitsvorfalls: verdächtige IP-Adressen, Datei-Hashes, ungewöhnliche DNS-Abfragen oder Registry-Änderungen.", category: "Incident Response" },
+
+  // ─── Web-Sicherheit ───
+  { term: "CORS", definition: "Cross-Origin Resource Sharing — HTTP-Header-basierter Mechanismus, der regelt, welche Domains auf Ressourcen einer Website zugreifen dürfen.", category: "Web-Sicherheit" },
+  { term: "CSP (Content Security Policy)", definition: "HTTP-Header, der festlegt, welche Ressourcen (Scripts, Styles) eine Webseite laden darf. Schützt vor XSS und Code-Injection.", category: "Web-Sicherheit" },
+  { term: "CSRF", definition: "Cross-Site Request Forgery — Angriff, bei dem ein eingeloggter Nutzer dazu gebracht wird, unbeabsichtigt Aktionen auf einer Website auszuführen.", category: "Web-Sicherheit" },
+  { term: "WAF (Web Application Firewall)", definition: "Firewall speziell für Webanwendungen, die HTTP/HTTPS-Verkehr filtert und vor Angriffen wie SQL Injection und XSS schützt.", category: "Web-Sicherheit" },
+  { term: "Cookie", definition: "Kleine Datei, die von Websites im Browser gespeichert wird. First-Party-Cookies sind meist nötig, Third-Party-Cookies dienen oft dem Tracking.", category: "Web-Sicherheit" },
+  { term: "Same-Origin-Policy", definition: "Browser-Sicherheitsrichtlinie, die verhindert, dass Scripts einer Website auf Daten einer anderen Website zugreifen können.", category: "Web-Sicherheit" },
+  { term: "HSTS", definition: "HTTP Strict Transport Security — zwingt Browser, nur HTTPS-Verbindungen zu einer Website zuzulassen. Schützt vor SSL-Stripping-Angriffen.", category: "Web-Sicherheit" },
+  { term: "Clickjacking", definition: "Angriff, bei dem unsichtbare iframe-Elemente über eine sichtbare Webseite gelegt werden, um Nutzer zum Klicken auf versteckte Schaltflächen zu verleiten.", category: "Web-Sicherheit" },
+  { term: "API-Sicherheit", definition: "Schutz von Programmierschnittstellen: API-Keys, OAuth-Tokens, Rate-Limiting, Input-Validierung und Protokollierung aller API-Aufrufe.", category: "Web-Sicherheit" },
+
+  // ─── Datenschutz ───
+  { term: "Personenbezogene Daten", definition: "Alle Informationen, die eine Person direkt oder indirekt identifizieren: Name, E-Mail, IP-Adresse, Standort, biometrische Daten, Gesundheitsdaten.", category: "Datenschutz" },
+  { term: "Pseudonymisierung", definition: "Verarbeitung personenbezogener Daten, sodass sie ohne Hinzuziehung zusätzlicher Informationen nicht mehr einer Person zugeordnet werden können.", category: "Datenschutz" },
+  { term: "Anonymisierung", definition: "Unwiderrufliche Entfernung aller personenidentifizierenden Merkmale. Anonymisierte Daten unterliegen nicht mehr der DSGVO.", category: "Datenschutz" },
+  { term: "Data Minimization", definition: "DSGVO-Grundsatz: Nur die personenbezogenen Daten erheben, die für den konkreten Zweck tatsächlich erforderlich sind.", category: "Datenschutz" },
+  { term: "Zweckbindung", definition: "Personenbezogene Daten dürfen nur für den Zweck verarbeitet werden, für den sie erhoben wurden (Art. 5 DSGVO).", category: "Datenschutz" },
+  { term: "Aufbewahrungsfrist", definition: "Zeitraum, für den Daten gespeichert werden dürfen/müssen. Nach Ablauf müssen sie gelöscht werden. Variiert je nach Datentyp und Rechtsgrundlage.", category: "Datenschutz" },
+  { term: "Einwilligung (Consent)", definition: "Freiwillige, informierte und eindeutige Zustimmung zur Datenverarbeitung. Muss jederzeit widerrufbar sein. Vorausgefüllte Checkboxen sind ungültig.", category: "Datenschutz" },
+  { term: "Berechtigtes Interesse", definition: "Art. 6 Abs.1 lit.f DSGVO — Rechtsgrundlage für Datenverarbeitung ohne Einwilligung, wenn das Interesse des Unternehmens überwiegt und angemessen ist.", category: "Datenschutz" },
+  { term: "TOM", definition: "Technische und Organisatorische Maßnahmen — dokumentierte Schutzmaßnahmen für personenbezogene Daten (Zutrittskontrolle, Verschlüsselung, Backup-Konzept).", category: "Datenschutz" },
+  { term: "Verzeichnis der Verarbeitungstätigkeiten", definition: "DSGVO-Pflichtdokument, das alle Verarbeitungstätigkeiten mit personenbezogenen Daten eines Unternehmens erfasst.", category: "Datenschutz" },
+  { term: "Datenübertragung in Drittländer", definition: "Transfer personenbezogener Daten außerhalb der EU. Rechtmäßig nur bei Angemessenheitsbeschluss, Standardvertragsklauseln oder Binding Corporate Rules.", category: "Datenschutz" },
+
+  // ─── E-Learning Standards ───
+  { term: "SCORM", definition: "Sharable Content Object Reference Model — Standard für e-Learning-Inhalte, der Kompatibilität zwischen verschiedenen LMS wie Moodle oder SAP SuccessFactors sicherstellt.", category: "E-Learning" },
+  { term: "xAPI (Experience API)", definition: "Nachfolger von SCORM. Erfasst Lernerfahrungen  flexibler und geräteübergreifend, auch außerhalb eines LMS (z.B. mobile Apps, Simulationen).", category: "E-Learning" },
+  { term: "LMS (Learning Management System)", definition: "Software zur Verwaltung und Bereitstellung von Online-Lerninhalten: Moodle, SAP SuccessFactors, Cornerstone OnDemand.", category: "E-Learning" },
+  { term: "Microlearning", definition: "Lernmethode mit kurzen, fokussierten Lerneinheiten (3–10 Minuten), die sich gut in den Arbeitsalltag integrieren lassen.", category: "E-Learning" },
+  { term: "Gamification", definition: "Einsatz spielerischer Elemente (Punkte, Badges, Ranglisten) in nicht-spielerischen Kontexten, um Motivation und Engagement zu steigern.", category: "E-Learning" },
+  { term: "Completion Rate", definition: "Abschlussquote — der Prozentsatz der Lernenden, die eine Schulung erfolgreich abgeschlossen haben. KPI für Compliance-Reporting.", category: "E-Learning" },
+
+  // ─── Spezialthemen ───
+  { term: "Dark Web", definition: "Teil des Internets, der nur über spezielle Software (Tor-Browser) zugänglich ist. Wird für anonyme Kommunikation, aber auch für illegale Handelsplätze genutzt.", category: "Spezialthemen" },
+  { term: "Deepfake", definition: "KI-generierte Medieninhalte (Video, Audio), die echte Personen täuschend echt imitieren. Zunehmend für CEO-Fraud und Identitätsbetrug eingesetzt.", category: "Spezialthemen" },
+  { term: "Honeypot", definition: "Absichtlich verwundbares System, das als Köder für Angreifer dient. Dient der Analyse von Angriffsmethoden und der Frühwarnung.", category: "Spezialthemen" },
+  { term: "Red Team / Blue Team", definition: "Red Team: simuliert Angriffe. Blue Team: verteidigt. Purple Team: kombiniert beide Perspektiven für ganzheitliche Sicherheit.", category: "Spezialthemen" },
+  { term: "Zero Trust", definition: "Sicherheitsmodell, das keinem Nutzer oder Gerät automatisch vertraut — auch nicht innerhalb des Firmennetzwerks. 'Never trust, always verify.'", category: "Spezialthemen" },
+  { term: "SASE (Secure Access Service Edge)", definition: "Cloud-basiertes Sicherheitsmodell, das Netzwerk- und Sicherheitsfunktionen (VPN, Firewall, CASB) in einem Service vereint.", category: "Spezialthemen" },
+  { term: "Quantencomputing-Bedrohung", definition: "Zukünftige Quantencomputer könnten heutige Verschlüsselung (RSA, ECC) brechen. Post-Quantum-Kryptographie wird bereits entwickelt.", category: "Spezialthemen" },
+  { term: "Threat Modeling", definition: "Systematische Analyse potenzieller Bedrohungen für ein System. Gängige Methoden: STRIDE, PASTA, Attack Trees.", category: "Spezialthemen" },
+  { term: "Rainbow Table", definition: "Vorberechnete Tabelle von Hash-Werten für bekannte Passwörter. Wird durch Salting unwirksam gemacht.", category: "Spezialthemen" },
+  { term: "Have I Been Pwned", definition: "Kostenloser Online-Dienst (haveibeenpwned.com), der prüft, ob die eigene E-Mail-Adresse in einem Datenleck aufgetaucht ist.", category: "Spezialthemen" },
+  { term: "Cyber Kill Chain", definition: "7-Phasen-Modell von Lockheed Martin für Cyberangriffe: Aufklärung, Bewaffnung, Lieferung, Ausnutzung, Installation, C2, Aktionen auf dem Ziel.", category: "Spezialthemen" },
+  { term: "MITRE ATT&CK", definition: "Umfassende Wissensbasis für Angriffstechniken und -taktiken, die von Sicherheitsteams weltweit zur Bedrohungsanalyse und -abwehr genutzt wird.", category: "Spezialthemen" },
 ];
+

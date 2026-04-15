@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bell, Shield } from "lucide-react";
+import AiChat from "@/components/AiChat";
 
 interface NavItem { href: string; label: string; }
 
@@ -41,44 +42,44 @@ export default function DashboardLayout({
       {/* Top Nav */}
       <header style={{
         position: "sticky", top: 0, zIndex: 50,
-        background: "rgba(255,255,255,0.92)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(0,0,0,0.08)",
+        background: "rgba(250,251,253,0.88)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderBottom: "1px solid var(--border)",
       }}>
         <div style={{
-          maxWidth: 1280, margin: "0 auto",
+          maxWidth: 1200, margin: "0 auto",
           padding: "0 1.5rem",
           height: 56,
-          display: "flex", alignItems: "center", gap: "2rem",
+          display: "flex", alignItems: "center", gap: "1.5rem",
         }}>
           {/* Logo */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
-            <div style={{ width: 28, height: 28, background: "#CCFF00", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Shield size={16} color="#0C0C0F" strokeWidth={2.5} />
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
+            <div style={{ width: 32, height: 32, background: "var(--accent)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Shield size={17} color="#fff" strokeWidth={2.5} />
             </div>
-            <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "#0D0D16", letterSpacing: "-0.01em" }}>
+            <span style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--text)", letterSpacing: "-0.02em" }}>
               CyberAware
             </span>
             {isAdmin && (
-              <span style={{ fontSize: "0.6rem", fontWeight: 700, padding: "0.1rem 0.45rem", borderRadius: 100, background: "rgba(180,230,0,0.22)", color: "#3A5800" }}>
+              <span style={{ fontSize: "0.6rem", fontWeight: 700, padding: "0.15rem 0.5rem", borderRadius: 100, background: "var(--accent-dim2)", color: "var(--accent-text)" }}>
                 Admin
               </span>
             )}
           </Link>
 
           {/* Nav pills */}
-          <nav style={{ display: "flex", gap: 4, flex: 1, overflowX: "auto" }}>
+          <nav style={{ display: "flex", gap: 2, flex: 1, overflowX: "auto" }}>
             {nav.map((item) => {
               const active = pathname === item.href;
               return (
                 <Link key={item.href} href={item.href} style={{
-                  padding: "0.3rem 0.85rem", borderRadius: 100,
-                  fontSize: "0.8rem", fontWeight: active ? 600 : 400,
+                  padding: "0.35rem 0.9rem", borderRadius: 8,
+                  fontSize: "0.82rem", fontWeight: active ? 600 : 400,
                   textDecoration: "none", whiteSpace: "nowrap",
                   transition: "all 0.15s",
-                  background: active ? "#CCFF00" : "transparent",
-                  color: active ? "#0C0C0F" : "#4A4A62",
+                  background: active ? "var(--accent-dim)" : "transparent",
+                  color: active ? "var(--accent-text)" : "var(--text-2)",
                 }}>
                   {item.label}
                 </Link>
@@ -89,26 +90,26 @@ export default function DashboardLayout({
           {/* Right controls */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
             <button style={{
-              width: 34, height: 34, borderRadius: "50%",
-              background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)",
+              width: 34, height: 34, borderRadius: 8,
+              background: "var(--surface)", border: "1px solid var(--border)",
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", position: "relative",
             }}>
-              <Bell size={14} color="#4A4A62" />
+              <Bell size={15} color="var(--text-2)" />
               <span style={{
                 position: "absolute", top: 7, right: 7,
-                width: 6, height: 6, background: "#CCFF00",
-                borderRadius: "50%", border: "1.5px solid #FFFFFF",
+                width: 6, height: 6, background: "var(--accent)",
+                borderRadius: "50%", border: "1.5px solid var(--surface)",
               }} />
             </button>
 
             <div style={{
-              width: 34, height: 34, borderRadius: "50%",
-              background: isAdmin ? "rgba(180,230,0,0.22)" : "#EDEDF5",
-              border: "1px solid rgba(0,0,0,0.08)",
+              width: 34, height: 34, borderRadius: 8,
+              background: isAdmin ? "var(--accent-dim2)" : "var(--surface-2)",
+              border: "1px solid var(--border)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: "0.7rem", fontWeight: 700,
-              color: isAdmin ? "#3A5800" : "#0D0D16",
+              color: isAdmin ? "var(--accent-text)" : "var(--text)",
             }}>
               {userInitials}
             </div>
@@ -117,9 +118,11 @@ export default function DashboardLayout({
       </header>
 
       {/* Content */}
-      <main style={{ maxWidth: 1280, margin: "0 auto", padding: "2rem 1.5rem" }}>
+      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "2rem 1.5rem" }}>
         {children}
       </main>
+
+      <AiChat />
     </div>
   );
 }

@@ -33,9 +33,9 @@ export default function PhishingPage() {
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "2rem" }}>
           <div>
             <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Sicherheit</p>
-            <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Phishing-Simulationen</h1>
+            <h1 style={{ fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.03em" }}>Phishing-Simulationen</h1>
           </div>
-          <button onClick={() => setShowCreate(true)} style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.65rem 1.25rem", background: S.accent, border: "none", borderRadius: 100, color: "var(--accent-fg)", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}>
+          <button onClick={() => setShowCreate(true)} style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.65rem 1.25rem", background: S.accent, border: "none", borderRadius: 100, color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}>
             <Plus size={14} /> Neue Kampagne
           </button>
         </div>
@@ -48,7 +48,7 @@ export default function PhishingPage() {
             { label: "Gesendete Tests", value: "96", sub: "an 48 Mitarbeiter", trend: "2 Kampagnen" },
           ].map(s => (
             <div key={s.label} style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 18, padding: "1.25rem" }}>
-              <div style={{ fontSize: "2.2rem", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+              <div style={{ fontSize: "2.2rem", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
               <div style={{ fontSize: "0.7rem", color: "var(--text-2)", marginBottom: 6 }}>{s.label}</div>
               <div style={{ fontSize: "0.68rem", color: S.green }}>{s.trend}</div>
             </div>
@@ -82,7 +82,7 @@ export default function PhishingPage() {
                     <div style={{ fontSize: "0.72rem", color: "var(--text-2)" }}>Template: {c.template} · {new Date(c.createdAt).toLocaleDateString("de-DE")}</div>
                   </div>
                   {c.status === "draft" ? (
-                    <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.45rem 1rem", background: S.accent, border: "none", borderRadius: 100, color: "var(--accent-fg)", fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>
+                    <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.45rem 1rem", background: S.accent, border: "none", borderRadius: 100, color: "#fff", fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>
                       <Play size={11} /> Starten
                     </button>
                   ) : (
@@ -102,7 +102,7 @@ export default function PhishingPage() {
                         { label: "Ignoriert", value: c.sentTo - c.clicked - c.reported, color: "var(--text-2)" },
                       ].map(stat => (
                         <div key={stat.label} style={{ background: "var(--surface-2)", borderRadius: 12, padding: "0.75rem", textAlign: "center" }}>
-                          <div style={{ fontSize: "1.4rem", fontWeight: 800, letterSpacing: "-0.03em", color: stat.color }}>{stat.value}</div>
+                          <div style={{ fontSize: "1.4rem", fontWeight: 700, letterSpacing: "-0.03em", color: stat.color }}>{stat.value}</div>
                           <div style={{ fontSize: "0.65rem", color: "var(--text-2)", marginTop: 2 }}>{stat.label}</div>
                         </div>
                       ))}
@@ -126,14 +126,14 @@ export default function PhishingPage() {
       {/* Create modal */}
       {showCreate && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50, padding: "1rem" }}>
-          <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 24, width: "100%", maxWidth: 600, maxHeight: "90vh", overflow: "auto" }}>
+          <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 16, width: "100%", maxWidth: 600, maxHeight: "90vh", overflow: "auto" }}>
             {/* Modal header */}
             <div style={{ padding: "1.5rem", borderBottom: `1px solid ${S.border}` }}>
-              <h2 style={{ fontSize: "1rem", fontWeight: 800, marginBottom: "1rem" }}>Neue Phishing-Kampagne</h2>
+              <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "1rem" }}>Neue Phishing-Kampagne</h2>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 {[1, 2, 3].map(s => (
                   <div key={s} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <div style={{ width: 26, height: 26, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.72rem", fontWeight: 700, background: s < step ? S.green : s === step ? S.accent : "var(--surface-2)", color: s <= step ? "var(--accent-fg)" : "var(--text-2)" }}>
+                    <div style={{ width: 26, height: 26, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.72rem", fontWeight: 700, background: s < step ? S.green : s === step ? S.accent : "var(--surface-2)", color: s <= step ? "#fff" : "var(--text-2)" }}>
                       {s < step ? "✓" : s}
                     </div>
                     <span style={{ fontSize: "0.72rem", color: s === step ? "var(--text)" : "var(--text-2)", fontWeight: s === step ? 600 : 400 }}>
@@ -178,7 +178,7 @@ export default function PhishingPage() {
                     <label style={{ fontSize: "0.72rem", color: "var(--text-2)", display: "block", marginBottom: 8 }}>Abteilungen</label>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                       {["IT", "Finance", "HR", "Marketing", "Sales", "Operations", "Legal", "Alle"].map(d => (
-                        <button key={d} style={{ padding: "0.3rem 0.85rem", borderRadius: 100, fontSize: "0.75rem", cursor: "pointer", background: d === "Alle" ? S.accent : "transparent", color: d === "Alle" ? "var(--accent-fg)" : "var(--text-2)", border: d === "Alle" ? "none" : `1px solid ${S.border}` }}>{d}</button>
+                        <button key={d} style={{ padding: "0.3rem 0.85rem", borderRadius: 100, fontSize: "0.75rem", cursor: "pointer", background: d === "Alle" ? S.accent : "transparent", color: d === "Alle" ? "#fff" : "var(--text-2)", border: d === "Alle" ? "none" : `1px solid ${S.border}` }}>{d}</button>
                       ))}
                     </div>
                   </div>
@@ -222,7 +222,7 @@ export default function PhishingPage() {
               {launched && (
                 <div style={{ textAlign: "center", padding: "3rem 0" }}>
                   <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🚀</div>
-                  <div style={{ fontSize: "1.1rem", fontWeight: 800, marginBottom: 4 }}>Kampagne gestartet!</div>
+                  <div style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 4 }}>Kampagne gestartet!</div>
                   <div style={{ fontSize: "0.82rem", color: "var(--text-2)" }}>E-Mails werden am 01.02.2024 um 09:00 Uhr versendet</div>
                 </div>
               )}
@@ -234,7 +234,7 @@ export default function PhishingPage() {
                   {step === 1 ? "Abbrechen" : "Zurück"}
                 </button>
                 <button onClick={() => step < 3 ? setStep(step + 1) : handleLaunch()} disabled={step === 1 && !selectedTemplate}
-                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: step === 1 && !selectedTemplate ? "var(--surface-2)" : S.accent, border: "none", borderRadius: 100, color: step === 1 && !selectedTemplate ? "var(--text-2)" : "var(--accent-fg)", fontWeight: 700, fontSize: "0.82rem", cursor: step === 1 && !selectedTemplate ? "not-allowed" : "pointer" }}>
+                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: step === 1 && !selectedTemplate ? "var(--surface-2)" : S.accent, border: "none", borderRadius: 100, color: step === 1 && !selectedTemplate ? "var(--text-2)" : "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: step === 1 && !selectedTemplate ? "not-allowed" : "pointer" }}>
                   {step < 3 ? "Weiter" : <><Play size={12} /> Kampagne starten</>}
                 </button>
               </div>

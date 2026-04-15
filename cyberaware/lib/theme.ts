@@ -11,6 +11,7 @@ export const S = {
 
   // Accent
   accent:     "var(--accent)",       // for fills / backgrounds
+  accentLight:"var(--accent-light)", // lighter accent
   accentText: "var(--accent-text)",  // for text in accent color
   accentFg:   "var(--accent-fg)",    // text ON an accent-colored background
   accentDim:  "var(--accent-dim)",

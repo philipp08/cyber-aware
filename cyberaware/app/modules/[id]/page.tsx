@@ -28,7 +28,7 @@ function PhishingEmailDemo() {
     return (
       <span className={cls} onClick={() => { setActive(id); setFound(f => new Set([...f, id])); }}>
         {children}
-        <sup style={{ fontSize: "0.55em", color: S.red, marginLeft: 1, fontWeight: 800 }}>{id}</sup>
+        <sup style={{ fontSize: "0.55em", color: S.red, marginLeft: 1, fontWeight: 700 }}>{id}</sup>
       </span>
     );
   }
@@ -76,7 +76,7 @@ function PhishingEmailDemo() {
         {/* Mail body */}
         <div style={{ background: "#FAFAFA", padding: "16px 20px", fontSize: "0.82rem", color: "#4A4A62", lineHeight: 1.9 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 5, marginBottom: 14, background: "#0078d4", padding: "4px 10px", borderRadius: 5 }}>
-            <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.72rem", letterSpacing: "0.05em" }}>Microsoft</span>
+            <span style={{ color: "#fff", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.05em" }}>Microsoft</span>
           </div>
           <p style={{ marginBottom: 10, color: "#0D0D16" }}>Sehr geehrte/r Nutzer/in,</p>
           <p style={{ marginBottom: 10, color: "#0D0D16" }}>
@@ -104,7 +104,7 @@ function PhishingEmailDemo() {
       {activeHint && (
         <div key={activeHint.id} className="fade-up" style={{ background: "rgba(255,69,69,0.06)", border: "1px solid rgba(255,69,69,0.2)", borderRadius: 12, padding: "0.9rem 1rem", marginBottom: 8 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-            <span style={{ background: S.red, color: "#fff", fontSize: "0.6rem", fontWeight: 800, padding: "0.1rem 0.5rem", borderRadius: 100 }}>GEFAHR #{activeHint.id}</span>
+            <span style={{ background: S.red, color: "#fff", fontSize: "0.6rem", fontWeight: 700, padding: "0.1rem 0.5rem", borderRadius: 10 }}>GEFAHR #{activeHint.id}</span>
             <span style={{ fontSize: "0.82rem", fontWeight: 700, color: S.text }}>{activeHint.label}</span>
           </div>
           <p style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>{activeHint.desc}</p>
@@ -114,7 +114,7 @@ function PhishingEmailDemo() {
       {allFound && (
         <div className="pop" style={{ background: "rgba(0,217,126,0.06)", border: "1px solid rgba(0,217,126,0.22)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
           <div style={{ fontSize: "1.6rem", marginBottom: 4 }}>🎉</div>
-          <div style={{ fontWeight: 800, color: S.green, marginBottom: 2 }}>Alle 5 Phishing-Merkmale gefunden!</div>
+          <div style={{ fontWeight: 700, color: S.green, marginBottom: 2 }}>Alle 5 Phishing-Merkmale gefunden!</div>
           <div style={{ fontSize: "0.75rem", color: S.text2 }}>Sie können Phishing-Mails jetzt sicher erkennen.</div>
         </div>
       )}
@@ -161,7 +161,7 @@ function PasswordStrengthDemo() {
 
       <div style={{ display: "flex", gap: 4, marginBottom: 6 }}>
         {[0,1,2,3,4].map(i => (
-          <div key={i} style={{ flex: 1, height: 5, borderRadius: 100, background: i < strength ? colors[Math.min(strength - 1, 4)] : S.surface3, transition: "background 0.3s ease" }} />
+          <div key={i} style={{ flex: 1, height: 5, borderRadius: 10, background: i < strength ? colors[Math.min(strength - 1, 4)] : S.surface3, transition: "background 0.3s ease" }} />
         ))}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: pw.length > 0 ? 12 : 0, fontSize: "0.72rem" }}>
@@ -185,7 +185,7 @@ function PasswordStrengthDemo() {
       <p style={{ fontSize: "0.68rem", color: S.text3, marginBottom: 7 }}>Beispiele ausprobieren:</p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {examples.map(ex => (
-          <button key={ex} onClick={() => setPw(ex)} style={{ padding: "0.3rem 0.75rem", borderRadius: 100, fontSize: "0.7rem", background: S.surface3, border: `1px solid ${S.border}`, color: S.text2, cursor: "pointer", fontFamily: "monospace", transition: "border-color 0.15s" }}>
+          <button key={ex} onClick={() => setPw(ex)} style={{ padding: "0.3rem 0.75rem", borderRadius: 10, fontSize: "0.7rem", background: S.surface3, border: `1px solid ${S.border}`, color: S.text2, cursor: "pointer", fontFamily: "monospace", transition: "border-color 0.15s" }}>
             {ex}
           </button>
         ))}
@@ -201,7 +201,7 @@ function URLAnatomyDemo() {
   const [active, setActive] = useState<string | null>(null);
 
   const parts = [
-    { id: "protocol", text: "https://", color: "#60A5FA", label: "Protokoll (HTTPS)", desc: "HTTPS verschlüsselt die Verbindung mit TLS/SSL. HTTP überträgt alles im Klartext – bei sensiblen Daten immer auf das Schloss-Symbol und HTTPS achten." },
+    { id: "protocol", text: "https://", color: "var(--accent-text)", label: "Protokoll (HTTPS)", desc: "HTTPS verschlüsselt die Verbindung mit TLS/SSL. HTTP überträgt alles im Klartext – bei sensiblen Daten immer auf das Schloss-Symbol und HTTPS achten." },
     { id: "subdomain", text: "www.", color: "#A78BFA", label: "Subdomain", desc: "Subdomains können legitim oder gefälscht wirken. «paypal.fakesite.com» ist NICHT PayPal. Die echte Domain steht direkt vor dem ersten Schrägstrich." },
     { id: "domain", text: "paypa1", color: "#FF4545", label: "⚠️ Typosquatting!", desc: "«paypa1.com» imitiert «paypal.com» – die Zahl 1 ersetzt den Buchstaben l. Diese Technik heißt Typosquatting und ist ein häufiger Phishing-Trick." },
     { id: "tld", text: ".com", color: "#F59E0B", label: "Top-Level-Domain", desc: "Die TLD ist Teil der echten Domain. Achte auf ungewöhnliche Endungen wie .xyz oder .online bei vermeintlich bekannten Marken." },
@@ -249,7 +249,7 @@ function URLAnatomyDemo() {
           <div
             key={part.id}
             onClick={() => setActive(part.id === active ? null : part.id)}
-            style={{ display: "flex", alignItems: "center", gap: 5, padding: "0.2rem 0.6rem", borderRadius: 100, background: active === part.id ? `${part.color}18` : S.surface2, border: `1px solid ${active === part.id ? part.color + "66" : "transparent"}`, cursor: "pointer", transition: "all 0.15s" }}
+            style={{ display: "flex", alignItems: "center", gap: 5, padding: "0.2rem 0.6rem", borderRadius: 10, background: active === part.id ? `${part.color}18` : S.surface2, border: `1px solid ${active === part.id ? part.color + "66" : "transparent"}`, cursor: "pointer", transition: "all 0.15s" }}
           >
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: part.color, flexShrink: 0 }} />
             <span style={{ fontSize: "0.65rem", color: active === part.id ? part.color : S.text2, fontWeight: active === part.id ? 700 : 400 }}>{part.label}</span>
@@ -364,7 +364,7 @@ function CEOFraudChatDemo() {
       {activeHint && (
         <div key={activeHint.id} className="fade-up" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.25)", borderRadius: 12, padding: "0.9rem 1rem", marginBottom: 8 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-            <span style={{ background: S.amber, color: "#000", fontSize: "0.6rem", fontWeight: 800, padding: "0.1rem 0.5rem", borderRadius: 100 }}>WARNSIGNAL #{activeHint.id}</span>
+            <span style={{ background: S.amber, color: "#000", fontSize: "0.6rem", fontWeight: 700, padding: "0.1rem 0.5rem", borderRadius: 10 }}>WARNSIGNAL #{activeHint.id}</span>
             <span style={{ fontSize: "0.82rem", fontWeight: 700, color: S.text }}>{activeHint.label}</span>
           </div>
           <p style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>{activeHint.desc}</p>
@@ -374,7 +374,7 @@ function CEOFraudChatDemo() {
       {allFound && (
         <div className="pop" style={{ background: "rgba(0,217,126,0.06)", border: "1px solid rgba(0,217,126,0.22)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
           <div style={{ fontSize: "1.6rem", marginBottom: 4 }}>🛡️</div>
-          <div style={{ fontWeight: 800, color: S.green, marginBottom: 2 }}>Alle 5 CEO-Fraud-Merkmale erkannt!</div>
+          <div style={{ fontWeight: 700, color: S.green, marginBottom: 2 }}>Alle 5 CEO-Fraud-Merkmale erkannt!</div>
           <div style={{ fontSize: "0.75rem", color: S.text2 }}>Richtig: Anruf beim echten CEO über bekannte Firmennummer und IT-Sicherheit informieren.</div>
         </div>
       )}
@@ -445,7 +445,7 @@ function CookieConsentDemo() {
               {/* Mock banner */}
               <div style={{ background: S.surface2, padding: "1rem", borderBottom: `1px solid ${S.border}` }}>
                 <div style={{ fontSize: "0.78rem", fontWeight: 700, marginBottom: 10 }}>
-                  <span style={{ fontSize: "0.62rem", fontWeight: 600, padding: "0.15rem 0.45rem", borderRadius: 100, background: S.surface3, color: S.text3, marginRight: 8 }}>Banner {i + 1}</span>
+                  <span style={{ fontSize: "0.62rem", fontWeight: 600, padding: "0.15rem 0.45rem", borderRadius: 10, background: S.surface3, color: S.text3, marginRight: 8 }}>Banner {i + 1}</span>
                   {dialog.title}
                 </div>
 
@@ -453,7 +453,7 @@ function CookieConsentDemo() {
                   <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 10 }}>
                     {dialog.checkboxes.map((item, j) => (
                       <label key={j} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.75rem", color: S.text2, cursor: "default" }}>
-                        <input type="checkbox" defaultChecked={item.checked} disabled style={{ accentColor: "#CCFF00", cursor: "default" }} />
+                        <input type="checkbox" defaultChecked={item.checked} disabled style={{ accentColor: "var(--accent)", cursor: "default" }} />
                         {item.label}
                         {item.checked && !item.locked && (
                           <span style={{ fontSize: "0.6rem", color: S.red, fontWeight: 700 }}>← vorausgefüllt!</span>
@@ -473,7 +473,7 @@ function CookieConsentDemo() {
                       Alles ablehnen
                     </div>
                   )}
-                  <div style={{ flex: 1, padding: "0.4rem", background: S.accent, borderRadius: 8, textAlign: "center", fontSize: "0.72rem", fontWeight: 700, color: S.accentFg }}>
+                  <div style={{ flex: 1, padding: "0.4rem", background: S.accent, borderRadius: 8, textAlign: "center", fontSize: "0.72rem", fontWeight: 700, color: "#fff" }}>
                     Akzeptieren
                   </div>
                 </div>
@@ -509,7 +509,7 @@ function CookieConsentDemo() {
       {allDone && (
         <div className="pop" style={{ marginTop: 14, background: "rgba(0,217,126,0.06)", border: "1px solid rgba(0,217,126,0.22)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
           <div style={{ fontSize: "1.6rem", marginBottom: 4 }}>🏆</div>
-          <div style={{ fontWeight: 800, color: S.green, marginBottom: 2 }}>Alle Banner bewertet!</div>
+          <div style={{ fontWeight: 700, color: S.green, marginBottom: 2 }}>Alle Banner bewertet!</div>
           <div style={{ fontSize: "0.75rem", color: S.text2 }}>Merke: Echte Einwilligung = freiwillig, spezifisch, informiert, aktiv (Opt-In) und jederzeit widerrufbar.</div>
         </div>
       )}
@@ -606,26 +606,26 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           <ArrowLeft size={14} /> Alle Module
         </Link>
 
-        <div className="fade-up-1" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, overflow: "hidden" }}>
+        <div className="fade-up-1" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 16, overflow: "hidden" }}>
           <div style={{
             height: 160,
             background: mod.category === "Pflicht"
-              ? "linear-gradient(135deg, #EFF6FF, #DBEAFE)"
+              ? "linear-gradient(135deg, rgba(15,118,110,0.06), rgba(15,118,110,0.12))"
               : mod.category === "Kritisch"
-              ? "linear-gradient(135deg, #FFF1F0, #FFE4E6)"
-              : "linear-gradient(135deg, #FFFBEB, #FEF3C7)",
+              ? "linear-gradient(135deg, rgba(220,38,38,0.04), rgba(220,38,38,0.08))"
+              : "linear-gradient(135deg, rgba(217,119,6,0.04), rgba(217,119,6,0.08))",
             display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            <div style={{ width: 80, height: 80, background: "#FFFFFF", borderRadius: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "3rem", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+            <div style={{ width: 80, height: 80, background: "#FFFFFF", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "3rem", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
               {mod.icon}
             </div>
           </div>
           <div style={{ padding: "2rem" }}>
             <div style={{ display: "flex", gap: 6, marginBottom: "1rem" }}>
-              <span style={{ fontSize: "0.65rem", fontWeight: 700, padding: "0.2rem 0.6rem", borderRadius: 100, background: mod.category === "Pflicht" ? "rgba(59,130,246,0.15)" : "rgba(255,69,69,0.15)", color: mod.category === "Pflicht" ? "#60A5FA" : "#FF6B6B" }}>{mod.category}</span>
-              <span style={{ fontSize: "0.65rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 100, background: S.surface2, color: S.text2 }}>{mod.difficulty}</span>
+              <span style={{ fontSize: "0.65rem", fontWeight: 700, padding: "0.2rem 0.6rem", borderRadius: 10, background: mod.category === "Pflicht" ? "rgba(15,118,110,0.1)" : "rgba(220,38,38,0.08)", color: mod.category === "Pflicht" ? "var(--accent-text)" : "#DC2626" }}>{mod.category}</span>
+              <span style={{ fontSize: "0.65rem", fontWeight: 600, padding: "0.2rem 0.6rem", borderRadius: 10, background: S.surface2, color: S.text2 }}>{mod.difficulty}</span>
             </div>
-            <h1 style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "0.75rem" }}>{mod.title}</h1>
+            <h1 style={{ fontSize: "1.8rem", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "0.75rem" }}>{mod.title}</h1>
             <p style={{ color: S.text2, lineHeight: 1.65, marginBottom: "1.5rem" }}>{mod.description}</p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: "1.75rem" }}>
@@ -645,7 +645,7 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
                   </div>
                 ))}
                 {mod.id === 1 && (
-                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(96,165,250,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "#60A5FA" }}>
+                  <div style={{ marginTop: 10, padding: "0.5rem 0.75rem", background: "rgba(96,165,250,0.08)", borderRadius: 8, fontSize: "0.68rem", color: "var(--accent-text)" }}>
                     🔗 Enthält interaktive URL-Demo
                   </div>
                 )}
@@ -672,7 +672,7 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
               </div>
             </div>
 
-            <button onClick={() => { setPhase("content"); setVisitedTopics(new Set([0])); }} style={{ width: "100%", padding: "0.9rem", background: S.accent, color: S.accentFg, fontWeight: 800, fontSize: "0.9rem", border: "none", borderRadius: 100, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "opacity 0.15s" }}
+            <button onClick={() => { setPhase("content"); setVisitedTopics(new Set([0])); }} style={{ width: "100%", padding: "0.9rem", background: S.accent, color: "#fff", fontWeight: 700, fontSize: "0.9rem", border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "opacity 0.15s" }}
               onMouseEnter={e => (e.currentTarget.style.opacity = "0.9")}
               onMouseLeave={e => (e.currentTarget.style.opacity = "1")}>
               Modul starten <ArrowRight size={16} />
@@ -691,116 +691,124 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           <ArrowLeft size={14} /> Alle Module
         </Link>
 
-        <div style={{ marginBottom: "1.5rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: S.text2, marginBottom: 5 }}>
+        <div style={{ marginBottom: "2rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: S.text2, marginBottom: 8, fontWeight: 600 }}>
             <span>{topicsVisitedCount}/{mod.topics.length} Themen erkundet</span>
-            <span style={{ color: S.accentText }}>{mod.title}</span>
+            <span style={{ color: "var(--accent-text)" }}>{mod.title}</span>
           </div>
-          <div style={{ height: 3, background: S.surface2, borderRadius: 100 }}>
-            <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: S.accent, width: `${(topicsVisitedCount / mod.topics.length) * 100}%` }} />
+          <div style={{ height: 4, background: S.surface2, borderRadius: 10 }}>
+            <div className="progress-fill" style={{ height: "100%", borderRadius: 10, background: "var(--accent)", width: `${(topicsVisitedCount / mod.topics.length) * 100}%` }} />
           </div>
         </div>
 
-        {/* Tab bar */}
-        <div style={{ display: "flex", gap: 6, marginBottom: 16, overflowX: "auto", paddingBottom: 4 }}>
+        {/* Tab bar - No Borders, Floating style */}
+        <div style={{ display: "flex", gap: 10, marginBottom: "2rem", overflowX: "auto", paddingBottom: 8, scrollbarWidth: "none" }}>
           {mod.topics.map((t, i) => {
             const isActive = activeTopic === i;
             const visited = visitedTopics.has(i);
             return (
               <button key={t} onClick={() => goToTopic(i)} style={{
-                padding: "0.45rem 0.9rem",
-                borderRadius: 100,
-                fontSize: "0.75rem",
-                fontWeight: isActive ? 700 : 500,
-                border: isActive ? `2px solid ${S.accent}` : `1px solid ${S.border}`,
-                background: isActive ? S.accentDim : visited ? S.accentDim3 : "transparent",
-                color: isActive ? S.accentText : visited ? S.accentText : S.text2,
-                cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", gap: 5,
-                transition: "all 0.18s ease",
-                boxShadow: isActive ? `0 0 0 2px ${S.accentDim2}` : "none",
+                padding: "0.7rem 1.2rem",
+                borderRadius: 16,
+                fontSize: "0.8rem",
+                fontWeight: isActive ? 600 : 500,
+                border: "none",
+                background: isActive ? S.surface : "transparent",
+                color: isActive ? "var(--accent-text)" : visited ? S.text : S.text2,
+                cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", gap: 8,
+                transition: "all 0.2s ease",
+                boxShadow: isActive ? "0 4px 16px rgba(0,0,0,0.06)" : "none",
               }}>
-                {visited && !isActive && <span style={{ fontSize: "0.6rem" }}>✓</span>}
-                <span style={{ fontWeight: 700, fontSize: "0.62rem", opacity: 0.6, marginRight: 1 }}>{i + 1}</span>
+                <span style={{ 
+                  width: 22, height: 22, borderRadius: "50%", 
+                  background: isActive ? "var(--accent)" : visited ? "rgba(15,118,110,0.1)" : S.surface2, 
+                  color: isActive ? "#fff" : visited ? "var(--accent-text)" : S.text3, 
+                  display: "flex", alignItems: "center", justifyContent: "center", 
+                  fontSize: "0.6rem", fontWeight: 800 
+                }}>{visited && !isActive ? "✓" : i + 1}</span>
                 {t}
               </button>
             );
           })}
         </div>
 
-        {/* Content card */}
+        {/* Content card - Clean, single container */}
         <div style={{
           background: S.surface,
-          border: `1px solid ${S.border}`,
           borderRadius: 24,
-          padding: "2rem",
-          marginBottom: 12,
-          borderLeft: mod.category === "Pflicht"
-            ? "4px solid #3B82F6"
-            : mod.category === "Kritisch"
-            ? "4px solid #EF4444"
-            : "4px solid #F59E0B",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.04)",
+          overflow: "hidden",
+          marginBottom: "1.5rem",
         }}>
-          <div key={`${mod.id}-${contentKey}`} className={animDir === "right" ? "slide-in-right" : "slide-in-left"}>
-            <div className="label" style={{ marginBottom: "0.5rem" }}>Thema {activeTopic + 1} von {mod.topics.length}</div>
-            <h2 style={{ fontSize: "1.35rem", fontWeight: 800, letterSpacing: "-0.025em", marginBottom: "1.25rem" }}>{mod.topics[activeTopic]}</h2>
+          {/* Top category highlight bar */}
+          <div style={{ 
+            height: 5, 
+            background: mod.category === "Pflicht" ? "linear-gradient(90deg, #3B82F6, #60A5FA)" : mod.category === "Kritisch" ? "linear-gradient(90deg, #EF4444, #F87171)" : "linear-gradient(90deg, #F59E0B, #FBBF24)"
+          }} />
 
-            {/* Concept chips */}
-            {(() => {
-              const concepts = extractConcepts(contents[activeTopic] ?? "");
-              if (!concepts.length) return null;
-              return (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "1.25rem" }}>
-                  {concepts.map(c => (
-                    <span key={c} style={{ fontSize: "0.68rem", fontWeight: 700, padding: "0.2rem 0.65rem", borderRadius: 100, background: S.accentDim2, color: S.accentText, border: `1px solid ${S.accentDim3}` }}>{c}</span>
-                  ))}
+          <div style={{ padding: "2.5rem" }}>
+            <div key={`${mod.id}-${contentKey}`} className="fade-up">
+              <div className="label" style={{ marginBottom: "0.75rem", fontSize: "0.68rem" }}>Thema {activeTopic + 1} von {mod.topics.length}</div>
+              <h2 style={{ fontSize: "1.6rem", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "1.5rem" }}>{mod.topics[activeTopic]}</h2>
+
+              {/* Concept chips */}
+              {(() => {
+                const concepts = extractConcepts(contents[activeTopic] ?? "");
+                if (!concepts.length) return null;
+                return (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: "1.5rem" }}>
+                    {concepts.map(c => (
+                      <span key={c} style={{ fontSize: "0.72rem", fontWeight: 700, padding: "0.3rem 0.8rem", borderRadius: 12, background: "rgba(15,118,110,0.06)", color: "var(--accent-text)", border: `1px solid rgba(15,118,110,0.12)` }}>{c}</span>
+                    ))}
+                  </div>
+                );
+              })()}
+
+              <div style={{ fontSize: "0.95rem", color: S.text2, lineHeight: 1.85, marginBottom: "2rem" }}>
+                {renderBody(contents[activeTopic] ?? "")}
+              </div>
+
+              {/* Interactive demos */}
+              {mod.id === 1 && activeTopic === 0 && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — URL-Anatomie</div>
+                  <URLAnatomyDemo />
                 </div>
-              );
-            })()}
+              )}
+              {mod.id === 2 && activeTopic === 1 && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Phishing-Mail</div>
+                  <PhishingEmailDemo />
+                </div>
+              )}
+              {mod.id === 3 && activeTopic === 0 && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Passwort-Stärke</div>
+                  <PasswordStrengthDemo />
+                </div>
+              )}
+              {mod.id === 4 && activeTopic === 1 && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Cookie-Consent</div>
+                  <CookieConsentDemo />
+                </div>
+              )}
+              {mod.id === 6 && activeTopic === 3 && (
+                <div style={{ marginBottom: "1.5rem" }}>
+                  <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — CEO-Fraud-Chat</div>
+                  <CEOFraudChatDemo />
+                </div>
+              )}
 
-            <div style={{ fontSize: "0.92rem", color: S.text2, lineHeight: 1.85, marginBottom: "1.5rem" }}>
-              {renderBody(contents[activeTopic] ?? "")}
-            </div>
-
-            {/* Interactive demos */}
-            {mod.id === 1 && activeTopic === 0 && (
-              <div>
-                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — URL-Anatomie</div>
-                <URLAnatomyDemo />
+              {/* Key takeaway */}
+              <div style={{ background: "rgba(15,118,110,0.04)", border: "1px solid rgba(15,118,110,0.1)", borderRadius: 16, padding: "1.25rem", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: -2 }}>💡</span>
+                <span style={{ fontSize: "0.8rem", color: "var(--accent-text)", lineHeight: 1.6, fontWeight: 500 }}>
+                  {activeTopic < mod.topics.length - 1
+                    ? `Weiter mit: ${mod.topics[activeTopic + 1]}`
+                    : "Alle Themen erkundet! Bereit für den Wissenscheck?"}
+                </span>
               </div>
-            )}
-            {mod.id === 2 && activeTopic === 1 && (
-              <div>
-                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Phishing-Mail</div>
-                <PhishingEmailDemo />
-              </div>
-            )}
-            {mod.id === 3 && activeTopic === 0 && (
-              <div>
-                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Passwort-Stärke</div>
-                <PasswordStrengthDemo />
-              </div>
-            )}
-            {mod.id === 4 && activeTopic === 1 && (
-              <div>
-                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — Cookie-Consent</div>
-                <CookieConsentDemo />
-              </div>
-            )}
-            {mod.id === 6 && activeTopic === 3 && (
-              <div>
-                <div className="label" style={{ marginBottom: "0.9rem" }}>Interaktive Demo — CEO-Fraud-Chat</div>
-                <CEOFraudChatDemo />
-              </div>
-            )}
-
-            {/* Key takeaway */}
-            <div style={{ background: S.surface2, borderRadius: 14, padding: "1rem 1.25rem", display: "flex", gap: 10, alignItems: "flex-start" }}>
-              <span style={{ fontSize: "1rem", flexShrink: 0 }}>💡</span>
-              <span style={{ fontSize: "0.78rem", color: S.text2, lineHeight: 1.65 }}>
-                {activeTopic < mod.topics.length - 1
-                  ? `Weiter mit: ${mod.topics[activeTopic + 1]}`
-                  : "Alle Themen erkundet! Bereit für den Wissenscheck?"}
-              </span>
             </div>
           </div>
         </div>
@@ -808,18 +816,18 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         {/* Nav */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <button onClick={() => activeTopic > 0 ? goToTopic(activeTopic - 1) : setPhase("intro")}
-            style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.25rem", background: "transparent", border: `1px solid ${S.border}`, borderRadius: 100, color: S.text2, fontSize: "0.82rem", cursor: "pointer" }}>
+            style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.75rem 1.5rem", background: S.surface, border: "none", boxShadow: "0 2px 10px rgba(0,0,0,0.04)", borderRadius: 12, color: S.text2, fontSize: "0.85rem", fontWeight: 600, cursor: "pointer", transition: "all 0.15s" }}>
             <ArrowLeft size={14} /> Zurück
           </button>
           <div style={{ display: "flex", gap: 8 }}>
             {activeTopic < mod.topics.length - 1 ? (
               <button onClick={() => goToTopic(activeTopic + 1)}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.75rem 1.7rem", background: "var(--accent)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 14px rgba(15,118,110,0.3)", transition: "all 0.15s" }}>
                 Weiter <ArrowRight size={14} />
               </button>
             ) : (
               <button onClick={() => setPhase("quiz")}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.6rem 1.5rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.82rem", border: "none", borderRadius: 100, cursor: "pointer" }}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.75rem 1.7rem", background: "var(--accent)", color: "#fff", fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 14px rgba(15,118,110,0.3)" }}
                 className="glow-accent">
                 Zum Wissenscheck <ArrowRight size={14} />
               </button>
@@ -828,9 +836,9 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
         </div>
 
         {topicsVisitedCount < mod.topics.length && (
-          <div style={{ textAlign: "center", marginTop: 12 }}>
-            <button onClick={() => setPhase("quiz")} style={{ background: "none", border: "none", color: S.text3, fontSize: "0.72rem", cursor: "pointer", textDecoration: "underline" }}>
-              Direkt zum Wissenscheck
+          <div style={{ textAlign: "center", marginTop: 20 }}>
+            <button onClick={() => setPhase("quiz")} style={{ background: "none", border: "none", color: S.text3, fontSize: "0.75rem", cursor: "pointer", textDecoration: "underline" }}>
+              Themen überspringen & direkt zum Wissenscheck
             </button>
           </div>
         )}
@@ -846,80 +854,86 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           <ArrowLeft size={14} /> Alle Module
         </Link>
 
-        <div style={{ marginBottom: "1.5rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: S.text2, marginBottom: 5 }}>
+        <div style={{ marginBottom: "2rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: S.text2, marginBottom: 8, fontWeight: 600 }}>
             <span>Frage {qi + 1} von {mod.quizQuestions.length}</span>
-            <span style={{ color: S.accentText }}>Wissenscheck</span>
+            <span style={{ color: "var(--accent-text)" }}>Wissenscheck</span>
           </div>
-          <div style={{ height: 3, background: S.surface2, borderRadius: 100 }}>
-            <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: S.accent, width: `${((qi) / mod.quizQuestions.length) * 100}%` }} />
+          <div style={{ height: 4, background: S.surface2, borderRadius: 10 }}>
+            <div className="progress-fill" style={{ height: "100%", borderRadius: 10, background: "var(--accent)", width: `${((qi) / mod.quizQuestions.length) * 100}%` }} />
           </div>
         </div>
 
-        <div className="fade-up" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2rem" }}>
-          <div style={{ display: "flex", gap: 4, marginBottom: "1.5rem" }}>
-            {mod.quizQuestions.map((_, i) => (
-              <div key={i} style={{ flex: 1, height: 4, borderRadius: 100, transition: "background 0.3s",
-                background: i < answers.length ? (answers[i] ? S.green : S.red) : i === qi ? "rgba(255,255,255,0.25)" : S.surface2 }} />
-            ))}
-          </div>
-
-          <span style={{ display: "inline-block", fontSize: "0.62rem", fontWeight: 700, padding: "0.18rem 0.6rem", borderRadius: 100, marginBottom: "1rem",
-            background: q.type === "scenario" ? "rgba(139,92,246,0.15)" : "rgba(59,130,246,0.15)",
-            color: q.type === "scenario" ? "#A78BFA" : "#60A5FA",
-          }}>
-            {q.type === "scenario" ? "Szenario" : "Multiple Choice"}
-          </span>
-
-          <h2 style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.5, marginBottom: "1.5rem" }}>{q.question}</h2>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: "1.5rem" }}>
-            {q.options.map((opt, i) => {
-              let bg: string = S.surface2, borderCol: string = S.border, color: string = S.text2;
-              if (!showExp && sel === i) { bg = S.accentDim; borderCol = S.accentDim2; color = S.text; }
-              if (showExp) {
-                if (i === q.correctIndex) { bg = "rgba(0,217,126,0.08)"; borderCol = "rgba(0,217,126,0.45)"; color = S.green; }
-                else if (i === sel && i !== q.correctIndex) { bg = "rgba(255,69,69,0.08)"; borderCol = "rgba(255,69,69,0.35)"; color = S.red; }
-                else { color = S.text3; }
-              }
-              return (
-                <button key={i} onClick={() => !showExp && setSel(i)}
-                  className={shakeIdx === i ? "shake" : showExp && i === q.correctIndex ? "pop" : ""}
-                  style={{ width: "100%", textAlign: "left", padding: "0.85rem 1rem", borderRadius: 14, border: `1px solid ${borderCol}`, background: bg, color, fontSize: "0.85rem", cursor: showExp ? "default" : "pointer", display: "flex", gap: 12, alignItems: "flex-start", transition: "all 0.15s" }}>
-                  <span style={{ width: 22, height: 22, borderRadius: "50%", border: `1.5px solid ${borderCol}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.68rem", fontWeight: 700, flexShrink: 0, marginTop: 1, transition: "border-color 0.15s" }}>
-                    {String.fromCharCode(65 + i)}
-                  </span>
-                  <span style={{ flex: 1, lineHeight: 1.5 }}>{opt}</span>
-                  {showExp && i === q.correctIndex && <CheckCircle size={16} color={S.green} style={{ flexShrink: 0, marginTop: 2 }} />}
-                  {showExp && i === sel && i !== q.correctIndex && <XCircle size={16} color={S.red} style={{ flexShrink: 0, marginTop: 2 }} />}
-                </button>
-              );
-            })}
-          </div>
-
-          {showExp && (
-            <div className="fade-up" style={{
-              background: answers[answers.length - 1] ? "rgba(0,217,126,0.06)" : "rgba(255,69,69,0.06)",
-              border: `1px solid ${answers[answers.length - 1] ? "rgba(0,217,126,0.2)" : "rgba(255,69,69,0.2)"}`,
-              borderRadius: 14, padding: "1rem", marginBottom: "1.25rem", fontSize: "0.82rem",
-              color: answers[answers.length - 1] ? S.green : "#FF8080", lineHeight: 1.6,
-            }}>
-              <span style={{ fontWeight: 700 }}>{answers[answers.length - 1] ? "✓ Richtig! " : "✗ Falsch — "}</span>
-              {q.explanation}
+        <div className="fade-up" style={{ background: S.surface, borderRadius: 24, boxShadow: "0 8px 32px rgba(0,0,0,0.04)", overflow: "hidden" }}>
+          <div style={{ padding: "2.5rem" }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: "2rem" }}>
+              {mod.quizQuestions.map((_, i) => (
+                <div key={i} style={{ flex: 1, height: 4, borderRadius: 10, transition: "background 0.3s",
+                  background: i < answers.length ? (answers[i] ? S.green : S.red) : i === qi ? "rgba(15,118,110,0.3)" : S.surface2 }} />
+              ))}
             </div>
-          )}
 
-          {!showExp ? (
-            <button onClick={confirmAnswer} disabled={sel === null}
-              style={{ width: "100%", padding: "0.75rem", background: sel !== null ? S.accent : S.surface2, color: sel !== null ? S.accentFg : S.text3, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: sel !== null ? "pointer" : "default", transition: "all 0.15s" }}>
-              Antwort bestätigen
-            </button>
-          ) : (
-            <button onClick={nextQ}
-              style={{ width: "100%", padding: "0.75rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 100, cursor: "pointer" }}>
-              {qi + 1 < mod.quizQuestions.length ? "Nächste Frage →" : "Ergebnis anzeigen →"}
-            </button>
-          )}
+            <span style={{ display: "inline-block", fontSize: "0.68rem", fontWeight: 700, padding: "0.3rem 0.8rem", borderRadius: 12, marginBottom: "1.25rem",
+              background: q.type === "scenario" ? "rgba(139,92,246,0.15)" : "rgba(15,118,110,0.1)",
+              color: q.type === "scenario" ? "#8B5CF6" : "var(--accent-text)",
+            }}>
+              {q.type === "scenario" ? "Szenario" : "Multiple Choice"}
+            </span>
+
+            <h2 style={{ fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.5, marginBottom: "2rem" }}>{q.question}</h2>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: "2rem" }}>
+              {q.options.map((opt, i) => {
+                let bg: string = "var(--surface)", borderCol: string = `1px solid ${S.border}`, color: string = S.text2, shadow = "0 2px 8px rgba(0,0,0,0.02)";
+                if (!showExp && sel === i) { bg = "rgba(15,118,110,0.04)"; borderCol = "2px solid var(--accent)"; color = "var(--text)"; shadow = "0 4px 16px rgba(15,118,110,0.1)"; }
+                if (showExp) {
+                  if (i === q.correctIndex) { bg = "rgba(0,217,126,0.06)"; borderCol = "2px solid #00D97E"; color = S.green; shadow = "0 4px 16px rgba(0,217,126,0.1)"; }
+                  else if (i === sel && i !== q.correctIndex) { bg = "rgba(255,69,69,0.04)"; borderCol = "2px solid #FF4545"; color = S.red; shadow = "none"; }
+                  else { color = S.text3; borderCol = `1px solid ${S.border}`; shadow = "none"; }
+                }
+
+                // compensate for 2px border width during hover/selection
+                const paddingComp = (!showExp && sel === i) || (showExp && (i === q.correctIndex || (i === sel && i !== q.correctIndex))) ? "0.8rem 0.95rem" : "0.85rem 1rem";
+
+                return (
+                  <button key={i} onClick={() => !showExp && setSel(i)}
+                    className={shakeIdx === i ? "shake" : showExp && i === q.correctIndex ? "pop" : ""}
+                    style={{ width: "100%", textAlign: "left", padding: paddingComp, borderRadius: 16, border: borderCol, background: bg, color, fontSize: "0.9rem", boxShadow: shadow, cursor: showExp ? "default" : "pointer", display: "flex", gap: 14, alignItems: "flex-start", transition: "all 0.15s" }}>
+                    <span style={{ width: 26, height: 26, borderRadius: "50%", background: "var(--surface-2)", color: "var(--text-3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.72rem", fontWeight: 700, flexShrink: 0, marginTop: 1, transition: "border-color 0.15s", ...(showExp && i === q.correctIndex ? {background: S.green, color: "#fff"} : showExp && i === sel ? {background: S.red, color: "#fff"} : !showExp && sel === i ? {background: "var(--accent)", color: "#fff"} : {}) }}>
+                      {String.fromCharCode(65 + i)}
+                    </span>
+                    <span style={{ flex: 1, lineHeight: 1.5, fontWeight: (!showExp && sel === i) || (showExp && i === q.correctIndex) || (showExp && i === sel) ? 600 : 400 }}>{opt}</span>
+                    {showExp && i === q.correctIndex && <CheckCircle size={18} color={S.green} style={{ flexShrink: 0, marginTop: 4 }} />}
+                    {showExp && i === sel && i !== q.correctIndex && <XCircle size={18} color={S.red} style={{ flexShrink: 0, marginTop: 4 }} />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {showExp && (
+              <div className="fade-up" style={{
+                background: answers[answers.length - 1] ? "rgba(0,217,126,0.06)" : "rgba(255,69,69,0.06)",
+                border: "none",
+                borderRadius: 16, padding: "1.25rem", marginBottom: "1.5rem", fontSize: "0.85rem",
+                color: answers[answers.length - 1] ? S.green : "#DC2626", lineHeight: 1.6,
+              }}>
+                <span style={{ fontWeight: 700 }}>{answers[answers.length - 1] ? "✓ Richtig! " : "✗ Falsch — "}</span>
+                {q.explanation}
+              </div>
+            )}
+
+            {!showExp ? (
+              <button onClick={confirmAnswer} disabled={sel === null}
+                style={{ width: "100%", padding: "0.9rem", background: sel !== null ? "var(--accent)" : "var(--surface-2)", color: sel !== null ? "#fff" : S.text3, fontWeight: 700, fontSize: "0.9rem", border: "none", borderRadius: 12, cursor: sel !== null ? "pointer" : "default", transition: "all 0.15s", boxShadow: sel !== null ? "0 4px 14px rgba(15,118,110,0.3)" : "none" }}>
+                Antwort bestätigen
+              </button>
+            ) : (
+              <button onClick={nextQ}
+                style={{ width: "100%", padding: "0.9rem", background: "var(--accent)", color: "#fff", fontWeight: 700, fontSize: "0.9rem", border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 14px rgba(15,118,110,0.3)" }}>
+                {qi + 1 < mod.quizQuestions.length ? "Nächste Frage →" : "Ergebnis anzeigen →"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </DashboardLayout>
@@ -930,16 +944,16 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
   return (
     <DashboardLayout>
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
-        <div className="scale-in" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 24, padding: "2.5rem", textAlign: "center" }}>
+        <div className="scale-in" style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 16, padding: "2.5rem", textAlign: "center" }}>
           <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>{passed ? "🎉" : "📚"}</div>
-          <h1 style={{ fontSize: "1.6rem", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: "0.5rem" }}>
+          <h1 style={{ fontSize: "1.6rem", fontWeight: 700, letterSpacing: "-0.03em", marginBottom: "0.5rem" }}>
             {passed ? "Modul abgeschlossen!" : "Fast geschafft!"}
           </h1>
           <p style={{ color: S.text2, marginBottom: "1.5rem" }}>
             {passed ? `Ausgezeichnet! Sie haben ${score}% erreicht.` : `${score}% — noch ein bisschen Übung, dann klappt's!`}
           </p>
 
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.75rem 1.5rem", borderRadius: 100, marginBottom: "2rem",
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0.75rem 1.5rem", borderRadius: 10, marginBottom: "2rem",
             background: passed ? "rgba(0,217,126,0.08)" : "rgba(255,69,69,0.08)",
             border: `1px solid ${passed ? "rgba(0,217,126,0.25)" : "rgba(255,69,69,0.25)"}` }}>
             <span style={{ fontSize: "1.4rem", fontWeight: 900, color: passed ? S.green : S.red }}>{score}%</span>
@@ -947,11 +961,11 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <Link href="/modules" style={{ display: "block", padding: "0.75rem", background: S.accent, color: S.accentFg, fontWeight: 700, fontSize: "0.85rem", borderRadius: 100, textDecoration: "none", textAlign: "center" }}>
+            <Link href="/modules" style={{ display: "block", padding: "0.75rem", background: S.accent, color: "#fff", fontWeight: 700, fontSize: "0.85rem", borderRadius: 10, textDecoration: "none", textAlign: "center" }}>
               Zurück zur Übersicht
             </Link>
             <button onClick={() => { setPhase("content"); setActiveTopic(0); setVisitedTopics(new Set([0])); setQi(0); setSel(null); setAnswers([]); setShowExp(false); setContentKey(k => k + 1); }}
-              style={{ padding: "0.75rem", background: "transparent", border: `1px solid ${S.border}`, color: S.text2, fontWeight: 600, fontSize: "0.85rem", borderRadius: 100, cursor: "pointer" }}>
+              style={{ padding: "0.75rem", background: "transparent", border: `1px solid ${S.border}`, color: S.text2, fontWeight: 600, fontSize: "0.85rem", borderRadius: 10, cursor: "pointer" }}>
               Modul wiederholen
             </button>
           </div>

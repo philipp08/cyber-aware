@@ -63,11 +63,11 @@ function CheckContent() {
                   border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12,
                   padding: "0.8rem 1rem 0.8rem 2.5rem",
                   fontSize: "0.9rem", fontFamily: "monospace",
-                  color: "#0D0D16", outline: "none", letterSpacing: "0.05em",
+                  color: "var(--text)", outline: "none", letterSpacing: "0.05em",
                 }}
               />
             </div>
-            <button type="submit" style={{ padding: "0.8rem 1.5rem", background: "#CCFF00", color: "#0C0C0F", fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 12, cursor: "pointer", flexShrink: 0 }}>
+            <button type="submit" style={{ padding: "0.8rem 1.5rem", background: "var(--accent)", color: "var(--text)", fontWeight: 700, fontSize: "0.85rem", border: "none", borderRadius: 12, cursor: "pointer", flexShrink: 0 }}>
               Prüfen
             </button>
           </div>
@@ -87,14 +87,14 @@ function CheckContent() {
 
       {result === "checking" && (
         <div style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 20, padding: "2rem", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-          <div style={{ display: "inline-block", width: 24, height: 24, border: "2.5px solid #E2E2EE", borderTopColor: "#CCFF00", borderRadius: "50%", animation: "spin 0.7s linear infinite", marginBottom: 12 }} />
+          <div style={{ display: "inline-block", width: 24, height: 24, border: "2.5px solid #E2E2EE", borderTopColor: "var(--accent)", borderRadius: "50%", animation: "spin 0.7s linear infinite", marginBottom: 12 }} />
           <div style={{ fontSize: "0.85rem", color: "#4A4A62" }}>Datenbank wird abgefragt…</div>
         </div>
       )}
 
       {result === "found" && cert && (
         <div style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 20, overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05)" }}>
-          <div style={{ height: 3, background: "#CCFF00" }} />
+          <div style={{ height: 3, background: "var(--accent)" }} />
           <div style={{ padding: "1.75rem 2rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem" }}>
               <CheckCircle size={20} color="#007840" />
@@ -106,7 +106,7 @@ function CheckContent() {
             </div>
             <div style={{ background: "#F4F4FA", borderRadius: 16, padding: "1.25rem", marginBottom: "1.25rem", textAlign: "center" }}>
               <div style={{ fontSize: "0.65rem", color: "#8888A8", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.08em" }}>Zertifikat verliehen an</div>
-              <div style={{ fontSize: "1.6rem", fontWeight: 800, letterSpacing: "-0.02em", color: "#0D0D16" }}>{cert.name}</div>
+              <div style={{ fontSize: "1.6rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--text)" }}>{cert.name}</div>
               <div style={{ fontSize: "0.82rem", color: "#4A4A62", marginTop: 2 }}>{cert.company} · {cert.department}</div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: "1.25rem" }}>
@@ -120,7 +120,7 @@ function CheckContent() {
               ] as [string,string][]).map(([k, v]) => (
                 <div key={k} style={{ background: "#F4F4FA", borderRadius: 12, padding: "0.85rem 1rem" }}>
                   <div style={{ fontSize: "0.65rem", color: "#8888A8", marginBottom: 3 }}>{k}</div>
-                  <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#0D0D16" }}>{v}</div>
+                  <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--text)" }}>{v}</div>
                 </div>
               ))}
             </div>
@@ -159,20 +159,20 @@ export default function CheckPage() {
       <header style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(0,0,0,0.08)", position: "sticky", top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 700, margin: "0 auto", padding: "0 1.5rem", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
-            <div style={{ width: 28, height: 28, background: "#CCFF00", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Shield size={16} color="#0C0C0F" strokeWidth={2.5} />
+            <div style={{ width: 28, height: 28, background: "var(--accent)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Shield size={16} color="var(--text)" strokeWidth={2.5} />
             </div>
-            <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "#0D0D16" }}>CyberAware</span>
+            <span style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>CyberAware</span>
           </Link>
           <span style={{ fontSize: "0.72rem", color: "#8888A8" }}>Zertifikat-Verifikation</span>
         </div>
       </header>
       <div style={{ maxWidth: 700, margin: "0 auto", padding: "3rem 1.5rem" }}>
         <div style={{ marginBottom: "2rem", textAlign: "center" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 56, height: 56, background: "#CCFF00", borderRadius: 16, marginBottom: "1rem" }}>
-            <Shield size={24} color="#0C0C0F" />
+          <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 56, height: 56, background: "var(--accent)", borderRadius: 16, marginBottom: "1rem" }}>
+            <Shield size={24} color="var(--text)" />
           </div>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, letterSpacing: "-0.03em", color: "#0D0D16", marginBottom: "0.5rem" }}>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)", marginBottom: "0.5rem" }}>
             Zertifikat prüfen
           </h1>
           <p style={{ fontSize: "0.85rem", color: "#4A4A62" }}>

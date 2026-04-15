@@ -8,9 +8,9 @@ import { Clock } from "lucide-react";
 
 /* Category accent colours */
 const catColor: Record<string, { border: string; bg: string; text: string }> = {
-  Pflicht:  { border: "#3B82F6", bg: "rgba(59,130,246,0.12)", text: "#3B82F6" },
-  Kritisch: { border: "#EF4444", bg: "rgba(239,68,68,0.12)",  text: "#EF4444" },
-  Wichtig:  { border: "#F59E0B", bg: "rgba(245,158,11,0.12)", text: "#F59E0B" },
+  Pflicht:  { border: "#0F766E", bg: "rgba(15,118,110,0.08)", text: "#0F766E" },
+  Kritisch: { border: "#DC2626", bg: "rgba(220,38,38,0.08)",  text: "#DC2626" },
+  Wichtig:  { border: "#D97706", bg: "rgba(217,119,6,0.08)", text: "#D97706" },
 };
 
 /* Simple SVG progress ring */
@@ -45,15 +45,15 @@ export default function ModulesPage() {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2rem", flexWrap: "wrap", gap: 12 }}>
         <div>
-          <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Lernpfad</p>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Module</h1>
+          <p style={{ fontSize: "0.72rem", color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Lernpfad</p>
+          <h1 style={{ fontSize: "1.8rem", fontWeight: 700, letterSpacing: "-0.025em" }}>Module</h1>
         </div>
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {cats.map(c => (
             <button key={c} onClick={() => setFilter(c)} style={{
-              padding: "0.35rem 0.85rem", borderRadius: 100, fontSize: "0.78rem", fontWeight: 500,
-              background: filter === c ? S.accent : "transparent",
-              color: filter === c ? "var(--accent-fg)" : "var(--text-2)",
+              padding: "0.35rem 0.85rem", borderRadius: 8, fontSize: "0.78rem", fontWeight: 500,
+              background: filter === c ? "var(--accent)" : "transparent",
+              color: filter === c ? "#fff" : "var(--text-2)",
               border: filter === c ? "none" : `1px solid ${S.border}`,
               cursor: "pointer",
             }}>{c}</button>
@@ -62,9 +62,9 @@ export default function ModulesPage() {
       </div>
 
       {/* Stats row — 2 big boxes + progress ring */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 12, marginBottom: "2rem", alignItems: "stretch" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 14, marginBottom: "2rem", alignItems: "stretch" }}>
         {/* Abgeschlossen */}
-        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 20, padding: "1.25rem 1.5rem" }}>
+        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 14, padding: "1.25rem 1.5rem" }}>
           <div style={{ fontSize: "0.68rem", color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.07em", fontWeight: 600, marginBottom: 8 }}>Abgeschlossen</div>
           <div style={{ fontSize: "2.4rem", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1 }}>
             {totalDone}<span style={{ fontSize: "1.1rem", color: "var(--text-2)", fontWeight: 500 }}>/{totalMods}</span>
@@ -76,26 +76,26 @@ export default function ModulesPage() {
         </div>
 
         {/* Pflichtmodule */}
-        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 20, padding: "1.25rem 1.5rem" }}>
+        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 14, padding: "1.25rem 1.5rem" }}>
           <div style={{ fontSize: "0.68rem", color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.07em", fontWeight: 600, marginBottom: 8 }}>Pflichtmodule</div>
           <div style={{ fontSize: "2.4rem", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1 }}>
             {pflichtDone}<span style={{ fontSize: "1.1rem", color: "var(--text-2)", fontWeight: 500 }}>/{pflichtTotal}</span>
           </div>
           <div style={{ marginTop: 10, height: 5, background: "var(--surface-2)", borderRadius: 100 }}>
-            <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: "#3B82F6", width: `${pflichtPct}%` }} />
+            <div className="progress-fill" style={{ height: "100%", borderRadius: 100, background: "var(--accent)", width: `${pflichtPct}%` }} />
           </div>
           <div style={{ fontSize: "0.72rem", color: "var(--text-2)", marginTop: 5 }}>{pflichtPct}% Compliance</div>
         </div>
 
         {/* Progress ring visualization */}
-        <div style={{ background: S.accent, borderRadius: 20, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, minWidth: 120 }}>
+        <div style={{ background: "var(--accent)", borderRadius: 14, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, minWidth: 120 }}>
           <div style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-            <ProgressRing pct={overallPct} size={76} stroke={7} color="rgba(0,0,0,0.55)" />
+            <ProgressRing pct={overallPct} size={76} stroke={7} color="rgba(255,255,255,0.8)" />
             <div style={{ position: "absolute", textAlign: "center" }}>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--accent-fg)", lineHeight: 1 }}>{overallPct}%</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "#fff", lineHeight: 1 }}>{overallPct}%</div>
             </div>
           </div>
-          <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "rgba(0,0,0,0.55)", textAlign: "center" }}>Gesamt</div>
+          <div style={{ fontSize: "0.68rem", fontWeight: 600, color: "rgba(255,255,255,0.7)", textAlign: "center" }}>Gesamt</div>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ export default function ModulesPage() {
               style={{
                 background: "var(--surface)",
                 border: `1px solid ${done ? "var(--green-dim2)" : S.border}`,
-                borderRadius: 20,
+                borderRadius: 14,
                 textDecoration: "none",
                 display: "flex",
                 flexDirection: "column",
@@ -131,11 +131,11 @@ export default function ModulesPage() {
                     {mod.icon}
                   </div>
                   <div style={{ display: "flex", gap: 4, flexWrap: "wrap", justifyContent: "flex-end", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.65rem", fontWeight: 700, padding: "0.18rem 0.5rem", borderRadius: 100, background: cc.bg, color: cc.text }}>
+                    <span style={{ fontSize: "0.65rem", fontWeight: 600, padding: "0.18rem 0.5rem", borderRadius: 6, background: cc.bg, color: cc.text }}>
                       {mod.category}
                     </span>
                     {done && score !== null && (
-                      <span style={{ fontSize: "0.72rem", fontWeight: 800, padding: "0.22rem 0.6rem", borderRadius: 100, background: "var(--green-dim2)", color: S.green }}>
+                      <span style={{ fontSize: "0.72rem", fontWeight: 700, padding: "0.22rem 0.6rem", borderRadius: 6, background: "var(--green-dim2)", color: S.green }}>
                         ✓ {score}%
                       </span>
                     )}
@@ -167,7 +167,7 @@ export default function ModulesPage() {
                 {/* Topics chips */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                   {mod.topics.slice(0, 3).map(t => (
-                    <span key={t} style={{ fontSize: "0.62rem", color: "var(--text-2)", background: "var(--surface-2)", border: `1px solid ${S.border}`, padding: "0.15rem 0.45rem", borderRadius: 100 }}>{t}</span>
+                    <span key={t} style={{ fontSize: "0.62rem", color: "var(--text-2)", background: "var(--surface-2)", border: `1px solid ${S.border}`, padding: "0.15rem 0.45rem", borderRadius: 6 }}>{t}</span>
                   ))}
                 </div>
 

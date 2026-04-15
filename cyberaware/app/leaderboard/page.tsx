@@ -11,19 +11,19 @@ export default function LeaderboardPage() {
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <div style={{ marginBottom: "2rem" }}>
           <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Example GmbH</p>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Rangliste</h1>
+          <h1 style={{ fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.03em" }}>Rangliste</h1>
         </div>
 
         {/* My rank */}
         {myRank && (
           <div style={{ background: "var(--accent-dim)", border: "1px solid var(--accent-dim3)", borderRadius: 18, padding: "1.25rem 1.5rem", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
-            <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--accent-text)", width: 40 }}>#{myRank.rank}</div>
+            <div style={{ fontSize: "1.8rem", fontWeight: 800, color: "var(--accent-text)", width: 40 }}>#{myRank.rank}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: "0.7rem", color: "var(--accent-text)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>Ihre Position</div>
               <div style={{ fontSize: "1rem", fontWeight: 700 }}>{myRank.name}</div>
             </div>
             <div style={{ textAlign: "right" }}>
-              <div style={{ fontSize: "1.5rem", fontWeight: 800, letterSpacing: "-0.03em" }}>{myRank.points.toLocaleString("de-DE")}</div>
+              <div style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-0.03em" }}>{myRank.points.toLocaleString("de-DE")}</div>
               <div style={{ fontSize: "0.68rem", color: "var(--text-2)" }}>Punkte</div>
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function LeaderboardPage() {
               <div key={e.rank} style={{
                 background: isFirst ? "var(--accent-dim)" : "var(--surface)",
                 border: `1px solid ${isFirst ? "rgba(204,255,0,0.25)" : S.border}`,
-                borderRadius: 20, padding: "1.5rem", textAlign: "center",
+                borderRadius: 14, padding: "1.5rem", textAlign: "center",
                 transform: isFirst ? "translateY(-8px)" : "none",
               }}>
                 <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>{emojis[vi]}</div>
@@ -48,7 +48,7 @@ export default function LeaderboardPage() {
                 </div>
                 <div style={{ fontSize: "0.85rem", fontWeight: 600, marginBottom: 2 }}>{e.name.split(" ")[0]}</div>
                 <div style={{ fontSize: "0.68rem", color: "var(--text-2)", marginBottom: 8 }}>{e.department}</div>
-                <div style={{ fontSize: "1.2rem", fontWeight: 800, letterSpacing: "-0.02em", color: isFirst ? "var(--accent-text)" : "var(--text)" }}>
+                <div style={{ fontSize: "1.2rem", fontWeight: 700, letterSpacing: "-0.02em", color: isFirst ? "var(--accent-text)" : "var(--text)" }}>
                   {(e.points / 1000).toFixed(1)}k
                 </div>
               </div>
@@ -57,7 +57,7 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Full list */}
-        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 20, overflow: "hidden" }}>
+        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 14, overflow: "hidden" }}>
           {leaderboard.map((e, i) => {
             const isMe = e.name === currentUser.name;
             return (
@@ -95,7 +95,7 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Points guide */}
-        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 20, padding: "1.5rem", marginTop: 16 }}>
+        <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 14, padding: "1.5rem", marginTop: 16 }}>
           <div style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Punkte sammeln</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
             {[

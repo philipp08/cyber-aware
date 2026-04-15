@@ -5,6 +5,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { currentUser } from "@/lib/data";
 import { Download, Share2, ExternalLink, ArrowRight } from "lucide-react";
 import { S } from "@/lib/theme";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function CertificatePage() {
   const [showQR, setShowQR] = useState(false);
@@ -17,22 +18,22 @@ export default function CertificatePage() {
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <div style={{ marginBottom: "2rem" }}>
           <p style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Zertifikat</p>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: "-0.03em" }}>Mein Zertifikat</h1>
+          <h1 style={{ fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.03em" }}>Mein Zertifikat</h1>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 16 }}>
           {/* Certificate card */}
           {(() => {
-            const accentColor = level === "Gold" ? "#CCFF00" : level === "Silber" ? "#94A3B8" : "#F59E0B";
+            const accentColor = level === "Gold" ? "var(--accent)" : level === "Silber" ? "#94A3B8" : "#F59E0B";
             const accentBg = level === "Gold" ? "rgba(204,255,0,0.08)" : level === "Silber" ? "rgba(148,163,184,0.1)" : "rgba(245,158,11,0.08)";
             const accentBorder = level === "Gold" ? "rgba(204,255,0,0.25)" : level === "Silber" ? "rgba(148,163,184,0.35)" : "rgba(245,158,11,0.3)";
-            const badgeBg = level === "Gold" ? "#CCFF00" : level === "Silber" ? "#E2E8F0" : "rgba(245,158,11,0.15)";
-            const badgeColor = level === "Gold" ? "#0C0C0F" : level === "Silber" ? "#475569" : "#92400E";
+            const badgeBg = level === "Gold" ? "var(--accent)" : level === "Silber" ? "#E2E8F0" : "rgba(245,158,11,0.15)";
+            const badgeColor = level === "Gold" ? "var(--text)" : level === "Silber" ? "#475569" : "#92400E";
             return (
               <div style={{
                 background: "#FFFFFF",
                 border: `1.5px solid ${accentBorder}`,
-                borderRadius: 24,
+                borderRadius: 16,
                 overflow: "hidden",
                 position: "relative",
                 boxShadow: `0 4px 24px rgba(0,0,0,0.07), 0 0 0 0 transparent`,
@@ -55,7 +56,7 @@ export default function CertificatePage() {
                         <span style={{ fontSize: "1.2rem" }}>🛡️</span>
                       </div>
                       <div>
-                        <div style={{ fontWeight: 800, fontSize: "0.9rem", color: "#0D0D16" }}>CyberAware</div>
+                        <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#0D0D16" }}>CyberAware</div>
                         <div style={{ fontSize: "0.65rem", color: "#8888A8" }}>Datensicherheitsschulung</div>
                       </div>
                     </div>
@@ -70,7 +71,7 @@ export default function CertificatePage() {
                   {/* Title */}
                   <div style={{ marginBottom: "2rem" }}>
                     <div style={{ fontSize: "0.62rem", color: "#8888A8", textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 8 }}>Zertifikat der Kompetenz</div>
-                    <div style={{ fontSize: "2.2rem", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1.05, color: "#0D0D16" }}>
+                    <div style={{ fontSize: "2.2rem", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.05, color: "#0D0D16" }}>
                       Datensicherheit<br /><span style={{ color: "#4A4A62" }}>& Datenschutz</span>
                     </div>
                   </div>
@@ -78,7 +79,7 @@ export default function CertificatePage() {
                   {/* Recipient box */}
                   <div style={{ background: accentBg, border: `1px solid ${accentBorder}`, borderRadius: 16, padding: "1.25rem", marginBottom: "1.5rem", textAlign: "center" }}>
                     <div style={{ fontSize: "0.62rem", color: "#8888A8", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>Verliehen an</div>
-                    <div style={{ fontSize: "1.7rem", fontWeight: 800, letterSpacing: "-0.02em", color: "#0D0D16" }}>{currentUser.name}</div>
+                    <div style={{ fontSize: "1.7rem", fontWeight: 700, letterSpacing: "-0.02em", color: "#0D0D16" }}>{currentUser.name}</div>
                     <div style={{ fontSize: "0.82rem", color: "#4A4A62", marginTop: 3 }}>{currentUser.company} · {currentUser.department}</div>
                   </div>
 
@@ -122,16 +123,21 @@ export default function CertificatePage() {
                   </button>
 
                   {showQR && (
-                    <div style={{ marginTop: 8, background: "rgba(0,0,0,0.03)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "1rem", textAlign: "center" }}>
-                      <div style={{ display: "inline-grid", gridTemplateColumns: "repeat(10, 10px)", gap: 2, padding: 8, background: "#0D0D16", borderRadius: 8 }}>
-                        {Array.from({ length: 100 }).map((_, i) => {
-                          const hv = parseInt(hash, 16);
-                          const b = (hv >> (i % 32)) & 1;
-                          const corner = (i < 3 && (i % 10 < 3)) || (i > 96 && i % 10 < 3) || (i % 10 > 6 && i < 10);
-                          return <div key={i} style={{ width: 10, height: 10, borderRadius: 2, background: (corner || (b === 1 && i % 4 !== 0)) ? "#F4F4FA" : "transparent" }} />;
-                        })}
+                    <div style={{ marginTop: 8, background: "rgba(0,0,0,0.03)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "1.25rem", textAlign: "center" }}>
+                      <div style={{ display: "inline-block", padding: 12, background: "#fff", borderRadius: 10, border: "1px solid rgba(0,0,0,0.08)" }}>
+                        <QRCodeSVG
+                          value={`${typeof window !== "undefined" ? window.location.origin : ""}/check?id=${hash}`}
+                          size={140}
+                          bgColor="#ffffff"
+                          fgColor="#0D0D16"
+                          level="M"
+                          includeMargin={false}
+                        />
                       </div>
-                      <Link href={`/check?id=${hash}`} style={{ fontSize: "0.72rem", color: "#3A5800", marginTop: 8, display: "block", textDecoration: "none", fontWeight: 600 }}>
+                      <div style={{ marginTop: 10, fontSize: "0.68rem", color: "#8888A8" }}>
+                        QR-Code scannen zur Verifizierung
+                      </div>
+                      <Link href={`/check?id=${hash}`} style={{ fontSize: "0.72rem", color: "#0F766E", marginTop: 6, display: "block", textDecoration: "none", fontWeight: 600 }}>
                         🔗 /check?id={hash}
                       </Link>
                     </div>
@@ -144,10 +150,10 @@ export default function CertificatePage() {
           {/* Sidebar */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {/* Actions */}
-            <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 20, padding: "1.5rem" }}>
+            <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 14, padding: "1.5rem" }}>
               <div style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Aktionen</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <button style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.75rem 1rem", background: S.accent, border: "none", borderRadius: 12, color: "var(--accent-fg)", fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}>
+                <button style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.75rem 1rem", background: S.accent, border: "none", borderRadius: 12, color: "#fff", fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}>
                   <Download size={14} /> PDF herunterladen
                 </button>
                 <button style={{ display: "flex", alignItems: "center", gap: 8, padding: "0.75rem 1rem", background: "#0A66C2", border: "none", borderRadius: 12, color: "#fff", fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}>
@@ -160,7 +166,7 @@ export default function CertificatePage() {
             </div>
 
             {/* Details */}
-            <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 20, padding: "1.5rem" }}>
+            <div style={{ background: "var(--surface)", border: `1px solid ${S.border}`, borderRadius: 14, padding: "1.5rem" }}>
               <div style={{ fontSize: "0.7rem", color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Details</div>
               {[
                 ["Level", level],
@@ -179,7 +185,7 @@ export default function CertificatePage() {
 
             {/* Upgrade */}
             {level !== "Gold" && (
-              <div style={{ background: "var(--accent-dim)", border: "1px solid var(--accent-dim3)", borderRadius: 20, padding: "1.5rem" }}>
+              <div style={{ background: "var(--accent-dim)", border: "1px solid var(--accent-dim3)", borderRadius: 14, padding: "1.5rem" }}>
                 <div style={{ fontSize: "0.7rem", color: "var(--accent-text)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>Upgrade</div>
                 <div style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.35rem" }}>
                   Weiter zu {level === "Bronze" ? "Silber 🥈" : "Gold 🥇"}
