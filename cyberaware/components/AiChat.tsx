@@ -23,10 +23,10 @@ export default function AiChat({ moduleName }: { moduleName?: string }) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typing]);
 
-  async function send() {
-    if (!input.trim() || typing) return;
-    const userMsg = input.trim();
-    setInput("");
+  async function send(overrideMsg?: string) {
+    const userMsg = (overrideMsg ?? input).trim();
+    if (!userMsg || typing) return;
+    if (!overrideMsg) setInput("");
     setMessages((m) => [...m, { role: "user", text: userMsg }]);
     setTyping(true);
 
@@ -233,19 +233,9 @@ export default function AiChat({ moduleName }: { moduleName?: string }) {
                   ].map((s) => (
                     <button
                       key={s}
-                      onClick={() => {
-                        setInput(s);
-                        setTimeout(() => {
-                          setMessages((m) => [...m, { role: "user", text: s }]);
-                          setTyping(true);
-                          setTimeout(() => {
-                            setMessages((m) => [
-                              ...m,
-                              { role: "ai", text: getAiResponse(s) },
-                            ]);
-                            setTyping(false);
-                          }, 700);
-                        }, 100);
+                      onClick={(e) => {
+                        e.preventDefault();
+                        send(s);
                       }}
                       style={{
                         background: "var(--surface-2)",
