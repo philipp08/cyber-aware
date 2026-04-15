@@ -16,23 +16,23 @@ function getAiResponse(question: string): string {
   // 1. Fallback responses (First priority for common topics)
   const fallbacks: [RegExp, string][] = [
     [
-      /kostenlos|preis|kosten|lokal|offline|api|umsonst/i,
+      /\b(kostenlos|preis|kosten|lokal|offline|api|umsonst|gratis)\b/i,
       "Ja! Die CyberAware KI ist zu **100% kostenlos** und läuft komplett **lokal und offline** in Ihrem Browser. Es werden keine Daten an externe Server wie OpenAI oder Google gesendet. Das bedeutet maximale Privatsphäre, Sicherheit und garantierte DSGVO-Konformität!\n\n[MODULE:4:DSGVO Grundlagen:0]\n[KNOWLEDGE:DSGVO]",
     ],
     [
-      /passw[oö]rt|kennwort|password/i,
+      /\b(passw[oö]rt(er)?|kennwort|password)\b/i,
       "Ein sicheres Passwort sollte mindestens 16 Zeichen lang sein und Groß-/Kleinbuchstaben, Zahlen und Sonderzeichen enthalten. Am besten nutzen Sie einen **Passwortmanager** wie Bitwarden oder 1Password und aktivieren **2FA/MFA** für alle wichtigen Konten.\n\n[MODULE:3:Sichere Passwörter:0]",
     ],
     [
-      /phish/i,
+      /phish|fishing|fisching/i,
       "Um Phishing zu erkennen, achten Sie auf: ① Dringlichkeit/Drohungen ② Unbekannter oder gefälschter Absender ③ Grammatikfehler ④ Verdächtige Links (Hover!) ⑤ Unerwartete Anhänge. Im Zweifel: **Nicht klicken, IT-Abteilung informieren.**\n\n[MODULE:2:Phishing erkennen:0]",
     ],
     [
-      /dsgvo|datenschutz|daten/i,
+      /\b(dsgvo|datenschutz|daten)\b/i,
       "Die DSGVO regelt seit 2018 den Umgang mit personenbezogenen Daten in der EU. Kernprinzipien: Zweckbindung, Datenminimierung, Speicherbegrenzung. Betroffene haben Recht auf Auskunft, Löschung und Datenportabilität.\n\n[MODULE:4:DSGVO Grundlagen:0]\n[KNOWLEDGE:DSGVO]",
     ],
     [
-      /vpn|wlan|netzwerk/i,
+      /\b(vpn|wlan|netzwerk|wifi)\b/i,
       "Ein VPN verschlüsselt Ihren Internetverkehr und ist besonders wichtig bei öffentlichen WLANs. Im Unternehmenskontext ermöglicht es sicheren Zugriff auf interne Ressourcen. **Firmeneigene VPNs sind Pflicht im Homeoffice.**\n\n[MODULE:5:Gerätesicherheit:2]",
     ],
     [
@@ -40,7 +40,7 @@ function getAiResponse(question: string): string {
       "E-Mail-Sicherheit basiert auf drei Säulen: **SPF** (autorisierte Absender-Server), **DKIM** (digitale Signatur) und **DMARC** (Richtlinie für gescheiterte Prüfungen). Verdächtige E-Mails niemals öffnen – sofort IT melden.",
     ],
     [
-      /hallo|hi|hilfe|help/i,
+      /\b(hallo|hi|hilfe|help|hey|moin|servus)\b/i,
       "Hallo! 👋 Ich bin der CyberAware KI-Assistent. Fragen Sie mich zu jedem Thema rund um IT-Sicherheit, Datenschutz, Phishing oder Compliance. Ich durchsuche für Sie die Wissensdatenbank mit über 150 Fachbegriffen.",
     ],
   ];
