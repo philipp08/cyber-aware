@@ -9,27 +9,28 @@ export default function LandingPage() {
       {/* Nav */}
       <header style={{
         position: "sticky", top: 0, zIndex: 50,
-        background: "rgba(12,12,15,0.9)",
+        background: "rgba(255,255,255,0.92)",
         backdropFilter: "blur(20px)",
-        borderBottom: `1px solid ${S.border}`,
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(0,0,0,0.08)",
       }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 2rem", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{ width: 30, height: 30, background: S.accent, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Shield size={16} color="var(--accent-fg)" strokeWidth={2.5} />
+              <Shield size={16} color="#0C0C0F" strokeWidth={2.5} />
             </div>
-            <span style={{ fontWeight: 700, fontSize: "0.95rem", letterSpacing: "-0.01em" }}>CyberAware</span>
+            <span style={{ fontWeight: 700, fontSize: "0.95rem", letterSpacing: "-0.01em", color: "#0D0D16" }}>CyberAware</span>
           </div>
           <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
             {["Features", "Module", "Preise"].map(l => (
-              <a key={l} href={`#${l.toLowerCase()}`} style={{ padding: "0.3rem 0.9rem", fontSize: "0.82rem", color: "var(--text-2)", textDecoration: "none", borderRadius: 100 }}>{l}</a>
+              <a key={l} href={`#${l.toLowerCase()}`} style={{ padding: "0.3rem 0.9rem", fontSize: "0.82rem", color: "#4A4A62", textDecoration: "none", borderRadius: 100 }}>{l}</a>
             ))}
           </nav>
           <div style={{ display: "flex", gap: 8 }}>
-            <Link href="/login" style={{ padding: "0.4rem 1rem", fontSize: "0.82rem", color: "var(--text-2)", textDecoration: "none", border: `1px solid ${S.border}`, borderRadius: 100 }}>
+            <Link href="/login" style={{ padding: "0.4rem 1rem", fontSize: "0.82rem", color: "#4A4A62", textDecoration: "none", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 100 }}>
               Anmelden
             </Link>
-            <Link href="/login" style={{ padding: "0.4rem 1.1rem", fontSize: "0.82rem", fontWeight: 600, background: S.accent, color: "var(--accent-fg)", textDecoration: "none", borderRadius: 100 }}>
+            <Link href="/login" style={{ padding: "0.4rem 1.1rem", fontSize: "0.82rem", fontWeight: 600, background: S.accent, color: "#0C0C0F", textDecoration: "none", borderRadius: 100 }}>
               Demo starten
             </Link>
           </div>
