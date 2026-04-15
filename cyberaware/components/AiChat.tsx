@@ -13,38 +13,7 @@ interface Message {
 function getAiResponse(question: string): string {
   const q = question.toLowerCase().trim();
 
-  // Search knowledge base for matching terms
-  const matches = knowledgeBase.filter(
-    (k) =>
-      q.includes(k.term.toLowerCase()) ||
-      k.term
-        .toLowerCase()
-        .split(/[\s/()]+/)
-        .some((w) => w.length > 3 && q.includes(w)) ||
-      k.definition
-        .toLowerCase()
-        .split(/[\s,.]+/)
-        .filter((w) => w.length > 5)
-        .some((w) => q.includes(w))
-  );
-
-  if (matches.length > 0) {
-    const best = matches[0];
-    if (matches.length === 1) {
-      return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_`;
-    }
-    return (
-      matches
-        .slice(0, 3)
-        .map((m) => `**${m.term}** — ${m.definition}`)
-        .join("\n\n") +
-      (matches.length > 3
-        ? `\n\n_…und ${matches.length - 3} weitere Treffer. Fragen Sie spezifischer!_`
-        : "")
-    );
-  }
-
-  // Fallback responses
+  // 1. Fallback responses (First priority for common topics)
   const fallbacks: [RegExp, string][] = [
     [
       /passwort|kennwort|password/,
@@ -76,7 +45,42 @@ function getAiResponse(question: string): string {
     if (regex.test(q)) return answer;
   }
 
-  return "Das ist eine gute Frage! Leider konnte ich dazu keinen passenden Eintrag in der Wissensdatenbank finden. Versuchen Sie es mit spezifischeren Begriffen wie z.B. 'Phishing', 'DSGVO', '2FA' oder 'Ransomware'. Tipp: In der **Wissensdatenbank** finden Sie ueber 150 Fachbegriffe zum Nachschlagen.";
+  // 2. Search knowledge base
+  // Exact or strong term matches
+  const exactMatches = knowledgeBase.filter(k => k.term.toLowerCase() === q || q.includes(k.term.toLowerCase()));
+  
+  if (exactMatches.length > 0) {
+    // Return the best match directly
+    const best = exactMatches[0];
+    return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_`;
+  }
+
+  // Deep text match based on significant words from user question
+  const qWords = q.split(/[\s?.,!]+/).filter(w => w.length > 3 && !['was', 'ist', 'wie', 'der', 'die', 'das', 'ein', 'eine', 'und', 'oder'].includes(w));
+  
+  if (qWords.length > 0) {
+    const deepMatches = knowledgeBase.filter((k) => 
+      qWords.some(w => k.term.toLowerCase().includes(w) || k.definition.toLowerCase().includes(w))
+    );
+
+    if (deepMatches.length > 0) {
+      if (deepMatches.length === 1) {
+        const best = deepMatches[0];
+        return `**${best.term}**\n\n${best.definition}\n\n_Kategorie: ${best.category}_`;
+      }
+      return (
+        deepMatches
+          .slice(0, 3)
+          .map((m) => `**${m.term}** — ${m.definition}`)
+          .join("\n\n") +
+        (deepMatches.length > 3
+          ? `\n\n_…und ${deepMatches.length - 3} weitere Treffer. Fragen Sie spezifischer!_`
+          : "")
+      );
+    }
+  }
+
+  return "Das ist eine gute Frage! Leider konnte ich dazu keinen passenden Eintrag in der Wissensdatenbank finden. Versuchen Sie es mit spezifischeren Begriffen wie z.B. 'Phishing', 'DSGVO', '2FA' oder 'Ransomware'. Tipp: In der **Wissensdatenbank** finden Sie über 150 Fachbegriffe zum Nachschlagen.";
 }
 
 export default function AiChat({ moduleName }: { moduleName?: string }) {

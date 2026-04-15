@@ -740,12 +740,6 @@ export default function ModuleDetailPage({ params }: { params: Promise<{ id: str
           overflow: "hidden",
           marginBottom: "1.5rem",
         }}>
-          {/* Top category highlight bar */}
-          <div style={{ 
-            height: 5, 
-            background: mod.category === "Pflicht" ? "linear-gradient(90deg, #3B82F6, #60A5FA)" : mod.category === "Kritisch" ? "linear-gradient(90deg, #EF4444, #F87171)" : "linear-gradient(90deg, #F59E0B, #FBBF24)"
-          }} />
-
           <div style={{ padding: "2.5rem" }}>
             <div key={`${mod.id}-${contentKey}`} className="fade-up">
               <div className="label" style={{ marginBottom: "0.75rem", fontSize: "0.68rem" }}>Thema {activeTopic + 1} von {mod.topics.length}</div>
