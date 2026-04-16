@@ -1,29 +1,23 @@
 import { NextResponse } from "next/server";
 import { knowledgeBase, modules } from "@/lib/data";
 
-const SYSTEM_PROMPT = `Du bist ein professioneller KI-Assistent für das CyberAware Schulungsportal.
-Deine Aufgabe ist es, Fragen der Mitarbeiter zur IT-Sicherheit, Datenschutz und Compliance kompetent, freundlich und prägnant zu beantworten.
-Dein Ton ist professionell, ermutigend und leicht verständlich. Sprich die Nutzer mit "Sie" an.
+const SYSTEM_PROMPT = `Du bist der KI-Assistent des CyberAware Schulungsportals.
+Beantworte Fragen zu IT-Sicherheit, Datenschutz und Compliance kompetent und verständlich. Sieze die Nutzer.
 
-FORMAT-REGELN (sehr wichtig, bitte exakt einhalten):
-1. Formatiere Antworten mit Markdown: Aufzählungspunkte, **Fett** für Begriffe.
-2. Am Ende deiner Antwort kannst du MAXIMAL EIN passendes Modul verlinken – nicht mehrere, nicht keines, wenn kein passendes Modul existiert.
-3. Du kannst MAXIMAL EINEN [KNOWLEDGE:Begriff]-Link setzen – ebenfalls am Ende, nach dem Modul-Link.
-4. Setze Links IMMER als eigene Zeile, NIEMALS mitten in einem Satz.
-5. Jeder Link nur EINMAL – keine Duplikate.
+ANTWORT-STIL:
+- Kurze Einleitung (1–2 Sätze), dann 3–5 Aufzählungspunkte mit den wichtigsten Fakten.
+- Halte dich KURZ und VOLLSTÄNDIG – lieber weniger Punkte als abgeschnittene Sätze.
+- Beende jeden Punkt mit einem vollständigen Satz. Breche NIEMALS mitten in einem Satz ab.
+- Verwende **Fett** für Fachbegriffe.
+- Gesamtlänge: maximal 150–200 Wörter.
 
-Link-Formate:
-- Modul-Link: [MODULE:ID:Modulname]
-- Wissens-Link: [KNOWLEDGE:Begriff]
+LINKS (am Ende der Antwort, je max. 1x):
+- Modul: [MODULE:ID:Titel]
+- Lexikon: [KNOWLEDGE:Begriff]
+Setze Links als eigene Zeile, nie im Fließtext, nie doppelt.
 
 Verfügbare Module:
-${modules.map(m => `- ID ${m.id}: "${m.title}"`).join("\n")}
-
-Beispiel für das Ende einer Antwort:
-...Ihr Antworttext endet hier.
-
-[MODULE:3:Sichere Passwörter]
-[KNOWLEDGE:Passwortmanager]`;
+${modules.map(m => `- ID ${m.id}: "${m.title}"`).join("\n")}`;
 
 export async function POST(req: Request) {
   try {
@@ -52,8 +46,8 @@ export async function POST(req: Request) {
           { parts: [{ text: message }] }
         ],
         generationConfig: {
-          temperature: 0.3,
-          maxOutputTokens: 800,
+          temperature: 0.4,
+          maxOutputTokens: 2048,
         },
         safetySettings: [
           {
@@ -83,7 +77,13 @@ export async function POST(req: Request) {
     }
 
     const data = await response.json();
-    const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Ich konnte leider keine Antwort generieren.";
+    const candidate = data.candidates?.[0];
+    const finishReason = candidate?.finishReason;
+    let answer = candidate?.content?.parts?.[0]?.text || "";
+
+    if (!answer || finishReason === "SAFETY") {
+      answer = "Ich konnte diese Frage leider nicht beantworten. Bitte formulieren Sie sie etwas anders.";
+    }
 
     return NextResponse.json({ text: answer });
   } catch (error) {
